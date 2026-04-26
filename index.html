@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Baccarat AI Pro - VIP Lounge</title>
+    <style>
+        /* LUXURY THEME & BACKGROUND */
+        body { 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+            margin: 0; padding: 10px; 
+            min-height: 100vh;
+            display: flex; justify-content: center; align-items: center; flex-direction: column;
+            background: radial-gradient(circle at top, #1a2a3a 0%, #050b14 100%);
+            color: #ffffff;
+        }
+
+        /* HIỆU ỨNG KÍNH MỜ (GLASSMORPHISM) */
+        .glass-panel {
+            background: rgba(10, 20, 35, 0.65);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 215, 0, 0.15);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.5);
+            border-radius: 12px;
+            padding: 20px;
+        }
+
+        .header { text-align: center; margin-bottom: 20px; width: 100%; max-width: 600px; padding: 15px;}
+        .header h1 { 
+            margin: 0; 
+            background: linear-gradient(to right, #bf953f, #fcf6ba, #b38728, #fbf5b7);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-size: 26px; font-weight: 900; letter-spacing: 1px;
+            text-shadow: 0px 2px 10px rgba(255, 215, 0, 0.2);
+        }
+        
+        /* CÁC MÀN HÌNH */
+        .screen { display: none; width: 100%; max-width: 650px; box-sizing: border-box; animation: fadeIn 0.4s ease-in-out;}
+        .active-screen { display: block; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* INPUT & LOGIN LOBBY */
+        input, select { 
+            width: 100%; padding: 14px; margin: 10px 0; border-radius: 8px; 
+            border: 1px solid rgba(255,255,255,0.1); 
+            background: rgba(0,0,0,0.5); color: #fff; font-size: 16px; box-sizing: border-box;
+            transition: all 0.3s;
+        }
+        input:focus, select:focus { border-color: #d4af37; outline: none; box-shadow: 0 0 10px rgba(212, 175, 55, 0.3); }
+        
+        .btn-main { 
+            width: 100%; padding: 15px; font-size: 16px; font-weight: bold; border: none; border-radius: 8px; cursor: pointer; margin-top: 10px;
+            text-transform: uppercase; letter-spacing: 1px; transition: all 0.2s;
+        }
+        .btn-gold { 
+            background: linear-gradient(135deg, #d4af37, #aa771c); color: #000; 
+            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.4);
+        }
+        .btn-gold:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(212, 175, 55, 0.6); }
+        .btn-blue { background: linear-gradient(135deg, #2980b9, #1c5980); color: #fff; box-shadow: 0 4px 15px rgba(41, 128, 185, 0.4); }
+
+        /* GIAO DIỆN GAME AI */
+        .container { display: flex; gap: 15px; margin-bottom: 15px; }
+        .panel { flex: 1; padding: 12px; border-radius: 10px; border: 1px solid rgba(255,255,255,0.05); }
+        .panel-p { background: linear-gradient(180deg, rgba(11,26,44,0.8) 0%, rgba(5,13,22,0.9) 100%); border-top: 2px solid #00f3ff;}
+        .panel-b { background: linear-gradient(180deg, rgba(44,11,11,0.8) 0%, rgba(22,5,5,0.9) 100%); border-top: 2px solid #ff004c;}
+        
+        .title { font-weight: 900; font-size: 17px; padding: 8px; text-align: center; border-radius: 6px; margin-bottom: 12px; text-shadow: 1px 1px 2px #000;}
+        .title-p { background: linear-gradient(90deg, #0984e3, #74b9ff); color: white; box-shadow: 0 0 15px rgba(9, 132, 227, 0.5);}
+        .title-b { background: linear-gradient(90deg, #d63031, #ff7675); color: white; box-shadow: 0 0 15px rgba(214, 48, 49, 0.5);}
+
+        .btn-group { display: flex; gap: 8px; justify-content: center; margin-bottom: 12px; }
+        .btn { padding: 10px 15px; font-weight: bold; border: 1px solid #444; border-radius: 6px; cursor: pointer; color: #ccc; background: #222; transition: all 0.2s; }
+        .btn-p.active { background: #0984e3; color: #fff; border-color: #74b9ff; box-shadow: 0 0 10px rgba(9, 132, 227, 0.6); }
+        .btn-b.active { background: #d63031; color: #fff; border-color: #ff7675; box-shadow: 0 0 10px rgba(214, 48, 49, 0.6); }
+        
+        .numpad { display: grid; grid-template-columns: repeat(5, 1fr); gap: 6px; }
+        .num-btn { padding: 12px 0; font-size: 18px; font-weight: bold; background: rgba(255,255,255,0.05); border: 1px solid #333; border-radius: 6px; color: #fff; cursor: pointer; transition: all 0.2s;}
+        .num-p:hover, .num-b:hover { background: rgba(255,255,255,0.1); }
+        .num-p.active { background: #0984e3; border-color: #74b9ff; box-shadow: 0 0 8px rgba(9, 132, 227, 0.5); }
+        .num-b.active { background: #d63031; border-color: #ff7675; box-shadow: 0 0 8px rgba(214, 48, 49, 0.5); }
+
+        .input-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; padding: 10px; background: rgba(0,0,0,0.3); border-radius: 8px;}
+        .input-row input { width: 60px; font-size: 20px; text-align: center; font-weight: bold; background: #000; color: #d4af37; border: 1px solid #d4af37; border-radius: 6px; margin:0;}
+        
+        .action-row { display: flex; gap: 15px; align-items: center; margin-bottom: 15px;}
+        .chot-btn { flex: 1; background: linear-gradient(135deg, #f1c40f, #e67e22); color: #000; font-size: 20px; font-weight: 900; padding: 15px; border: none; border-radius: 8px; cursor: pointer; box-shadow: 0 5px 15px rgba(241, 196, 15, 0.3); }
+        .chot-btn:active { transform: scale(0.98); }
+        
+        .result-box { font-size: 45px; font-weight: 900; padding: 10px 20px; border-radius: 10px; background: #111; min-width: 70px; text-align: center; border: 2px solid #444; text-shadow: 2px 2px 4px rgba(0,0,0,0.5);}
+        
+        .chat-box { background: rgba(0, 0, 0, 0.7); color: #00ffcc; padding: 15px; font-family: 'Courier New', Courier, monospace; border-radius: 8px; min-height: 80px; font-size: 14px; white-space: pre-wrap; border-left: 4px solid #d4af37;}
+        .rate { color: #f1c40f; font-weight: 900; font-size: 18px; text-align: center;}
+    </style>
+</head>
+<body>
+
+    <div class="header glass-panel">
+        <h1>BACCARAT AI - VIP LOUNGE</h1>
+    </div>
+
+    <div id="screen-auth" class="screen active-screen glass-panel">
+        <h2 style="text-align: center; color: #d4af37; margin-bottom: 20px;">CỔNG XÁC THỰC</h2>
+        <input type="text" id="username" placeholder="Nhập tên tài khoản (ID Khách)...">
+        <button class="btn-main btn-blue" onclick="login()">ĐĂNG NHẬP SẢNH</button>
+        <button class="btn-main btn-gold" style="margin-top: 15px;" onclick="register()">ĐĂNG KÝ MỚI (GỬI LỆNH TỚI SẾP)</button>
+    </div>
+
+    <div id="screen-lobby" class="screen glass-panel">
+        <div style="text-align: center; margin-bottom: 20px;">
+            <p style="color: #aaa; margin: 0;">Xin chào,</p>
+            <h2 id="welcome-user" style="color: #00ffcc; margin: 5px 0 0 0;">Guest</h2>
+        </div>
+        
+        <h3 style="color: #d4af37; border-bottom: 1px solid #333; padding-bottom: 10px;">CHỌN BÀN CHƠI:</h3>
+        <select id="table-select">
+            <option value="ban1">Sảnh WM - Bàn VIP 1</option>
+            <option value="ban2">Sảnh WM - Bàn VIP 2</option>
+            <option value="ban_evo">Sảnh Evolution - Bàn Tốc Độ</option>
+        </select>
+
+        <button class="btn-main btn-gold" style="margin-top: 20px;" onclick="enterTable()">VÀO BÀN PHÂN TÍCH</button>
+        <button class="btn-main" style="background: transparent; border: 1px solid #e74c3c; color: #e74c3c; margin-top: 15px;" onclick="logout()">THOÁT TÀI KHOẢN</button>
+    </div>
+
+    <div id="screen-game" class="screen glass-panel">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+            <button onclick="backToLobby()" style="background: transparent; color: #ccc; border: 1px solid #555; padding: 6px 12px; border-radius: 6px; cursor: pointer; transition: 0.3s;">⬅ Quay lại sảnh</button>
+            <span id="current-table-name" style="color: #d4af37; font-weight: bold;">Bàn VIP</span>
+        </div>
+        
+        <div class="container">
+            <div class="panel panel-p">
+                <div class="title title-p">CON (PLAYER)</div>
+                <div class="btn-group">
+                    <button class="btn btn-p" id="p-2" onclick="setCards('p', 2)">2 Lá</button>
+                    <button class="btn btn-p" id="p-3" onclick="setCards('p', 3)">3 Lá</button>
+                </div>
+                <div class="numpad" id="numpad-p"></div>
+            </div>
+            <div class="panel panel-b">
+                <div class="title title-b">CÁI (BANKER)</div>
+                <div class="btn-group">
+                    <button class="btn btn-b" id="b-2" onclick="setCards('b', 2)">2 Lá</button>
+                    <button class="btn btn-b" id="b-3" onclick="setCards('b', 3)">3 Lá</button>
+                </div>
+                <div class="numpad" id="numpad-b"></div>
+            </div>
+        </div>
+
+        <div class="bottom-panel" style="background: rgba(0,0,0,0.4); padding: 15px; border-radius: 10px; border: 1px solid #333;">
+            <div class="input-row">
+                <div>
+                    <span style="font-weight: bold; color: #aaa; margin-right: 10px;">Đang tính ván:</span>
+                    <input type="number" id="handNum" value="1">
+                </div>
+                <span class="rate" id="winRate">Tỉ lệ: --%</span>
+            </div>
+            
+            <div class="action-row">
+                <button class="chot-btn" onclick="calculate()">🚀 PHÂN TÍCH LỆNH</button>
+                <div class="result-box" id="resultBox">?</div>
+            </div>
+            
+            <div class="chat-box" id="chatBox">Hệ thống AI đã kết nối thành công. Vui lòng nhập thông số ván bài.</div>
+        </div>
+    </div>
+
+    <script>
+        // --- LOGIC GIAO DIỆN & LOGIN ---
+        function showScreen(screenId) {
+            document.querySelectorAll('.screen').forEach(s => s.classList.remove('active-screen'));
+            document.getElementById(screenId).classList.add('active-screen');
+        }
+
+        function register() {
+            let user = document.getElementById('username').value.trim();
+            if(user === "") return alert("Vui lòng nhập tên tài khoản muốn đăng ký!");
+            
+            // Giả lập gửi thông báo cho Sếp
+            alert(`✅ Đã gửi yêu cầu đăng ký tài khoản [ ${user} ] tới Sếp!\nSếp duyệt xong bạn mới có thể Đăng Nhập.`);
+        }
+
+        function login() {
+            let user = document.getElementById('username').value.trim();
+            if(user === "") return alert("Vui lòng nhập tên tài khoản!");
+            
+            document.getElementById('welcome-user').innerText = user;
+            showScreen('screen-lobby');
+        }
+
+        function logout() {
+            document.getElementById('username').value = "";
+            showScreen('screen-auth');
+        }
+
+        function enterTable() {
+            let sel = document.getElementById('table-select');
+            let tableName = sel.options[sel.selectedIndex].text;
+            document.getElementById('current-table-name').innerText = tableName;
+            
+            // Khởi tạo Roadmap khi vào bàn
+            updateRoadmap();
+            showScreen('screen-game');
+        }
+
+        function backToLobby() { showScreen('screen-lobby'); }
+
+        // --- LOGIC GAME AI V135 (CÔNG THỨC SẾP) ---
+        let pCards = 0, bCards = 0, pScore = -1, bScore = -1;
+        let history = [];
+        let lastPred = 'B';
+        
+        function setCards(side, val) {
+            if(side === 'p') { pCards = val; document.getElementById('p-2').classList.toggle('active', val===2); document.getElementById('p-3').classList.toggle('active', val===3); }
+            else { bCards = val; document.getElementById('b-2').classList.toggle('active', val===2); document.getElementById('b-3').classList.toggle('active', val===3); }
+        }
+
+        function createNumpad(side) {
+            const container = document.getElementById(`numpad-${side}`);
+            const nums = [1,2,3,4,5,6,7,8,9,0];
+            nums.forEach(n => {
+                let btn = document.createElement('button');
+                btn.className = `num-btn num-${side}`;
+                btn.innerText = n;
+                btn.onclick = () => {
+                    if(side === 'p') pScore = n; else bScore = n;
+                    Array.from(container.children).forEach(c => c.classList.remove('active'));
+                    btn.classList.add('active');
+                };
+                container.appendChild(btn);
+            });
+        }
+        createNumpad('p'); createNumpad('b');
+
+        function resetUI() {
+            pCards=0; bCards=0; pScore=-1; bScore=-1;
+            document.querySelectorAll('.btn, .num-btn').forEach(b => b.classList.remove('active'));
+        }
+
+        // Bổ sung HTML Canvas cho Biểu đồ
+        let canvasHTML = `<canvas id="roadCanvas" width="280" height="120" style="background:rgba(255,255,255,0.05); border-radius: 8px; margin-top: 15px; width: 100%; border: 1px solid #444;"></canvas>`;
+        document.querySelector('.bottom-panel').insertAdjacentHTML('beforeend', canvasHTML);
+
+        function updateRoadmap() {
+            let canvas = document.getElementById('roadCanvas');
+            let ctx = canvas.getContext('2d');
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            
+            // Vẽ lưới
+            ctx.strokeStyle = '#333'; ctx.lineWidth = 1;
+            for(let i=0; i<11; i++) { ctx.beginPath(); ctx.moveTo(i*25.4 + 1, 0); ctx.lineTo(i*25.4 + 1, 120); ctx.stroke(); }
+            for(let i=0; i<5; i++) { ctx.beginPath(); ctx.moveTo(0, i*24); ctx.lineTo(280, i*24); ctx.stroke(); }
+
+            let grid = {}, c_idx = 0, r_idx = 0, last_val = null, last_coords = "0,0";
+            
+            history.forEach(h => {
+                if (h === 'T') {
+                    if (last_val === null) {
+                        if (!grid["0,0"]) grid["0,0"] = {val: null, ties: 1};
+                        else grid["0,0"].ties++;
+                    } else grid[last_coords].ties++;
+                } else {
+                    if (last_val === null) {
+                        let ties = grid["0,0"] ? grid["0,0"].ties : 0;
+                        grid["0,0"] = {val: h, ties: ties};
+                        last_coords = "0,0";
+                    } else if (h !== last_val) {
+                        c_idx++; r_idx = 0;
+                        grid[`${c_idx},${r_idx}`] = {val: h, ties: 0};
+                        last_coords = `${c_idx},${r_idx}`;
+                    } else {
+                        r_idx++;
+                        grid[`${c_idx},${r_idx}`] = {val: h, ties: 0};
+                        last_coords = `${c_idx},${r_idx}`;
+                    }
+                    last_val = h;
+                }
+            });
+
+            let max_c = 0;
+            Object.keys(grid).forEach(k => { let c = parseInt(k.split(',')[0]); if(c > max_c) max_c = c; });
+            let start_c = Math.max(0, max_c - 10);
+
+            Object.keys(grid).forEach(k => {
+                let parts = k.split(',');
+                let c = parseInt(parts[0]), r = parseInt(parts[1]);
+                if(c < start_c || r > 4) return;
+                
+                let draw_c = c - start_c;
+                let x = draw_c * 25.4 + 13;
+                let y = r * 24 + 12;
+                let data = grid[k];
+                
+                if(data.val) {
+                    ctx.beginPath(); ctx.arc(x, y, 9, 0, 2 * Math.PI);
+                    ctx.strokeStyle = data.val === 'B' ? '#e74c3c' : '#3498db';
+                    ctx.lineWidth = 3; ctx.stroke();
+                }
+                if(data.ties > 0) {
+                    ctx.beginPath(); ctx.moveTo(x-9, y+9); ctx.lineTo(x+9, y-9);
+                    ctx.strokeStyle = '#2ecc71'; ctx.lineWidth = 3; ctx.stroke();
+                }
+            });
+        }
+
+        function calculate() {
+            if(pCards === 0 || bCards === 0) return alert("Chưa chọn số lá bài 2 bên!");
+            if(pScore === -1 || bScore === -1) return alert("Chưa chọn số điểm!");
+
+            let handNum = parseInt(document.getElementById('handNum').value);
+            let tCards = pCards + bCards;
+            let tScore = pScore + bScore;
+            let winner = pScore === bScore ? 'T' : (bScore > pScore ? 'B' : 'P');
+            
+            history.push(winner);
+            updateRoadmap();
+
+            let lastDigit = handNum % 10;
+            let modifier = 0, modMsg = "";
+            let diff = Math.abs(bScore - pScore);
+
+            if(winner === 'P' && pCards === 2 && bCards === 3) { modifier = 1; modMsg = "(P2>B3: +1)"; }
+            else if(winner === 'B' && bCards === 2 && pCards === 3) { modifier = -1; modMsg = "(B2>P3: -1)"; }
+            else if(pCards === bCards) {
+                if(diff > 2) { modifier = 1; modMsg = "(Chênh>2: +1)"; }
+                else if(diff < 2) { modifier = -1; modMsg = "(Chênh<2: -1)"; }
+                else { modMsg = "(Chênh=2: +0)"; }
+            }
+
+            let calcFinal = (lastDigit - tCards) + modifier;
+            let bossPred = (calcFinal % 2 === 0 || calcFinal % 2 === -0) ? 'P' : 'B';
+            let newPred = (tScore % 2 !== 0) ? 'B' : (winner === 'B' ? 'P' : 'B');
+
+            let pred = 'B', msg = "", conf = 50;
+            let mathStr = `Lõi: Đuôi ${lastDigit} - ${tCards}Lá ${modifier>=0?'+':''}${modifier} ${modMsg} = ${calcFinal}`;
+
+            if(winner === 'T') {
+                pred = lastPred; conf = 85; msg = `🔥 HÒA (TIE) 🔥\nLuật: Cấm bẻ cầu sau Hòa. Đánh y nguyên ${pred}!`;
+            } else if(bossPred === newPred) {
+                pred = bossPred; conf = 78; msg = `⚡ HYBRID KHỚP LỆNH ⚡\n${mathStr}\nCông thức Đồng Thuận. Vã MẠNH tay vào ${pred==='P'?'CON':'CÁI'}!`;
+            } else {
+                if(tCards === 6) {
+                    pred = bossPred; conf = 62; msg = `⚠️ PHÂN KỲ (6 LÁ) ⚠️\n${mathStr}\nGiằng co. Tin Bí Kíp Sếp, đánh vừa tay ${pred==='P'?'CON':'CÁI'}.`;
+                } else if(diff >= 5) {
+                    pred = winner; conf = 60; msg = `⚠️ PHÂN KỲ (LỰC) ⚠️\nLực chênh quá lớn (${diff}). Nương theo lực tấp ${pred==='P'?'CON':'CÁI'}.`;
+                } else {
+                    pred = bossPred; conf = 51; msg = `⚠️ CẦU NHIỄU ⚠️\nĐánh NHỎ dò đường vào ${pred==='P'?'CON':'CÁI'} theo Lõi Sếp.`;
+                }
+            }
+
+            lastPred = pred;
+            
+            let resBox = document.getElementById('resultBox');
+            resBox.innerText = pred;
+            resBox.style.backgroundColor = pred === 'B' ? '#d63031' : '#0984e3';
+            resBox.style.borderColor = pred === 'B' ? '#ff7675' : '#74b9ff';
+            
+            document.getElementById('chatBox').innerText = msg;
+            
+            let rateBox = document.getElementById('winRate');
+            rateBox.innerText = `Tỉ lệ: ${conf}%`;
+            rateBox.style.color = conf >= 70 ? '#2ecc71' : (conf >= 60 ? '#f1c40f' : '#e74c3c');
+
+            document.getElementById('handNum').value = handNum + 1;
+            resetUI();
+        }
+    </script>
+</body>
+</html>
