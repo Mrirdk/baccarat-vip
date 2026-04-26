@@ -5,22 +5,35 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Baccarat AI Pro - VIP Lounge</title>
     <style>
-        /* LUXURY THEME & BACKGROUND */
+        /* LUXURY THEME, GRADIENT BACKGROUND, AND GLASSMORPHISM */
+        :root {
+            --bg-gradient: radial-gradient(circle at top, #1a2a3a 0%, #050b14 100%);
+            --gold: linear-gradient(to right, #bf953f, #fcf6ba, #b38728, #fbf5b7);
+            --gold-shadow: 0px 2px 10px rgba(255, 215, 0, 0.2);
+            --p-blue: #0984e3;
+            --p-blue-light: #74b9ff;
+            --p-blue-shadow: 0 0 15px rgba(9, 132, 227, 0.5);
+            --b-red: #d63031;
+            --b-red-light: #ff7675;
+            --b-red-shadow: 0 0 15px rgba(214, 48, 49, 0.5);
+            --glass-panel-bg: rgba(10, 20, 35, 0.65);
+            --glass-border: 1px solid rgba(255, 215, 0, 0.15);
+        }
+
         body { 
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
             margin: 0; padding: 10px; 
             min-height: 100vh;
             display: flex; justify-content: center; align-items: center; flex-direction: column;
-            background: radial-gradient(circle at top, #1a2a3a 0%, #050b14 100%);
+            background: var(--bg-gradient);
             color: #ffffff;
         }
 
-        /* HIỆU ỨNG KÍNH MỜ (GLASSMORPHISM) */
         .glass-panel {
-            background: rgba(10, 20, 35, 0.65);
+            background: var(--glass-panel-bg);
             backdrop-filter: blur(12px);
             -webkit-backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 215, 0, 0.15);
+            border: var(--glass-border);
             box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.5);
             border-radius: 12px;
             padding: 20px;
@@ -29,19 +42,19 @@
         .header { text-align: center; margin-bottom: 20px; width: 100%; max-width: 600px; padding: 15px;}
         .header h1 { 
             margin: 0; 
-            background: linear-gradient(to right, #bf953f, #fcf6ba, #b38728, #fbf5b7);
+            background: var(--gold);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             font-size: 26px; font-weight: 900; letter-spacing: 1px;
-            text-shadow: 0px 2px 10px rgba(255, 215, 0, 0.2);
+            text-shadow: var(--gold-shadow);
         }
         
-        /* CÁC MÀN HÌNH */
+        /* SCREENS & ANIMATIONS */
         .screen { display: none; width: 100%; max-width: 650px; box-sizing: border-box; animation: fadeIn 0.4s ease-in-out;}
         .active-screen { display: block; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
-        /* INPUT & LOGIN LOBBY */
+        /* INPUTS & LOGINS */
         input, select { 
             width: 100%; padding: 14px; margin: 10px 0; border-radius: 8px; 
             border: 1px solid rgba(255,255,255,0.1); 
@@ -61,15 +74,65 @@
         .btn-gold:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(212, 175, 55, 0.6); }
         .btn-blue { background: linear-gradient(135deg, #2980b9, #1c5980); color: #fff; box-shadow: 0 4px 15px rgba(41, 128, 185, 0.4); }
 
-        /* GIAO DIỆN GAME AI */
-        .container { display: flex; gap: 15px; margin-bottom: 15px; }
+        /* LOBBY: SANH SELECTION */
+        .sanh-container {
+            display: flex; gap: 20px; justify-content: center; margin-top: 20px;
+        }
+        .sanh-box {
+            width: 150px; height: 180px;
+            border: 2px solid rgba(255, 215, 0, 0.2); border-radius: 12px;
+            cursor: pointer; position: relative; overflow: hidden;
+            display: flex; justify-content: center; align-items: center;
+            background-color: rgba(0, 0, 0, 0.5);
+            transition: all 0.3s;
+        }
+        .sanh-box:hover {
+            border-color: #d4af37;
+            box-shadow: 0 0 20px rgba(212, 175, 55, 0.5);
+            transform: translateY(-5px);
+        }
+        .sanh-box.active {
+            border-color: #d4af37;
+            background: linear-gradient(to bottom, rgba(212, 175, 55, 0.2), rgba(0, 0, 0, 0.7));
+        }
+        .sanh-name {
+            position: absolute; bottom: 10px; left: 0; width: 100%; text-align: center;
+            font-weight: 900; color: #d4af37; text-transform: uppercase; letter-spacing: 1px;
+            font-size: 14px;
+        }
+        .sanh-icon {
+            font-size: 40px; color: rgba(255, 255, 255, 0.7);
+        }
+
+        /* TABLE SELECTION */
+        .table-grid {
+            display: grid; grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: 15px; margin-top: 20px;
+        }
+        .ban-box {
+            background-color: rgba(0, 0, 0, 0.6);
+            border: 2px solid rgba(255, 215, 0, 0.15); border-radius: 10px;
+            padding: 15px; text-align: center; cursor: pointer; transition: 0.3s;
+        }
+        .ban-box:hover {
+            border-color: #d4af37;
+            box-shadow: 0 0 15px rgba(212, 175, 55, 0.4);
+            transform: scale(1.03);
+        }
+        .ban-title { font-weight: bold; color: #d4af37; font-size: 15px; margin-bottom: 10px; text-transform: uppercase; }
+        .ban-win-rate { font-size: 13px; color: #aaa; margin-bottom: 10px; }
+        .ban-win-rate strong { color: #f1c40f; }
+
+        /* GAME AI INTERFACE */
+        .game-container { display: flex; flex-direction: column; gap: 15px; }
         .panel { flex: 1; padding: 12px; border-radius: 10px; border: 1px solid rgba(255,255,255,0.05); }
         .panel-p { background: linear-gradient(180deg, rgba(11,26,44,0.8) 0%, rgba(5,13,22,0.9) 100%); border-top: 2px solid #00f3ff;}
         .panel-b { background: linear-gradient(180deg, rgba(44,11,11,0.8) 0%, rgba(22,5,5,0.9) 100%); border-top: 2px solid #ff004c;}
         
+        .p-b-container { display: flex; gap: 15px; }
+
         .title { font-weight: 900; font-size: 17px; padding: 8px; text-align: center; border-radius: 6px; margin-bottom: 12px; text-shadow: 1px 1px 2px #000;}
-        .title-p { background: linear-gradient(90deg, #0984e3, #74b9ff); color: white; box-shadow: 0 0 15px rgba(9, 132, 227, 0.5);}
-        .title-b { background: linear-gradient(90deg, #d63031, #ff7675); color: white; box-shadow: 0 0 15px rgba(214, 48, 49, 0.5);}
+        .title-p { background: linear-gradient(90deg, #0984e3, #74b9ff); color: white; box-shadow: var(--p-blue-shadow);}
+        .title-b { background: linear-gradient(90deg, #d63031, #ff7675); color: white; box-shadow: var(--b-red-shadow);}
 
         .btn-group { display: flex; gap: 8px; justify-content: center; margin-bottom: 12px; }
         .btn { padding: 10px 15px; font-weight: bold; border: 1px solid #444; border-radius: 6px; cursor: pointer; color: #ccc; background: #222; transition: all 0.2s; }
@@ -105,71 +168,105 @@
         <h2 style="text-align: center; color: #d4af37; margin-bottom: 20px;">CỔNG XÁC THỰC</h2>
         <input type="text" id="username" placeholder="Nhập tên tài khoản (ID Khách)...">
         <button class="btn-main btn-blue" onclick="login()">ĐĂNG NHẬP SẢNH</button>
-        <button class="btn-main btn-gold" style="margin-top: 15px;" onclick="register()">ĐĂNG KÝ MỚI (GỬI LỆNH TỚI SẾP)</button>
+        <button class="btn-main btn-gold" style="margin-top: 15px;" onclick="register()">ĐĂNG KÝ MỚI (BÁO VỀ ADMIN)</button>
     </div>
 
     <div id="screen-lobby" class="screen glass-panel">
         <div style="text-align: center; margin-bottom: 20px;">
-            <p style="color: #aaa; margin: 0;">Xin chào,</p>
+            <p style="color: #aaa; margin: 0;">Xin chào VIP,</p>
             <h2 id="welcome-user" style="color: #00ffcc; margin: 5px 0 0 0;">Guest</h2>
         </div>
         
-        <h3 style="color: #d4af37; border-bottom: 1px solid #333; padding-bottom: 10px;">CHỌN BÀN CHƠI:</h3>
-        <select id="table-select">
-            <option value="ban1">Sảnh WM - Bàn VIP 1</option>
-            <option value="ban2">Sảnh WM - Bàn VIP 2</option>
-            <option value="ban_evo">Sảnh Evolution - Bàn Tốc Độ</option>
-        </select>
+        <h3 style="color: #d4af37; border-bottom: 1px solid rgba(212, 175, 55, 0.2); padding-bottom: 10px; text-align: center;">CHỌN SẢNH CASINO:</h3>
+        
+        <div class="sanh-container">
+            <div class="sanh-box" id="sanh-sexy" onclick="selectSanh('Sexy')">
+                <div class="sanh-icon">👙</div>
+                <div class="sanh-name">SEXY Casino</div>
+            </div>
+            <div class="sanh-box" id="sanh-wm" onclick="selectSanh('WM')">
+                <div class="sanh-icon">♔</div>
+                <div class="sanh-name">WM Casino</div>
+            </div>
+        </div>
 
-        <button class="btn-main btn-gold" style="margin-top: 20px;" onclick="enterTable()">VÀO BÀN PHÂN TÍCH</button>
-        <button class="btn-main" style="background: transparent; border: 1px solid #e74c3c; color: #e74c3c; margin-top: 15px;" onclick="logout()">THOÁT TÀI KHOẢN</button>
+        <button class="btn-main" style="background: transparent; border: 1px solid #e74c3c; color: #e74c3c; margin-top: 25px;" onclick="logout()">THOÁT TÀI KHOẢN</button>
+    </div>
+
+    <div id="screen-table" class="screen glass-panel">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+            <button onclick="backToLobby()" style="background: transparent; color: #ccc; border: 1px solid #555; padding: 6px 12px; border-radius: 6px; cursor: pointer;">⬅ Quay lại Sảnh</button>
+            <h3 style="color: #d4af37; margin: 0;">CHỌN PHÒNG:</h3>
+        </div>
+        
+        <div class="table-grid" id="table-grid">
+            </div>
     </div>
 
     <div id="screen-game" class="screen glass-panel">
         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
-            <button onclick="backToLobby()" style="background: transparent; color: #ccc; border: 1px solid #555; padding: 6px 12px; border-radius: 6px; cursor: pointer; transition: 0.3s;">⬅ Quay lại sảnh</button>
+            <button onclick="backToTable()" style="background: transparent; color: #ccc; border: 1px solid #555; padding: 6px 12px; border-radius: 6px; cursor: pointer;">⬅ Chọn bàn khác</button>
             <span id="current-table-name" style="color: #d4af37; font-weight: bold;">Bàn VIP</span>
         </div>
         
-        <div class="container">
-            <div class="panel panel-p">
-                <div class="title title-p">CON (PLAYER)</div>
-                <div class="btn-group">
-                    <button class="btn btn-p" id="p-2" onclick="setCards('p', 2)">2 Lá</button>
-                    <button class="btn btn-p" id="p-3" onclick="setCards('p', 3)">3 Lá</button>
+        <div class="game-container">
+            <div class="p-b-container">
+                <div class="panel panel-p">
+                    <div class="title title-p">CON (PLAYER)</div>
+                    <div class="btn-group">
+                        <button class="btn btn-p" id="p-2" onclick="setCards('p', 2)">2 Lá</button>
+                        <button class="btn btn-p" id="p-3" onclick="setCards('p', 3)">3 Lá</button>
+                    </div>
+                    <div class="numpad" id="numpad-p"></div>
                 </div>
-                <div class="numpad" id="numpad-p"></div>
-            </div>
-            <div class="panel panel-b">
-                <div class="title title-b">CÁI (BANKER)</div>
-                <div class="btn-group">
-                    <button class="btn btn-b" id="b-2" onclick="setCards('b', 2)">2 Lá</button>
-                    <button class="btn btn-b" id="b-3" onclick="setCards('b', 3)">3 Lá</button>
+                <div class="panel panel-b">
+                    <div class="title title-b">CÁI (BANKER)</div>
+                    <div class="btn-group">
+                        <button class="btn btn-b" id="b-2" onclick="setCards('b', 2)">2 Lá</button>
+                        <button class="btn btn-b" id="b-3" onclick="setCards('b', 3)">3 Lá</button>
+                    </div>
+                    <div class="numpad" id="numpad-b"></div>
                 </div>
-                <div class="numpad" id="numpad-b"></div>
             </div>
-        </div>
 
-        <div class="bottom-panel" style="background: rgba(0,0,0,0.4); padding: 15px; border-radius: 10px; border: 1px solid #333;">
-            <div class="input-row">
-                <div>
-                    <span style="font-weight: bold; color: #aaa; margin-right: 10px;">Đang tính ván:</span>
-                    <input type="number" id="handNum" value="1">
+            <div class="bottom-panel" style="background: rgba(0,0,0,0.4); padding: 15px; border-radius: 10px; border: 1px solid #333;">
+                <div class="input-row">
+                    <div>
+                        <span style="font-weight: bold; color: #aaa; margin-right: 10px;">Đang tính ván:</span>
+                        <input type="number" id="handNum" value="1">
+                    </div>
+                    <span class="rate" id="winRate">Tỉ lệ: --%</span>
                 </div>
-                <span class="rate" id="winRate">Tỉ lệ: --%</span>
+                
+                <div class="action-row">
+                    <button class="chot-btn" onclick="calculate()">🚀 PHÂN TÍCH LỆNH</button>
+                    <div class="result-box" id="resultBox">?</div>
+                </div>
+                
+                <div class="chat-box" id="chatBox">Đã vào bàn. Sẵn sàng phân tích!</div>
             </div>
-            
-            <div class="action-row">
-                <button class="chot-btn" onclick="calculate()">🚀 PHÂN TÍCH LỆNH</button>
-                <div class="result-box" id="resultBox">?</div>
-            </div>
-            
-            <div class="chat-box" id="chatBox">Hệ thống AI đã kết nối thành công. Vui lòng nhập thông số ván bài.</div>
         </div>
     </div>
 
     <script>
-        // --- LOGIC GIAO DIỆN & LOGIN ---
+        // --- DATA CASINO & PHÒNG C0... ---
+        const sanhs = {
+            'Sexy': {
+                name: 'SEXY Casino',
+                icon: '👙',
+                rooms: ['C01', 'C02', 'C03', 'C04', 'C05', 'C06', 'C07', 'C08']
+            },
+            'WM': {
+                name: 'WM Casino',
+                icon: '♔',
+                rooms: ['C01', 'C02', 'C03', 'C04', 'C05', 'C06', 'C07', 'C08', 'C09', 'C10']
+            }
+        };
+
+        let currentSanh = '';
+        let currentRoom = '';
+
+        // --- GIAO DIỆN HỆ THỐNG LOBBY ---
         function showScreen(screenId) {
             document.querySelectorAll('.screen').forEach(s => s.classList.remove('active-screen'));
             document.getElementById(screenId).classList.add('active-screen');
@@ -178,15 +275,12 @@
         function register() {
             let user = document.getElementById('username').value.trim();
             if(user === "") return alert("Vui lòng nhập tên tài khoản muốn đăng ký!");
-            
-            // Giả lập gửi thông báo cho Sếp
-            alert(`✅ Đã gửi yêu cầu đăng ký tài khoản [ ${user} ] tới Sếp!\nSếp duyệt xong bạn mới có thể Đăng Nhập.`);
+            alert(`✅ Đã gửi lệnh đăng ký tài khoản [ ${user} ] tới Sếp!\nSếp duyệt xong bạn mới có thể Đăng Nhập.`);
         }
 
         function login() {
             let user = document.getElementById('username').value.trim();
             if(user === "") return alert("Vui lòng nhập tên tài khoản!");
-            
             document.getElementById('welcome-user').innerText = user;
             showScreen('screen-lobby');
         }
@@ -196,10 +290,41 @@
             showScreen('screen-auth');
         }
 
-        function enterTable() {
-            let sel = document.getElementById('table-select');
-            let tableName = sel.options[sel.selectedIndex].text;
-            document.getElementById('current-table-name').innerText = tableName;
+        function selectSanh(sanhKey) {
+            currentSanh = sanhs[sanhKey];
+            
+            // Highlight sanh chọn
+            document.querySelectorAll('.sanh-box').forEach(b => b.classList.remove('active'));
+            document.getElementById(`sanh-${sanhKey.toLowerCase()}`).classList.add('active');
+
+            // Load tables cho sanh
+            loadTables();
+            showScreen('screen-table');
+        }
+
+        function loadTables() {
+            let grid = document.getElementById('table-grid');
+            grid.innerHTML = ''; // Clear cũ
+
+            currentSanh.rooms.forEach(room => {
+                let banBox = document.createElement('div');
+                banBox.className = 'ban-box';
+                
+                // Giả lập tỉ lệ thắng ngẫu nhiên cho đẹp mắt
+                let randomRate = Math.floor(Math.random() * (99 - 75 + 1)) + 75;
+                
+                banBox.innerHTML = `
+                    <div class="ban-title">${currentSanh.name} - ${room}</div>
+                    <div class="ban-win-rate">Tỉ lệ: <strong>${randomRate}%</strong></div>
+                    <button class="btn-main btn-gold" style="padding: 8px; font-size: 13px;" onclick="enterGame('${room}')">VÀO PHÒNG</button>
+                `;
+                grid.appendChild(banBox);
+            });
+        }
+
+        function enterGame(roomName) {
+            currentRoom = roomName;
+            document.getElementById('current-table-name').innerText = `${currentSanh.name} - ${currentRoom}`;
             
             // Khởi tạo Roadmap khi vào bàn
             updateRoadmap();
@@ -207,8 +332,9 @@
         }
 
         function backToLobby() { showScreen('screen-lobby'); }
+        function backToTable() { showScreen('screen-table'); }
 
-        // --- LOGIC GAME AI V135 (CÔNG THỨC SẾP) ---
+        // --- GAME AI CORE LOGIC (V135 - CÔNG THỨC SẾP) ---
         let pCards = 0, bCards = 0, pScore = -1, bScore = -1;
         let history = [];
         let lastPred = 'B';
@@ -240,9 +366,9 @@
             document.querySelectorAll('.btn, .num-btn').forEach(b => b.classList.remove('active'));
         }
 
-        // Bổ sung HTML Canvas cho Biểu đồ
+        // Bổ sung HTML Canvas cho Biểu đồ Roadmap (Tự động chèn vào panel-bottom)
         let canvasHTML = `<canvas id="roadCanvas" width="280" height="120" style="background:rgba(255,255,255,0.05); border-radius: 8px; margin-top: 15px; width: 100%; border: 1px solid #444;"></canvas>`;
-        document.querySelector('.bottom-panel').insertAdjacentHTML('beforeend', canvasHTML);
+        document.querySelector('.game-container .bottom-panel').insertAdjacentHTML('beforeend', canvasHTML);
 
         function updateRoadmap() {
             let canvas = document.getElementById('roadCanvas');
