@@ -40,7 +40,6 @@
             overflow: hidden;
         }
 
-        /* Scanline effect for background */
         .glass-panel::after {
             content: ""; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%;
             background: linear-gradient(to bottom, rgba(255,255,255,0) 0%, rgba(255,255,255,0.03) 50%, rgba(255,255,255,0) 100%);
@@ -58,12 +57,10 @@
             filter: drop-shadow(0px 4px 6px rgba(0,0,0,0.5));
         }
         
-        /* SCREENS & ANIMATIONS */
         .screen { display: none; width: 100%; max-width: 650px; box-sizing: border-box; animation: scaleUp 0.5s cubic-bezier(0.16, 1, 0.3, 1); position: relative; z-index: 1;}
         .active-screen { display: block; }
         @keyframes scaleUp { from { opacity: 0; transform: scale(0.95) translateY(10px); } to { opacity: 1; transform: scale(1) translateY(0); } }
 
-        /* INPUTS */
         input, select { 
             width: 100%; padding: 16px; margin: 12px 0; border-radius: 10px; 
             border: 1px solid rgba(255,255,255,0.1); 
@@ -80,7 +77,6 @@
         .btn-gold:hover { transform: translateY(-3px); box-shadow: 0 8px 25px rgba(251, 191, 36, 0.6); }
         .btn-blue { background: linear-gradient(135deg, #0ea5e9, #2563eb); color: #fff; box-shadow: 0 4px 15px rgba(37, 99, 235, 0.4); }
 
-        /* LOBBY */
         .sanh-container { display: flex; gap: 20px; justify-content: center; margin-top: 20px; }
         .sanh-box {
             width: 160px; height: 180px;
@@ -95,7 +91,6 @@
         .sanh-name { position: absolute; bottom: 15px; left: 0; width: 100%; text-align: center; font-weight: 900; color: #fbbf24; font-size: 15px; letter-spacing: 1px; }
         .sanh-icon { font-size: 45px; color: rgba(255, 255, 255, 0.9); transform: translateY(-10px); }
 
-        /* TABLE SELECTION */
         .table-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: 15px; margin-top: 20px; }
         .ban-box {
             background: rgba(0, 0, 0, 0.5); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 12px;
@@ -106,7 +101,6 @@
         .ban-win-rate { font-size: 13px; color: #94a3b8; margin-bottom: 12px; }
         .ban-win-rate strong { color: #10b981; font-size: 15px; }
 
-        /* GAME AI INTERFACE */
         .game-container { display: flex; flex-direction: column; gap: 16px; }
         .panel { flex: 1; padding: 15px; border-radius: 14px; border: 1px solid rgba(255,255,255,0.05); position: relative;}
         .panel-p { background: linear-gradient(180deg, rgba(14,165,233,0.15) 0%, rgba(0,0,0,0.6) 100%); border-top: 3px solid var(--neon-blue);}
@@ -134,7 +128,6 @@
         
         .action-row { display: flex; gap: 16px; align-items: center; margin-bottom: 16px;}
         
-        /* NÚT CHỐT LỆNH HOÀNH TRÁNG */
         .chot-btn { 
             flex: 1; background: var(--gold); color: #000; font-size: 20px; font-weight: 900; padding: 18px; 
             border: none; border-radius: 12px; cursor: pointer; 
@@ -145,7 +138,6 @@
         .chot-btn:active { transform: scale(0.96); }
         .chot-btn:disabled { background: #475569; color: #94a3b8; animation: none; box-shadow: none; cursor: not-allowed;}
         
-        /* Ô KẾT QUẢ VÀ HIỆU ỨNG QUÉT */
         .result-box { 
             font-size: 50px; font-weight: 900; padding: 10px 25px; border-radius: 12px; 
             background: #000; min-width: 80px; text-align: center; border: 2px solid #334155; 
@@ -259,7 +251,6 @@
     </div>
 
     <script>
-        // --- DATA & LOBBY LOGIC ---
         const sanhs = {
             'Sexy': { name: 'SEXY CASINO', rooms: ['C01', 'C02', 'C03', 'C04', 'C05', 'C06', 'C07', 'C08'] },
             'WM': { name: 'WM CASINO', rooms: ['C01', 'C02', 'C03', 'C04', 'C05', 'C06', 'C07', 'C08', 'C09', 'C10'] }
@@ -325,7 +316,6 @@
         function backToLobby() { showScreen('screen-lobby'); }
         function backToTable() { showScreen('screen-table'); }
 
-        // --- GAME AI CORE LOGIC (EPIC V139) ---
         let pCards = 0, bCards = 0, pScore = -1, bScore = -1;
         let history = [];
         let lastPred = 'B';
@@ -357,7 +347,6 @@
             document.querySelectorAll('.btn, .num-btn').forEach(b => b.classList.remove('active'));
         }
 
-        // BIỂU ĐỒ ROADMAP
         let canvasHTML = `<canvas id="roadCanvas" width="280" height="120" style="background: rgba(0,0,0,0.5); border-radius: 10px; margin-top: 15px; width: 100%; border: 1px solid #1e293b; box-shadow: inset 0 0 20px rgba(0,0,0,1);"></canvas>`;
         document.querySelector('.game-container .bottom-panel').insertAdjacentHTML('beforeend', canvasHTML);
 
@@ -423,12 +412,10 @@
             });
         }
 
-        // --- HÀM TÍNH TOÁN CÓ HIỆU ỨNG QUÉT ---
         function calculate() {
             if(pCards === 0 || bCards === 0) return alert("HỆ THỐNG LỖI: Chưa chọn số lá bài 2 cửa!");
             if(pScore === -1 || bScore === -1) return alert("HỆ THỐNG LỖI: Chưa chọn tổng điểm nút!");
 
-            // 1. Kích hoạt hiệu ứng quét (Loading)
             let btn = document.getElementById('btnAnalyze');
             let resBox = document.getElementById('resultBox');
             let chatBox = document.getElementById('chatBox');
@@ -443,7 +430,6 @@
             
             chatBox.innerHTML = '<span class="chat-scanning">[///] HỆ THỐNG ĐANG QUÉT DỮ LIỆU MÁY CHỦ...<br>[///] ĐO LƯỜNG ĐỘNG LƯỢNG BÀN CƯỢC...</span>';
             
-            // 2. Chạy logic ngầm và delay 0.8s để show kết quả
             setTimeout(() => {
                 let handNum = parseInt(document.getElementById('handNum').value);
                 let tCards = pCards + bCards;
@@ -453,7 +439,7 @@
                 history.push(winner);
                 updateRoadmap();
 
-                let lastDigit = handNum % 10;
+                // FIX: LẤY THẲNG SỐ VÁN HIỆN TẠI (handNum) THAY VÌ LẤY SỐ ĐUÔI
                 let modifier = 0, modMsg = "";
                 let diff = Math.abs(bScore - pScore);
 
@@ -465,12 +451,13 @@
                     else { modMsg = "(Chênh=2: +0)"; }
                 }
 
-                let calcFinal = (lastDigit - tCards) + modifier;
-                let bossPred = (calcFinal % 2 === 0 || calcFinal % 2 === -0) ? 'P' : 'B';
+                // Tính toán dùng thẳng handNum
+                let calcFinal = (handNum - tCards) + modifier;
+                let bossPred = (Math.abs(calcFinal) % 2 === 0) ? 'P' : 'B';
                 let newPred = (tScore % 2 !== 0) ? 'B' : (winner === 'B' ? 'P' : 'B');
 
                 let pred = 'B', msg = "", conf = 50;
-                let mathStr = `LÕI MÃ HÓA: Đuôi ${lastDigit} - ${tCards}Lá ${modifier>=0?'+':''}${modifier} ${modMsg} = ${calcFinal}`;
+                let mathStr = `LÕI MÃ HÓA: Ván ${handNum} - ${tCards}Lá ${modifier>=0?'+':''}${modifier} ${modMsg} = ${calcFinal}`;
 
                 if(winner === 'T') {
                     pred = lastPred; conf = 85; 
@@ -493,7 +480,6 @@
 
                 lastPred = pred;
                 
-                // Show Result
                 resBox.innerHTML = pred;
                 resBox.style.backgroundColor = pred === 'B' ? '#be123c' : '#0284c7';
                 resBox.style.borderColor = pred === 'B' ? '#fb7185' : '#38bdf8';
@@ -511,7 +497,7 @@
                 btn.innerText = "🚀 KÍCH HOẠT QUÉT AI";
                 resetUI();
                 
-            }, 800); // 0.8 giây delay hoành tráng
+            }, 800);
         }
     </script>
 </body>
