@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Baccarat AI Pro - Ultimate Matrix</title>
+    <title>Baccarat AI Pro - Infinity Matrix</title>
     <link rel="icon" type="image/png" href="https://cdn-icons-png.flaticon.com/512/4712/4712035.png">
     <style>
-        /* CYBERPUNK THEME V143 ULTIMATE MATRIX */
+        /* CYBERPUNK THEME V144 INFINITY MATRIX */
         :root {
             --bg-gradient: radial-gradient(circle at center, #0f172a 0%, #020617 100%);
             --gold: linear-gradient(135deg, #fbbf24, #d97706);
@@ -19,7 +19,6 @@
             --glass-border: 1px solid rgba(0, 246, 255, 0.2);
         }
 
-        /* 1. CROSSHAIR CURSOR */
         body { 
             font-family: 'Montserrat', 'Segoe UI', sans-serif; 
             margin: 0; padding: 10px; padding-top: 40px; padding-bottom: 30px;
@@ -28,7 +27,6 @@
             cursor: crosshair;
         }
 
-        /* 2. HEXAGON MATRIX BG */
         body::before {
             content: ''; position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1;
             background-image: url("data:image/svg+xml,%3Csvg width='60' height='103.923' viewBox='0 0 60 103.923' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%2300f6ff' fill-opacity='0.03'%3E%3Cpolygon points='30 103.923 0 86.6025 0 51.9615 30 34.641 60 51.9615 60 86.6025'/%3E%3Cpolygon points='30 51.9615 0 34.641 0 0 30 -17.3205 60 0 60 34.641'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
@@ -36,7 +34,6 @@
         }
         @keyframes bgScroll { 0% { background-position: 0 0; } 100% { background-position: 60px 103.923px; } }
 
-        /* 7 & 8. SSL BADGE & CORE BATTERY */
         .top-bar {
             position: fixed; top: 0; left: 0; width: 100%; background: rgba(0,0,0,0.9);
             border-bottom: 1px solid #00f6ff; display: flex; justify-content: space-between;
@@ -47,7 +44,6 @@
         .ssl-badge { color: #10b981; font-weight: bold; border: 1px solid #10b981; padding: 2px 5px; border-radius: 3px; }
         .battery { color: #fbbf24; }
 
-        /* 10. SUPER DYNAMIC TICKER */
         .marquee-footer {
             position: fixed; bottom: 0; left: 0; width: 100%; background: rgba(0,0,0,0.95);
             border-top: 1px solid #fbbf24; padding: 8px 0; z-index: 1000;
@@ -55,7 +51,6 @@
             box-shadow: 0 -5px 15px rgba(251, 191, 36, 0.2); text-transform: uppercase;
         }
 
-        /* 3. CYBER BRACKETS */
         .glass-panel {
             background: var(--glass-bg); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
             border: var(--glass-border); box-shadow: 0 10px 50px -10px rgba(0,246,255,0.2);
@@ -67,7 +62,6 @@
         .glass-panel::before { top: 0; left: 0; border-right: none; border-bottom: none; }
         .glass-panel::after { bottom: 0; right: 0; border-left: none; border-top: none; }
 
-        /* 6. RADAR SCANLINE */
         .scanline {
             position: absolute; top: 0; left: 0; width: 100%; height: 5px; background: rgba(0, 246, 255, 0.5);
             box-shadow: 0 0 15px rgba(0, 246, 255, 0.8); z-index: 999; pointer-events: none;
@@ -86,7 +80,6 @@
         input, select { width: 100%; padding: 16px; margin: 12px 0; border-radius: 4px; border: 1px solid rgba(0,246,255,0.3); background: rgba(0,0,0,0.8); color: #fff; font-size: 16px; box-sizing: border-box; transition: 0.3s; font-family: monospace; }
         input:focus, select:focus { border-color: #00f6ff; outline: none; box-shadow: var(--neon-blue-glow); }
         
-        /* 9. GLITCH HOVER ON BUTTONS */
         .btn-main { width: 100%; padding: 16px; font-size: 16px; font-weight: 900; border: none; border-radius: 4px; cursor: pointer; margin-top: 10px; text-transform: uppercase; letter-spacing: 1.5px; transition: all 0.2s ease; position: relative; overflow: hidden; }
         .btn-main:hover { animation: glitchHover 0.2s linear infinite; }
         @keyframes glitchHover { 0% { transform: skew(0deg); } 20% { transform: skew(-5deg); } 40% { transform: skew(5deg); } 60% { transform: skew(-2deg); } 80% { transform: skew(2deg); } 100% { transform: skew(0deg); } }
@@ -152,10 +145,8 @@
 
         .rate { color: #00f6ff; font-weight: 900; font-size: 20px; text-shadow: var(--neon-blue-glow);}
 
-        /* 4. TERMINAL LOG */
         .terminal-log { background: #000; color: #10b981; font-family: monospace; font-size: 10px; padding: 10px; height: 60px; overflow-y: hidden; border: 1px solid #10b981; margin-top: 15px; text-align: left; opacity: 0.8;}
 
-        /* 5. VISUAL EQUALIZER */
         .equalizer { display: inline-flex; align-items: flex-end; height: 15px; gap: 2px; margin-left: 10px; }
         .eq-bar { width: 4px; background: #fbbf24; animation: eqAnim 0.5s infinite alternate; }
         .eq-bar:nth-child(2) { animation-delay: 0.1s; } .eq-bar:nth-child(3) { animation-delay: 0.2s; } .eq-bar:nth-child(4) { animation-delay: 0.3s; }
@@ -266,7 +257,7 @@
                     <div class="chat-box" id="chatBox">⚡ KẾT NỐI API THÀNH CÔNG.<br>⚡ ĐÃ MÃ HÓA LUỒNG DỮ LIỆU.</div>
                     
                     <div class="terminal-log" id="termLog">
-                        > Khởi tạo máy chủ V143...<br>
+                        > Khởi tạo máy chủ V144...<br>
                         > Sẵn sàng nhận lệnh...
                     </div>
                 </div>
@@ -291,29 +282,48 @@
     </div>
 
     <script>
-        // --- 10. GENERATE DYNAMIC TICKER (FOMO) ---
+        // --- 10. GENERATOR TÊN & TIỀN CỰC KHỦNG ---
+        function getRandomName() {
+            const prefixes = ['', 'VIP_', 'BOSS_', 'CEO_', 'PRO_', 'KING_', 'MASTER_', 'DAIGIA_', 'TYPHU_'];
+            const names = ['HUNG','HOANG','LINH','MINH','TUAN','DUY','DAT','THANH','NGOC','QUANG','HAI','BAO','LONG','PHAT','TAI','TUNG','SON','CUONG','THANG','THIEN','TOAN','PHUC','ANH','KHOA','TRAM','TRANG','YEN','NHUNG','KHIEM','VINH'];
+            const suffixes = ['', '99', '88', '68', '79', '86', '6868', '999', '888', '7979', '_PRO', '_OFFICIAL', '123', '6789'];
+            
+            let p = prefixes[Math.floor(Math.random() * prefixes.length)];
+            let n = names[Math.floor(Math.random() * names.length)];
+            let s = suffixes[Math.floor(Math.random() * suffixes.length)];
+            if(Math.random() > 0.6) s = "_" + Math.floor(Math.random() * 9999); // Bơm số lung tung cho đỡ trùng
+            return p + n + s;
+        }
+
+        function getRandomAmount() {
+            let isTy = Math.random() > 0.85; // 15% nổ hũ Tỷ
+            if(isTy) {
+                return (Math.random() * 3 + 1).toFixed(1) + " TỶ"; // 1.0 -> 4.0 Tỷ
+            } else {
+                return (Math.floor(Math.random() * 850) + 50) + " TRIỆU"; // 50 -> 900 Triệu
+            }
+        }
+
         function generateTicker() {
-            const names = ['VIP_HOANG99', 'DAIGIA_HANOI', 'TRUM_SAIGON', 'VIP_LINH_88', 'BOSS_HUY', 'CHUNGUYEN_79', 'KIEN_PRO', 'TYPHU_9X'];
-            const amounts = ['120 TRIỆU', '580 TRIỆU', '350 TRIỆU', '890 TRIỆU', '2 TỶ 1', '450 TRIỆU', '99 TRIỆU', '720 TRIỆU'];
             const sanhs = ['SẢNH WM CASINO', 'SẢNH SEXY CASINO', 'SẢNH EVOLUTION'];
-            const tables = ['C01', 'C02', 'C05', 'C08', 'VIP01', 'SPEED_A'];
-            const streaks = ['THÔNG 5 TAY', 'THÔNG 8 TAY LIÊN TIẾP', 'THÔNG 12 TAY', 'ĂN TRẮNG 6 TAY', 'CHỐT LÃI KHỦNG THÔNG 10 TAY'];
+            const tables = ['C01', 'C02', 'C03', 'C04', 'C05', 'C06', 'C07', 'C08', 'VIP01', 'SPEED_A'];
+            const streaks = ['THÔNG 5 TAY', 'THÔNG 8 TAY LIÊN TIẾP', 'THÔNG 12 TAY', 'ĂN TRẮNG 6 TAY', 'CHỐT LÃI KHỦNG THÔNG 10 TAY', 'BẺ CẦU THÀNH CÔNG'];
             
             let tickerText = "";
-            for(let i=0; i<15; i++) {
-                let n = names[Math.floor(Math.random()*names.length)];
-                let a = amounts[Math.floor(Math.random()*amounts.length)];
+            for(let i=0; i<20; i++) {
+                let n = getRandomName();
+                let a = getRandomAmount();
                 let s = sanhs[Math.floor(Math.random()*sanhs.length)];
                 let t = tables[Math.floor(Math.random()*tables.length)];
                 let st = streaks[Math.floor(Math.random()*streaks.length)];
-                tickerText += `🔥 [LIVESCAN] ĐẠI GIA [${n}] VỪA HÚP TRỌN ${a} | ${s} - BÀN ${t} | ${st}! 🔥 &nbsp;&nbsp;&nbsp;&nbsp; | &nbsp;&nbsp;&nbsp;&nbsp; `;
+                tickerText += `🔥 [LIVESCAN] TÀI KHOẢN [${n}] VỪA HÚP TRỌN ${a} | ${s} - BÀN ${t} | ${st}! 🔥 &nbsp;&nbsp;&nbsp;&nbsp; | &nbsp;&nbsp;&nbsp;&nbsp; `;
             }
             document.getElementById('dynamicTicker').innerHTML = tickerText;
         }
+        
         generateTicker();
-        setInterval(generateTicker, 60000); // Đổi tin tức sau mỗi 60s
+        setInterval(generateTicker, 50000); // 50 giây đổi mới tin 1 lần, lặp vô tận
 
-        // --- TERMINAL LOG GENERATOR ---
         function addLog(text) {
             let term = document.getElementById('termLog');
             term.innerHTML += `<br>> ${text}`;
@@ -395,7 +405,7 @@
             document.getElementById('scanBar').style.width = '0%'; setTimeout(() => document.getElementById('scanBar').style.width = '100%', 50);
             document.getElementById('resWrapper').classList.add('scanning');
             
-            addLog("Executing Deep Scan Core V143..."); addLog("Bypassing Casino RNG...");
+            addLog("Executing Deep Scan Core V144..."); addLog("Bypassing Casino RNG...");
 
             let eqHTML = '<div class="equalizer"><div class="eq-bar"></div><div class="eq-bar"></div><div class="eq-bar"></div><div class="eq-bar"></div></div>';
             cBox.innerHTML = `<span style="color:#fbbf24">[///] ĐANG TỔNG HỢP MATRIX...${eqHTML}</span>`;
