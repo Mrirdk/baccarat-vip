@@ -11,7 +11,6 @@
     <link rel="icon" type="image/png" href="https://cdn-icons-png.flaticon.com/512/4712/4712035.png">
     
     <style>
-        /* CYBERPUNK THEME V145 MASTER */
         :root {
             --bg-gradient: radial-gradient(circle at center, #0f172a 0%, #020617 100%);
             --gold: linear-gradient(135deg, #fbbf24, #d97706);
@@ -131,11 +130,6 @@
 
         .terminal-log { background: #000; color: #10b981; font-family: monospace; font-size: 10px; padding: 10px; height: 60px; overflow-y: hidden; border: 1px solid #10b981; margin-top: 15px; text-align: left; opacity: 0.8;}
 
-        .equalizer { display: inline-flex; align-items: flex-end; height: 15px; gap: 2px; margin-left: 10px; }
-        .eq-bar { width: 4px; background: #fbbf24; animation: eqAnim 0.5s infinite alternate; }
-        .eq-bar:nth-child(2) { animation-delay: 0.1s; } .eq-bar:nth-child(3) { animation-delay: 0.2s; } .eq-bar:nth-child(4) { animation-delay: 0.3s; }
-        @keyframes eqAnim { 0% { height: 3px; } 100% { height: 15px; } }
-
         .cyber-alert-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); display: flex; justify-content: center; align-items: center; z-index: 9999; opacity: 0; pointer-events: none; transition: 0.3s; }
         .cyber-alert-overlay.show { opacity: 1; pointer-events: all; }
         .cyber-alert-box { background: #000; border: 2px solid #00f6ff; border-radius: 4px; padding: 25px; text-align: center; max-width: 400px; width: 90%; box-shadow: var(--neon-blue-glow); transform: scale(0.8); transition: 0.3s; }
@@ -144,7 +138,6 @@
         .cyber-alert-box p { color: #e2e8f0; font-size: 16px; line-height: 1.5; margin: 20px 0;}
         .cyber-alert-box button { background: #00f6ff; color: #000; border: none; padding: 12px 30px; border-radius: 4px; font-weight: 900; font-size: 16px; cursor: pointer; margin-top:10px; }
 
-        /* DASHBOARD THỐNG KÊ */
         .dash-stat { font-size: 24px; color: #fbbf24; font-weight: bold; margin: 10px 0; }
         .dash-label { color: #94a3b8; font-size: 14px; text-transform: uppercase; }
         .dash-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin: 20px 0; text-align: left; }
@@ -172,7 +165,7 @@
             <h2 style="text-align: center; color: #00f6ff; margin-bottom: 25px;">[ KẾT NỐI MÁY CHỦ KÍN ]</h2>
             <input type="text" id="username" placeholder="Nhập ID Định Danh VIP...">
             <button class="btn-main btn-blue" onclick="login()">TRUY CẬP</button>
-            <button class="btn-main btn-gold" onclick="register()">ĐĂNG KÝ (BÁO CÁO ADMIN)</button>
+            <button class="btn-main btn-gold" onclick="register()">ĐĂNG KÝ MỚI</button>
         </div>
 
         <div id="screen-lobby" class="screen">
@@ -301,13 +294,10 @@
     </div>
 
     <script>
-        // ==========================================
-        // CẤU HÌNH BOT TELEGRAM CỦA SẾP
-        // ==========================================
+        // ĐÃ NHÚNG TRỰC TIẾP CHAT ID CỦA SẾP VÀO ĐÂY
         const BOT_TOKEN = '8724628711:AAFi8LB19_yDAxJnwPtVbHQPIcLbZ-mhaFg'; 
-        const CHAT_ID = '8583745893'; // ĐÃ LẮP CHAT ID CỦA SẾP VÀO ĐÂY!
+        const CHAT_ID = '8583745893';
 
-        // --- DASHBOARD FAKE DATA TỊNH TIẾN ---
         let baseScans = 14520;
         let baseOnline = 842;
         function showDashboard() {
@@ -318,18 +308,17 @@
             document.getElementById('dashAlert').classList.add('show');
         }
 
-        // --- TELEGRAM REGISTER FUNCTION ---
         function register() { 
             let u = document.getElementById('username').value.trim(); 
-            if(u==="") return showCyberAlert("LỖI", "Nhập ID Định danh!"); 
+            if(u==="") return showCyberAlert("LỖI BẢO MẬT", "Nhập ID Định danh để yêu cầu cấp quyền!"); 
 
-            let text = `🚨 CÓ KHÁCH YÊU CẦU CẤP QUYỀN TOOL 🚨\n\n👤 ID Khách: ${u}\n⏰ Thời gian: ${new Date().toLocaleString('vi-VN')}\n\nSếp hãy nhắn tin cho khách để chốt nạp tiền!`;
+            let text = `🚨 YÊU CẦU CẤP QUYỀN TOOL 🚨\n\n👤 ID Khách: ${u}\n⏰ Thời gian: ${new Date().toLocaleString('vi-VN')}\n\nSếp hãy nhắn tin cho khách để chốt sale!`;
             
             fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage?chat_id=${CHAT_ID}&text=${encodeURIComponent(text)}`)
             .then(res => res.json())
             .then(data => {
                 if(data.ok) {
-                    showCyberAlert("THÀNH CÔNG", `Đã gửi trực tiếp thông tin bảo mật của [ ${u} ] về hệ thống điện thoại của Admin. Vui lòng chờ xét duyệt!`); 
+                    showCyberAlert("THÀNH CÔNG", `Đã mã hóa và gửi yêu cầu cấp quyền cho ID [ ${u} ] tới Hệ thống Quản trị của Admin.\n\nVui lòng liên hệ Admin để duyệt!`); 
                 } else {
                     showCyberAlert("LỖI BOT", "Hệ thống Telegram đang phản hồi chậm. Vui lòng liên hệ Admin!"); 
                 }
@@ -339,7 +328,6 @@
             });
         }
 
-        // --- CÁC HÀM CŨ (TICKER, GAME, LOGIC) ---
         function getRandomName() {
             const p = ['', 'VIP_', 'BOSS_', 'PRO_', 'KING_'];
             const n = ['HUNG','HOANG','LINH','MINH','TUAN','DUY','DAT','THANH','NGOC','QUANG','LONG','PHAT','TAI'];
@@ -368,7 +356,7 @@
         let cSanh = ''; let cRoom = '';
         function showScreen(id) { document.querySelectorAll('.screen').forEach(s => s.classList.remove('active-screen')); document.getElementById(id).classList.add('active-screen'); }
         
-        function login() { let u = document.getElementById('username').value.trim(); if(u==="") return showCyberAlert("LỖI", "Nhập ID Định danh!"); document.getElementById('welcome-user').innerText = u.toUpperCase(); showScreen('screen-lobby'); }
+        function login() { let u = document.getElementById('username').value.trim(); if(u==="") return showCyberAlert("LỖI BẢO MẬT", "Nhập ID Định danh!"); document.getElementById('welcome-user').innerText = u.toUpperCase(); showScreen('screen-lobby'); }
         function logout() { document.getElementById('username').value = ""; showScreen('screen-auth'); }
 
         function selectSanh(key) {
