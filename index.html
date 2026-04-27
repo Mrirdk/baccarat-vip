@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Baccarat AI Pro - Cyber Epic</title>
+    <title>Baccarat AI Pro - Ultimate Cyber</title>
     <link rel="icon" type="image/png" href="https://cdn-icons-png.flaticon.com/512/4712/4712035.png">
     <style>
         /* CYBERPUNK & LUXURY THEME */
@@ -29,6 +29,12 @@
             overflow-x: hidden;
         }
 
+        .sys-time {
+            position: absolute; top: 15px; right: 20px; font-family: 'Courier New', Courier, monospace;
+            color: #00f6ff; font-size: 14px; font-weight: bold; text-shadow: var(--neon-blue-glow);
+            letter-spacing: 1px; z-index: 10;
+        }
+
         .glass-panel {
             background: var(--glass-bg);
             backdrop-filter: blur(16px);
@@ -47,7 +53,7 @@
             background-size: 100% 4px; z-index: 0; pointer-events: none; opacity: 0.3;
         }
 
-        .header { text-align: center; margin-bottom: 20px; width: 100%; max-width: 600px; padding: 15px; position: relative; z-index: 1;}
+        .header { text-align: center; margin-top: 25px; margin-bottom: 20px; width: 100%; max-width: 600px; padding: 15px; position: relative; z-index: 1;}
         .header h1 { 
             margin: 0; 
             background: var(--gold);
@@ -58,7 +64,7 @@
             filter: drop-shadow(0px 4px 6px rgba(0,0,0,0.5));
         }
         
-        .screen { display: none; width: 100%; max-width: 650px; box-sizing: border-box; animation: scaleUp 0.5s cubic-bezier(0.16, 1, 0.3, 1); position: relative; z-index: 1;}
+        .screen { display: none; width: 100%; max-width: 650px; box-sizing: border-box; animation: scaleUp 0.4s cubic-bezier(0.16, 1, 0.3, 1); position: relative; z-index: 1;}
         .active-screen { display: block; }
         @keyframes scaleUp { from { opacity: 0; transform: scale(0.95) translateY(10px); } to { opacity: 1; transform: scale(1) translateY(0); } }
 
@@ -147,23 +153,53 @@
         }
         .loader {
             width: 35px; height: 35px; border: 4px solid #334155; border-bottom-color: #fbbf24;
-            border-radius: 50%; display: inline-block; animation: rotation 0.8s linear infinite;
+            border-radius: 50%; display: inline-block; animation: rotation 1s linear infinite;
         }
         @keyframes rotation { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
 
         .chat-box { 
             background: #020617; color: #10b981; padding: 16px; font-family: 'Courier New', Courier, monospace; 
-            border-radius: 10px; min-height: 90px; font-size: 15px; white-space: pre-wrap; 
+            border-radius: 10px; min-height: 100px; font-size: 15px; white-space: pre-wrap; 
             border-left: 4px solid #fbbf24; box-shadow: inset 0 0 10px rgba(0,0,0,0.8);
-            line-height: 1.4;
+            line-height: 1.5; position: relative;
         }
-        .chat-scanning { color: #fbbf24; animation: blinker 0.6s linear infinite; }
+        .chat-box::after {
+            content: '|'; animation: blinker 1s step-end infinite; color: #10b981;
+        }
+        .chat-scanning { color: #fbbf24; }
         @keyframes blinker { 50% { opacity: 0; } }
 
         .rate { color: #fbbf24; font-weight: 900; font-size: 20px; text-align: center;}
+
+        /* CYBER ALERT POPUP */
+        .cyber-alert-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.8); backdrop-filter: blur(5px);
+            display: flex; justify-content: center; align-items: center;
+            z-index: 9999; opacity: 0; pointer-events: none; transition: opacity 0.3s;
+        }
+        .cyber-alert-overlay.show { opacity: 1; pointer-events: all; }
+        .cyber-alert-box {
+            background: linear-gradient(180deg, #1e293b 0%, #0f172a 100%);
+            border: 2px solid #fbbf24; border-radius: 12px; padding: 25px;
+            text-align: center; max-width: 400px; width: 90%;
+            box-shadow: 0 0 30px rgba(251, 191, 36, 0.3);
+            transform: scale(0.8); transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        .cyber-alert-overlay.show .cyber-alert-box { transform: scale(1); }
+        .cyber-alert-box h3 { color: #fbbf24; margin-top: 0; font-size: 22px; font-weight: 900; border-bottom: 1px solid rgba(251,191,36,0.3); padding-bottom: 10px;}
+        .cyber-alert-box p { color: #e2e8f0; font-size: 16px; line-height: 1.5; margin: 20px 0;}
+        .cyber-alert-box button {
+            background: var(--gold); color: #000; border: none; padding: 12px 30px;
+            border-radius: 8px; font-weight: 900; font-size: 16px; cursor: pointer;
+            box-shadow: 0 4px 15px rgba(217, 119, 6, 0.4); transition: 0.2s;
+        }
+        .cyber-alert-box button:hover { transform: scale(1.05); }
     </style>
 </head>
 <body>
+
+    <div class="sys-time" id="sysTime">SYSTEM TIME: 00:00:00</div>
 
     <div class="header glass-panel">
         <h1>AI BACCARAT ĐỘC QUYỀN</h1>
@@ -246,12 +282,36 @@
                     <div class="result-box" id="resultBox">?</div>
                 </div>
                 
-                <div class="chat-box" id="chatBox">⚡ KẾT NỐI API THÀNH CÔNG.\n⚡ SẴN SÀNG NHẬN DỮ LIỆU...</div>
+                <div class="chat-box" id="chatBox">⚡ KẾT NỐI API THÀNH CÔNG.<br>⚡ SẴN SÀNG NHẬN DỮ LIỆU...</div>
             </div>
         </div>
     </div>
 
+    <div id="cyberAlert" class="cyber-alert-overlay">
+        <div class="cyber-alert-box">
+            <h3 id="alertTitle">CẢNH BÁO HỆ THỐNG</h3>
+            <p id="alertMsg">Nội dung thông báo</p>
+            <button onclick="closeCyberAlert()">XÁC NHẬN</button>
+        </div>
+    </div>
+
     <script>
+        // --- ĐỒNG HỒ HỆ THỐNG ---
+        setInterval(() => {
+            let d = new Date();
+            document.getElementById('sysTime').innerText = "SYSTEM TIME: " + d.toLocaleTimeString('en-US', { hour12: false });
+        }, 1000);
+
+        // --- CYBER ALERT CUSTOM ---
+        function showCyberAlert(title, msg) {
+            document.getElementById('alertTitle').innerText = title;
+            document.getElementById('alertMsg').innerHTML = msg.replace(/\n/g, '<br>');
+            document.getElementById('cyberAlert').classList.add('show');
+        }
+        function closeCyberAlert() {
+            document.getElementById('cyberAlert').classList.remove('show');
+        }
+
         const sanhs = {
             'Sexy': { name: 'SEXY CASINO', rooms: ['C01', 'C02', 'C03', 'C04', 'C05', 'C06', 'C07', 'C08'] },
             'WM': { name: 'WM CASINO', rooms: ['C01', 'C02', 'C03', 'C04', 'C05', 'C06', 'C07', 'C08', 'C09', 'C10'] }
@@ -267,13 +327,13 @@
 
         function register() {
             let user = document.getElementById('username').value.trim();
-            if(user === "") return alert("HỆ THỐNG: Nhập ID Định danh để yêu cầu cấp quyền!");
-            alert(`✅ Đã mã hóa và gửi yêu cầu cấp quyền cho ID [ ${user} ] tới Quản Trị Viên.\nVui lòng đợi xét duyệt.`);
+            if(user === "") return showCyberAlert("LỖI BẢO MẬT", "Nhập ID Định danh để yêu cầu cấp quyền!");
+            showCyberAlert("THÀNH CÔNG", `Đã mã hóa và gửi yêu cầu cấp quyền cho ID [ ${user} ] tới Quản Trị Viên.\n\nVui lòng đợi xét duyệt.`);
         }
 
         function login() {
             let user = document.getElementById('username').value.trim();
-            if(user === "") return alert("HỆ THỐNG: Vui lòng nhập ID Định danh!");
+            if(user === "") return showCyberAlert("LỖI BẢO MẬT", "Vui lòng nhập ID Định danh!");
             document.getElementById('welcome-user').innerText = user.toUpperCase();
             showScreen('screen-lobby');
         }
@@ -413,9 +473,26 @@
             });
         }
 
+        // --- HIỆU ỨNG GÕ CHỮ (TYPEWRITER) ---
+        let typeInterval;
+        function typeWriter(text, elementId, speed) {
+            let i = 0;
+            let el = document.getElementById(elementId);
+            el.innerHTML = '';
+            clearInterval(typeInterval);
+            typeInterval = setInterval(() => {
+                if (i < text.length) {
+                    el.innerHTML += text.charAt(i) === '\n' ? '<br>' : text.charAt(i);
+                    i++;
+                } else {
+                    clearInterval(typeInterval);
+                }
+            }, speed);
+        }
+
         function calculate() {
-            if(pCards === 0 || bCards === 0) return alert("HỆ THỐNG LỖI: Chưa chọn số lá bài 2 cửa!");
-            if(pScore === -1 || bScore === -1) return alert("HỆ THỐNG LỖI: Chưa chọn tổng điểm nút!");
+            if(pCards === 0 || bCards === 0) return showCyberAlert("LỖI DỮ LIỆU", "Chưa chọn số lá bài 2 cửa!");
+            if(pScore === -1 || bScore === -1) return showCyberAlert("LỖI DỮ LIỆU", "Chưa chọn tổng điểm nút!");
 
             let btn = document.getElementById('btnAnalyze');
             let resBox = document.getElementById('resultBox');
@@ -429,8 +506,10 @@
             resBox.style.borderColor = '#fbbf24';
             resBox.style.boxShadow = '0 0 20px rgba(251, 191, 36, 0.4)';
             
+            // Text loading quét dữ liệu
             chatBox.innerHTML = '<span class="chat-scanning">[///] HỆ THỐNG ĐANG QUÉT DỮ LIỆU MÁY CHỦ...<br>[///] ĐO LƯỜNG ĐỘNG LƯỢNG BÀN CƯỢC...</span>';
             
+            // FIX: Chỉnh thời gian delay quét lên đúng 1 GIÂY (1000ms)
             setTimeout(() => {
                 let handNum = parseInt(document.getElementById('handNum').value);
                 let tCards = pCards + bCards;
@@ -440,7 +519,6 @@
                 history.push(winner);
                 updateRoadmap();
 
-                // FIX: LẤY THẲNG SỐ VÁN HIỆN TẠI (handNum) THAY VÌ LẤY SỐ ĐUÔI
                 let modifier = 0, modMsg = "";
                 let diff = Math.abs(bScore - pScore);
 
@@ -452,30 +530,29 @@
                     else { modMsg = "(Chênh=2: +0)"; }
                 }
 
-                // Tính toán dùng thẳng handNum
                 let calcFinal = (handNum - tCards) + modifier;
                 let bossPred = (Math.abs(calcFinal) % 2 === 0) ? 'P' : 'B';
                 let newPred = (tScore % 2 !== 0) ? 'B' : (winner === 'B' ? 'P' : 'B');
 
-                let pred = 'B', msg = "", conf = 50;
-                let mathStr = `LÕI MÃ HÓA: Ván ${handNum} - ${tCards}Lá ${modifier>=0?'+':''}${modifier} ${modMsg} = ${calcFinal}`;
+                let pred = 'B', msgText = "", conf = 50;
+                let mathStr = `[LÕI MÃ HÓA] Ván ${handNum} - ${tCards}Lá ${modifier>=0?'+':''}${modifier} ${modMsg} = ${calcFinal}`;
 
                 if(winner === 'T') {
                     pred = lastPred; conf = 85; 
-                    msg = `⚠️ PHÁT HIỆN HÒA (TIE)\n------------------\nLuật bất thành văn: Không bẻ cầu sau Hòa.\n=> LỆNH XUẤT: Giữ nguyên cửa ${pred}!`;
+                    msgText = `⚠️ PHÁT HIỆN HÒA (TIE)\n------------------\nLuật bất thành văn: Không bẻ cầu sau Hòa.\n=> LỆNH XUẤT: Giữ nguyên cửa ${pred}!`;
                 } else if(bossPred === newPred) {
                     pred = bossPred; conf = 78; 
-                    msg = `⚡ ĐỒNG BỘ HYBRID THÀNH CÔNG ⚡\n------------------\n${mathStr}\nLõi Độc Quyền và Cảm Biến Bóng Nút ĐỒNG THUẬN.\n=> LỆNH XUẤT: Tự tin vã MẠNH tay vào [ ${pred==='P'?'CON (PLAYER)':'CÁI (BANKER)'} ]!`;
+                    msgText = `⚡ ĐỒNG BỘ HYBRID THÀNH CÔNG ⚡\n------------------\n${mathStr}\nLõi Độc Quyền và Cảm Biến Bóng Nút ĐỒNG THUẬN.\n=> LỆNH XUẤT: Tự tin vã MẠNH tay vào [ ${pred==='P'?'CON (PLAYER)':'CÁI (BANKER)'} ]!`;
                 } else {
                     if(tCards === 6) {
                         pred = bossPred; conf = 62; 
-                        msg = `⚠️ PHÁT HIỆN CẦU PHÂN KỲ (6 LÁ)\n------------------\n${mathStr}\nÁp lực giằng co mạnh. Ưu tiên Lõi Mã Hóa Độc Quyền.\n=> LỆNH XUẤT: Đánh vừa tay [ ${pred==='P'?'CON':'CÁI'} ].`;
+                        msgText = `⚠️ PHÁT HIỆN CẦU PHÂN KỲ (6 LÁ)\n------------------\n${mathStr}\nÁp lực giằng co mạnh. Ưu tiên Lõi Mã Hóa Độc Quyền.\n=> LỆNH XUẤT: Đánh vừa tay [ ${pred==='P'?'CON':'CÁI'} ].`;
                     } else if(diff >= 5) {
                         pred = winner; conf = 60; 
-                        msg = `⚠️ CẢNH BÁO: LỰC ÉP QUÁ LỚN\n------------------\nChênh lệch điểm số đạt mức cực đoan (${diff} nút).\n=> LỆNH XUẤT: Nương theo động lượng, bắt [ ${pred==='P'?'CON':'CÁI'} ].`;
+                        msgText = `⚠️ CẢNH BÁO: LỰC ÉP QUÁ LỚN\n------------------\nChênh lệch điểm số đạt mức cực đoan (${diff} nút).\n=> LỆNH XUẤT: Nương theo động lượng, bắt [ ${pred==='P'?'CON':'CÁI'} ].`;
                     } else {
                         pred = bossPred; conf = 51; 
-                        msg = `⚠️ CẢNH BÁO: CẦU NHIỄU SÓNG\n------------------\nTín hiệu xung đột. Kích hoạt Lõi Mã Hóa an toàn.\n=> LỆNH XUẤT: Đi lệnh NHỎ dò đường vào [ ${pred==='P'?'CON':'CÁI'} ].`;
+                        msgText = `⚠️ CẢNH BÁO: CẦU NHIỄU SÓNG\n------------------\nTín hiệu xung đột. Kích hoạt Lõi Mã Hóa an toàn.\n=> LỆNH XUẤT: Đi lệnh NHỎ dò đường vào [ ${pred==='P'?'CON':'CÁI'} ].`;
                     }
                 }
 
@@ -486,7 +563,8 @@
                 resBox.style.borderColor = pred === 'B' ? '#fb7185' : '#38bdf8';
                 resBox.style.boxShadow = pred === 'B' ? 'var(--neon-red-glow)' : 'var(--neon-blue-glow)';
                 
-                document.getElementById('chatBox').innerText = msg;
+                // Gọi hàm gõ chữ hiệu ứng (tốc độ 15ms/chữ)
+                typeWriter(msgText, 'chatBox', 15);
                 
                 let rateBox = document.getElementById('winRate');
                 rateBox.innerText = `TỈ LỆ: ${conf}%`;
@@ -498,7 +576,7 @@
                 btn.innerText = "🚀 KÍCH HOẠT QUÉT AI";
                 resetUI();
                 
-            }, 800);
+            }, 1000); // 1000ms = ĐÚNG 1 GIÂY NHƯ Ý SẾP
         }
     </script>
 </body>
