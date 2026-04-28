@@ -1,9 +1,16 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-8ER01LCJ9V"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-8ER01LCJ9V');
+    </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Baccarat AI Pro - Neural Network</title>
+    <title>Baccarat AI Pro - V149 Absolute</title>
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="theme-color" content="#020617">
@@ -11,7 +18,7 @@
     <link rel="icon" type="image/png" href="https://cdn-icons-png.flaticon.com/512/4712/4712035.png">
     
     <style>
-        /* CYBERPUNK THEME V148 NEURAL */
+        /* CYBERPUNK THEME V149 */
         :root {
             --bg-gradient: radial-gradient(circle at center, #0f172a 0%, #020617 100%);
             --gold: linear-gradient(135deg, #fbbf24, #d97706);
@@ -32,9 +39,7 @@
         }
 
         /* HỆ THỐNG HẠT BACKGROUND MỚI (NEURAL PARTICLES) */
-        #canvas-bg {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; opacity: 0.6; pointer-events: none;
-        }
+        #canvas-bg { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; opacity: 0.6; pointer-events: none; }
 
         .top-bar { position: fixed; top: 0; left: 0; width: 100%; background: rgba(0,0,0,0.9); border-bottom: 1px solid #00f6ff; display: flex; justify-content: space-between; padding: 8px 15px; box-sizing: border-box; z-index: 1000; font-family: monospace; font-size: 11px; color: #00f6ff; box-shadow: var(--neon-blue-glow); }
         .top-bar span { margin-right: 15px; display: inline-block;}
@@ -108,10 +113,7 @@
         .bottom-panel { background: rgba(0,0,0,0.8); padding: 20px; border-radius: 4px; border: 1px solid #00f6ff; position: relative;}
         
         /* BỘ ĐẾM LÃI TRONG GAME */
-        .session-stats {
-            display: flex; justify-content: space-between; font-family: monospace; font-size: 13px; font-weight: bold;
-            color: #10b981; border-bottom: 1px dashed #334155; padding-bottom: 10px; margin-bottom: 15px;
-        }
+        .session-stats { display: flex; justify-content: space-between; font-family: monospace; font-size: 13px; font-weight: bold; color: #10b981; border-bottom: 1px dashed #334155; padding-bottom: 10px; margin-bottom: 15px; }
         .session-stats span.val { color: #fbbf24; font-size: 15px; text-shadow: 0 0 5px rgba(251,191,36,0.5);}
 
         .scan-progress { position: absolute; top: 0; left: 0; height: 3px; background: #fbbf24; width: 0%; box-shadow: 0 0 15px #fbbf24; transition: width 1s linear;}
@@ -127,7 +129,7 @@
         
         .res-wrapper { position: relative; padding: 4px; border-radius: 4px; background: #111; border: 1px solid #334155; }
         
-        /* VÒNG XOAY LƯỢNG TỬ (QUANTUM LOADER) */
+        /* VÒNG XOAY LƯỢNG TỬ */
         .result-box { font-size: 50px; font-weight: 900; border-radius: 4px; background: #000; width: 80px; height: 75px; text-align: center; display: flex; justify-content: center; align-items: center; color: white; transition: all 0.3s; }
         .loader { width: 38px; height: 38px; border: 4px solid #334155; border-bottom-color: #00f6ff; border-radius: 50%; display: inline-block; animation: rotation 0.8s linear infinite; }
         @keyframes rotation { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
@@ -304,8 +306,8 @@
                     <div class="chat-box" id="chatBox">⚡ KẾT NỐI API THÀNH CÔNG.<br>⚡ ĐÃ MÃ HÓA LUỒNG DỮ LIỆU.</div>
                     
                     <div class="terminal-log" id="termLog">
-                        > System Secure V148 Started...<br>
-                        > Neural Network Active...<br>
+                        > System Secure V149 Started...<br>
+                        > Google Analytics Enabled...<br>
                         > Awaiting Command...
                     </div>
                 </div>
@@ -384,7 +386,7 @@
 
     <script>
         // ==========================================
-        // CẤU HÌNH BẢO MẬT & TELEGRAM
+        // CẤU HÌNH BẢO MẬT & TELEGRAM ADMIN
         // ==========================================
         const MASTER_KEY = "VIP888"; 
         const BOT_TOKEN = '8724628711:AAFi8LB19_yDAxJnwPtVbHQPIcLbZ-mhaFg'; 
@@ -478,7 +480,6 @@
 
         function getRandomAmount() { return Math.random() > 0.85 ? (Math.random() * 3 + 1).toFixed(1) + " TỶ" : (Math.floor(Math.random() * 850) + 50) + " TRIỆU"; }
 
-        // --- CẬP NHẬT TICKER: GIẢM "THÔNG TAY" XUỐNG 15% ---
         function generateTicker() {
             const s = ['SẢNH WM CASINO', 'SẢNH SEXY CASINO', 'SẢNH EVOLUTION']; 
             const t = ['C01', 'C02', 'C03', 'C05', 'VIP01', 'SPEED_A']; 
@@ -490,10 +491,7 @@
                 let a = getRandomAmount();
                 let sanh = s[Math.floor(Math.random()*s.length)];
                 let ban = t[Math.floor(Math.random()*t.length)];
-                
-                // Thuật toán thực tế: Chỉ 15% tỷ lệ có thêm cụm từ "Thông tay"
                 let streakTxt = (Math.random() > 0.85) ? ` | ${st[Math.floor(Math.random()*st.length)]}` : ''; 
-                
                 txt += `🔥 [LIVESCAN] TÀI KHOẢN [${n}] VỪA HÚP TRỌN ${a} | ${sanh} - BÀN ${ban}${streakTxt}! 🔥 &nbsp;&nbsp;&nbsp;&nbsp; | &nbsp;&nbsp;&nbsp;&nbsp; `;
             }
             document.getElementById('dynamicTicker').innerHTML = txt;
@@ -564,7 +562,6 @@
             btn.disabled = true; btn.innerText = "ĐANG PHÂN TÍCH..."; document.getElementById('scanBar').style.width = '0%'; 
             setTimeout(() => document.getElementById('scanBar').style.width = '100%', 50); 
             
-            // KHÔI PHỤC VÒNG QUAY QUANTUM LOADER
             resB.innerHTML = '<div class="loader"></div>';
             resB.style.backgroundColor = '#000';
             resB.style.borderColor = '#334155';
@@ -587,14 +584,12 @@
                 
                 lastPred = pred; 
                 
-                // HIỆU ỨNG KẾT QUẢ NỔ MÀU
                 resB.innerHTML = pred; resB.style.color = '#fff'; 
                 resB.style.backgroundColor = pred === 'B' ? '#be123c' : '#0284c7';
                 resB.style.borderColor = pred === 'B' ? '#fb7185' : '#38bdf8';
                 resB.classList.add('glow-pop');
                 setTimeout(()=> resB.classList.remove('glow-pop'), 600);
 
-                // TĂNG LÃI KHỦNG VÀ CHUỖI WIN
                 currentStreak++;
                 currentProfit += (Math.floor(Math.random() * 10) + 5) * 100000; 
                 document.getElementById('sessStreak').innerText = currentStreak;
