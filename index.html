@@ -11,232 +11,433 @@
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Baccarat AI Pro - Real Combat</title>
+    <title>Baccarat AI Pro - Supreme Combat</title>
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="theme-color" content="#020617">
     <link rel="icon" type="image/png" href="https://cdn-icons-png.flaticon.com/512/4712/4712035.png">
     
     <style>
+        /* CYBERPUNK THEME V154 SUPREME */
         :root {
+            --bg-gradient: radial-gradient(circle at center, #0f172a 0%, #020617 100%);
             --gold: linear-gradient(135deg, #fbbf24, #d97706);
-            --glass-bg: rgba(10, 15, 30, 0.95);
-            --glass-border: 1px solid rgba(0, 246, 255, 0.3);
+            --gold-glow: 0 0 20px rgba(251, 191, 36, 0.5);
+            --neon-blue: #00f6ff;
+            --neon-blue-glow: 0 0 15px rgba(0, 246, 255, 0.6);
+            --neon-red: #ff003c;
+            --neon-red-glow: 0 0 15px rgba(255, 0, 60, 0.6);
+            --glass-bg: rgba(10, 15, 30, 0.85);
+            --glass-border: 1px solid rgba(0, 246, 255, 0.2);
         }
-        body { font-family: 'Montserrat', sans-serif; margin: 0; padding: 10px; padding-top: 40px; padding-bottom: 30px; min-height: 100vh; display: flex; justify-content: center; align-items: center; flex-direction: column; background: #020617; color: #e2e8f0; user-select: none; -webkit-user-select: none; }
-        
-        .top-bar { position: fixed; top: 0; left: 0; width: 100%; background: rgba(0,0,0,1); border-bottom: 1px solid #00f6ff; display: flex; justify-content: space-between; padding: 8px 15px; box-sizing: border-box; z-index: 1000; font-family: monospace; font-size: 11px; color: #00f6ff; }
-        
-        .glass-panel { background: var(--glass-bg); border: var(--glass-border); border-radius: 8px; padding: 20px; width: 100%; max-width: 620px; box-sizing: border-box; z-index: 2; position: relative;}
-        
-        .header h1 { text-align: center; color: #fbbf24; font-size: 26px; font-weight: 900; margin: 0 0 20px 0; text-shadow: 0 0 10px rgba(251,191,36,0.5); }
-        .screen { display: none; } .active-screen { display: block; }
 
-        input { width: 100%; padding: 14px; margin: 10px 0; border-radius: 4px; border: 1px solid rgba(0,246,255,0.3); background: #000; color: #00f6ff; font-size: 16px; font-weight: bold; box-sizing: border-box; text-align: center; }
-        .btn-main { width: 100%; padding: 16px; font-size: 16px; font-weight: 900; border: none; border-radius: 4px; cursor: pointer; margin-top: 10px; text-transform: uppercase; transition: 0.2s; }
-        .btn-gold { background: var(--gold); color: #000; } .btn-blue { background: #00f6ff; color: #000; }
+        body { 
+            font-family: 'Montserrat', 'Segoe UI', sans-serif; margin: 0; padding: 10px; padding-top: 40px; padding-bottom: 30px;
+            min-height: 100vh; display: flex; justify-content: center; align-items: center; flex-direction: column;
+            background: #020617; color: #e2e8f0; overflow-x: hidden; cursor: crosshair; 
+            user-select: none; -webkit-user-select: none;
+        }
+
+        /* HẠT NEURAL MA TRẬN */
+        #canvas-bg { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; opacity: 0.6; pointer-events: none; }
+
+        .top-bar { position: fixed; top: 0; left: 0; width: 100%; background: rgba(0,0,0,0.9); border-bottom: 1px solid #00f6ff; display: flex; justify-content: space-between; padding: 8px 15px; box-sizing: border-box; z-index: 1000; font-family: monospace; font-size: 11px; color: #00f6ff; box-shadow: var(--neon-blue-glow); }
+        .top-bar span { margin-right: 15px; display: inline-block;}
+        .ssl-badge { color: #10b981; font-weight: bold; border: 1px solid #10b981; padding: 2px 5px; border-radius: 3px; }
+        .battery { color: #fbbf24; }
+
+        .marquee-footer { position: fixed; bottom: 0; left: 0; width: 100%; background: rgba(0,0,0,0.95); border-top: 1px solid #fbbf24; padding: 8px 0; z-index: 1000; color: #fbbf24; font-family: 'Segoe UI', Tahoma, Geneva, sans-serif; font-size: 14px; font-weight: 900; box-shadow: 0 -5px 15px rgba(251, 191, 36, 0.2); text-transform: uppercase; }
+
+        .glass-panel { background: var(--glass-bg); backdrop-filter: blur(12px); border: var(--glass-border); box-shadow: 0 10px 50px -10px rgba(0,246,255,0.2); border-radius: 4px; padding: 24px; position: relative; z-index: 2; width: 100%; max-width: 620px; box-sizing: border-box;}
+        .glass-panel::before, .glass-panel::after { content: ''; position: absolute; width: 30px; height: 30px; border: 3px solid #00f6ff; pointer-events: none; }
+        .glass-panel::before { top: 0; left: 0; border-right: none; border-bottom: none; }
+        .glass-panel::after { bottom: 0; right: 0; border-left: none; border-top: none; }
+
+        .scanline { position: absolute; top: 0; left: 0; width: 100%; height: 5px; background: rgba(0, 246, 255, 0.5); box-shadow: 0 0 15px rgba(0, 246, 255, 0.8); z-index: 999; pointer-events: none; animation: scan 3s linear infinite; opacity: 0.5; }
+        @keyframes scan { 0% { top: -10px; } 100% { top: 100%; } }
+
+        .header { text-align: center; margin-bottom: 20px;}
+        .glitch { position: relative; color: #fbbf24; font-size: 32px; font-weight: 900; letter-spacing: 2px; text-transform: uppercase; text-shadow: 0 0 10px rgba(251,191,36,0.5); animation: glitch-anim 3s infinite; }
+        @keyframes glitch-anim { 0%, 95%, 100% { transform: translate(0); text-shadow: 0 0 10px rgba(251,191,36,0.5); } 96% { transform: translate(-2px, 2px); text-shadow: -2px 0 red, 2px 0 blue; } 98% { transform: translate(2px, -2px); text-shadow: 2px 0 red, -2px 0 blue; } }
+
+        .screen { display: none; width: 100%; box-sizing: border-box; animation: scaleUp 0.4s cubic-bezier(0.16, 1, 0.3, 1); }
+        .active-screen { display: block; }
+        @keyframes scaleUp { from { opacity: 0; transform: scale(0.95); filter: blur(5px); } to { opacity: 1; transform: scale(1); filter: blur(0); } }
+
+        input, select { width: 100%; padding: 16px; margin: 12px 0; border-radius: 4px; border: 1px solid rgba(0,246,255,0.3); background: rgba(0,0,0,0.8); color: #00f6ff; font-size: 16px; font-weight: bold; box-sizing: border-box; transition: 0.3s; font-family: monospace; letter-spacing: 1px; text-align: center;}
+        input:focus, select:focus { border-color: #00f6ff; outline: none; box-shadow: var(--neon-blue-glow); }
+        
+        .btn-main { width: 100%; padding: 16px; font-size: 16px; font-weight: 900; border: none; border-radius: 4px; cursor: pointer; margin-top: 10px; text-transform: uppercase; letter-spacing: 1.5px; transition: all 0.2s ease; position: relative; overflow: hidden; }
+        .btn-main:hover { animation: glitchHover 0.2s linear infinite; }
+        @keyframes glitchHover { 0% { transform: skew(0deg); } 20% { transform: skew(-5deg); } 40% { transform: skew(5deg); } 60% { transform: skew(-2deg); } 80% { transform: skew(2deg); } 100% { transform: skew(0deg); } }
+
+        .btn-gold { background: var(--gold); color: #000; box-shadow: 0 4px 15px rgba(217, 119, 6, 0.4); }
+        .btn-blue { background: linear-gradient(135deg, #0ea5e9, #2563eb); color: #fff; box-shadow: 0 4px 15px rgba(37, 99, 235, 0.4); }
         .btn-outline { background: transparent; border: 2px solid #00f6ff; color: #00f6ff; }
 
-        /* HỆ THỐNG CHỌN BÀI THỰC CHIẾN */
-        .card-container { display: flex; gap: 10px; margin-bottom: 15px; }
-        .card-side { flex: 1; background: rgba(0,0,0,0.8); border-radius: 8px; padding: 10px; border: 1px solid #334155; }
-        .side-title { text-align: center; font-weight: 900; padding: 8px; border-radius: 4px; margin-bottom: 10px; }
-        .title-p { background: #0284c7; color: white; border: 1px solid #38bdf8;} .title-b { background: #be123c; color: white; border: 1px solid #fb7185;}
+        .sanh-container { display: flex; gap: 20px; justify-content: center; margin-top: 20px; }
+        .sanh-box { width: 160px; height: 180px; border: 2px solid rgba(0, 246, 255, 0.3); border-radius: 8px; cursor: pointer; position: relative; overflow: hidden; display: flex; justify-content: center; align-items: center; background: rgba(0,0,0,0.8); transition: 0.4s; }
+        .sanh-box.active { border-color: #00f6ff; background: rgba(0, 246, 255, 0.1); }
+        .sanh-name { position: absolute; bottom: 15px; left: 0; width: 100%; text-align: center; font-weight: 900; color: #00f6ff; font-size: 16px; text-shadow: var(--neon-blue-glow);}
+        .sanh-icon { font-size: 50px; transform: translateY(-10px); }
+
+        .table-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: 15px; margin-top: 20px; }
+        .ban-box { background: rgba(0, 0, 0, 0.8); border: 1px solid rgba(0, 246, 255, 0.2); border-radius: 4px; padding: 18px; text-align: center; cursor: pointer; transition: 0.3s; }
+        .ban-title { font-weight: 900; color: #fff; font-size: 16px; margin-bottom: 10px; }
+        .ban-win-rate { font-size: 13px; color: #94a3b8; margin-bottom: 12px; }
+        .ban-win-rate strong { color: #fbbf24; font-size: 16px; }
+
+        .game-container { display: flex; flex-direction: column; gap: 16px; }
+
+        /* HỆ THỐNG LÁ BÀI A-K */
+        .card-container { display: flex; gap: 10px; margin-bottom: 5px; }
+        .card-side { flex: 1; background: rgba(0,0,0,0.6); border-radius: 8px; padding: 10px; border: 1px solid #334155; }
+        .side-title { text-align: center; font-weight: 900; padding: 5px; border-radius: 4px; margin-bottom: 10px; }
+        .title-p { background: #0284c7; color: white; } .title-b { background: #be123c; color: white; }
         
         .card-slots { display: flex; justify-content: space-around; gap: 5px;}
-        .slot { width: 45px; height: 65px; border: 2px dashed #475569; border-radius: 6px; display: flex; justify-content: center; align-items: center; font-size: 22px; font-weight: bold; color: #fff; cursor: pointer; background: #0f172a; }
-        .slot.active { border-color: #fbbf24; background: rgba(251, 191, 36, 0.2); }
-        .slot.filled { border-style: solid; background: #fff; color: #000; border-color: #fff; }
+        .slot { width: 45px; height: 65px; border: 2px dashed #475569; border-radius: 6px; display: flex; justify-content: center; align-items: center; font-size: 20px; font-weight: bold; color: #fff; cursor: pointer; background: #0f172a; transition: 0.2s; }
+        .slot.active { border-color: #fbbf24; box-shadow: 0 0 10px rgba(251,191,36,0.5); }
+        .slot.filled { border-style: solid; background: #fff; color: #000; }
 
-        /* BÀN PHÍM BÀI ĐỘ NẢY CAO */
-        .keyboard { display: grid; grid-template-columns: repeat(7, 1fr); gap: 6px; margin-bottom: 20px; background: rgba(0,0,0,0.9); padding: 12px; border-radius: 8px; border: 1px solid #334155; }
-        .key-btn { padding: 15px 0; font-size: 18px; font-weight: 900; background: #1e293b; border: 1px solid #475569; border-radius: 4px; color: #fff; cursor: pointer; }
-        .key-btn:active { background: #fbbf24; color: #000; transform: scale(0.95); }
-        .key-action { grid-column: span 7; background: #ef4444; margin-top: 5px; border-color: #ef4444;} .key-action:active { background: #b91c1c; }
+        .keyboard { display: grid; grid-template-columns: repeat(7, 1fr); gap: 5px; margin-bottom: 15px; background: rgba(0,0,0,0.8); padding: 10px; border-radius: 8px; border: 1px solid #334155; }
+        .key-btn { padding: 12px 0; font-size: 16px; font-weight: 900; background: #1e293b; border: 1px solid #475569; border-radius: 4px; color: #fff; cursor: pointer; transition: 0.2s; }
+        .key-btn:active { background: #fbbf24; color: #000; }
+        .key-action { grid-column: span 7; background: #ef4444; margin-top: 5px;} .key-action:active { background: #dc2626; }
 
-        .action-row { display: flex; gap: 15px; align-items: center; margin-bottom: 15px;}
-        .chot-btn { flex: 1; background: var(--gold); color: #000; font-size: 18px; font-weight: 900; padding: 15px; border: none; border-radius: 4px; cursor: pointer; }
-        .chot-btn:disabled { background: #475569; color: #94a3b8;}
+        .bottom-panel { background: rgba(0,0,0,0.8); padding: 20px; border-radius: 4px; border: 1px solid #00f6ff; position: relative;}
         
-        .res-wrapper { border-radius: 4px; background: #111; border: 1px solid #334155; padding: 4px; }
-        .result-box { font-size: 40px; font-weight: 900; border-radius: 4px; background: #000; width: 70px; height: 60px; display: flex; justify-content: center; align-items: center; color: white; }
+        .session-stats { display: flex; justify-content: space-between; font-family: monospace; font-size: 13px; font-weight: bold; color: #10b981; border-bottom: 1px dashed #334155; padding-bottom: 10px; margin-bottom: 15px; }
+        .session-stats span.val { color: #fbbf24; font-size: 15px; text-shadow: 0 0 5px rgba(251,191,36,0.5);}
+
+        .scan-progress { position: absolute; top: 0; left: 0; height: 3px; background: #fbbf24; width: 0%; box-shadow: 0 0 15px #fbbf24; transition: width 1s linear;}
+
+        .input-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; padding: 12px 16px; background: rgba(0,0,0,0.5); border-radius: 4px; border: 1px solid #1e293b;}
+        .input-row input { width: 70px; font-size: 24px; text-align: center; font-weight: 900; background: #000; color: #fbbf24; border: 1px solid #fbbf24; border-radius: 4px; margin:0;}
         
-        .chat-box { background: #000; color: #10b981; padding: 15px; font-family: monospace; border-radius: 4px; min-height: 120px; font-size: 15px; border-left: 4px solid #00f6ff; border-right: 1px solid #334155; border-top: 1px solid #334155; border-bottom: 1px solid #334155; line-height: 1.5; white-space: pre-wrap;}
+        .action-row { display: flex; gap: 16px; align-items: center; margin-bottom: 16px;}
         
-        .cyber-alert-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); display: flex; justify-content: center; align-items: center; z-index: 9999; opacity: 0; pointer-events: none;}
+        .chot-btn { flex: 1; background: var(--gold); color: #000; font-size: 20px; font-weight: 900; padding: 18px; border: none; border-radius: 4px; cursor: pointer; box-shadow: 0 0 20px rgba(251, 191, 36, 0.4); }
+        .chot-btn:disabled { background: #475569; color: #94a3b8; box-shadow: none;}
+        
+        .res-wrapper { position: relative; padding: 4px; border-radius: 4px; background: #111; border: 1px solid #334155; }
+        .result-box { font-size: 50px; font-weight: 900; border-radius: 4px; background: #000; width: 80px; height: 75px; text-align: center; display: flex; justify-content: center; align-items: center; color: white; transition: all 0.3s; }
+        .loader { width: 38px; height: 38px; border: 4px solid #334155; border-bottom-color: #00f6ff; border-radius: 50%; display: inline-block; animation: rotation 0.8s linear infinite; }
+        @keyframes rotation { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        .glow-pop { animation: glowPopAnim 0.5s ease-out forwards; }
+        @keyframes glowPopAnim { 0% { transform: scale(0.9); box-shadow: 0 0 0px rgba(255,255,255,0); } 50% { transform: scale(1.1); box-shadow: 0 0 40px rgba(255,255,255,0.8); } 100% { transform: scale(1); } }
+
+        .chat-box { background: #000; color: #10b981; padding: 16px; font-family: 'Courier New', Courier, monospace; border-radius: 4px; min-height: 120px; font-size: 14px; white-space: pre-wrap; border-left: 4px solid #00f6ff; box-shadow: inset 0 0 10px rgba(0,246,255,0.2); line-height: 1.5; }
+        .chat-box::after { content: '█'; animation: blinker 1s step-end infinite; color: #10b981; }
+        @keyframes blinker { 50% { opacity: 0; } }
+
+        .rate { color: #00f6ff; font-weight: 900; font-size: 20px; text-shadow: var(--neon-blue-glow);}
+        .terminal-log { background: #000; color: #10b981; font-family: monospace; font-size: 10px; padding: 10px; height: 60px; overflow-y: hidden; border: 1px solid #10b981; margin-top: 15px; text-align: left; opacity: 0.8;}
+
+        .cyber-alert-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); backdrop-filter: blur(5px); display: flex; justify-content: center; align-items: center; z-index: 9999; opacity: 0; pointer-events: none; transition: 0.3s; }
         .cyber-alert-overlay.show { opacity: 1; pointer-events: all; }
-        .cyber-alert-box { background: #000; border: 2px solid #00f6ff; border-radius: 4px; padding: 25px; text-align: center; max-width: 350px; width: 90%; }
-        .cyber-alert-box h3 { color: #00f6ff; margin-top: 0; }
-        .cyber-alert-box p { color: #e2e8f0; font-size: 15px; }
-        .cyber-alert-box button { background: #00f6ff; color: #000; border: none; padding: 10px 25px; border-radius: 4px; font-weight: bold; cursor: pointer; }
+        .cyber-alert-box { background: #000; border: 2px solid #00f6ff; border-radius: 4px; padding: 25px; text-align: center; max-width: 400px; width: 90%; box-shadow: var(--neon-blue-glow); }
+        .cyber-alert-box h3 { color: #00f6ff; margin-top: 0; font-size: 22px; font-weight: 900; border-bottom: 1px solid rgba(0,246,255,0.3); padding-bottom: 10px;}
+        .cyber-alert-box p { color: #e2e8f0; font-size: 16px; line-height: 1.5; margin: 20px 0;}
+        .cyber-alert-box button { background: #00f6ff; color: #000; border: none; padding: 12px 30px; border-radius: 4px; font-weight: 900; font-size: 16px; cursor: pointer; margin-top:10px; }
+
+        .dash-stat { font-size: 24px; color: #fbbf24; font-weight: bold; margin: 10px 0; }
+        .dash-label { color: #94a3b8; font-size: 14px; text-transform: uppercase; }
+        .dash-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin: 20px 0; text-align: left; }
+        .dash-item { background: rgba(255,255,255,0.05); padding: 15px; border-radius: 8px; border: 1px solid #334155; }
+
+        .toast-container { position: fixed; top: 40px; right: 10px; z-index: 9999; display: flex; flex-direction: column; gap: 10px; pointer-events: none;}
+        .cyber-toast { background: rgba(0,0,0,0.9); border-left: 4px solid #10b981; color: #fff; padding: 12px 15px; border-radius: 4px; font-family: monospace; font-size: 13px; box-shadow: 0 4px 10px rgba(0,0,0,0.5); animation: toastSlide 0.4s ease forwards, toastFade 0.4s ease 3s forwards; opacity: 0; transform: translateX(100%);}
+        .cyber-toast span { color: #fbbf24; font-weight: bold; }
+        @keyframes toastSlide { to { transform: translateX(0); opacity: 1; } }
+        @keyframes toastFade { to { opacity: 0; } }
+
+        .settings-row { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #334155; padding: 10px 0; text-align: left;}
+        .settings-label { font-size: 14px; color: #cbd5e1; font-weight: bold;}
+        .switch { position: relative; display: inline-block; width: 50px; height: 24px; }
+        .switch input { opacity: 0; width: 0; height: 0; }
+        .slider { position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: #334155; transition: .4s; border-radius: 34px; }
+        .slider:before { position: absolute; content: ""; height: 16px; width: 16px; left: 4px; bottom: 4px; background-color: white; transition: .4s; border-radius: 50%; }
+        input:checked + .slider { background-color: #00f6ff; box-shadow: 0 0 10px #00f6ff;}
+        input:checked + .slider:before { transform: translateX(26px); }
     </style>
 </head>
 <body>
 
+    <canvas id="canvas-bg"></canvas>
+
+    <script>
+        // CHỐNG F12 VÀ CHUỘT PHẢI
+        document.addEventListener('contextmenu', event => event.preventDefault());
+        document.onkeydown = function(e) {
+            if(e.keyCode == 123) return false;
+            if(e.ctrlKey && e.shiftKey && e.keyCode == 'I'.charCodeAt(0)) return false;
+            if(e.ctrlKey && e.shiftKey && e.keyCode == 'C'.charCodeAt(0)) return false;
+            if(e.ctrlKey && e.shiftKey && e.keyCode == 'J'.charCodeAt(0)) return false;
+            if(e.ctrlKey && e.keyCode == 'U'.charCodeAt(0)) return false;
+        }
+    </script>
+
+    <div class="toast-container" id="toastContainer"></div>
+
     <div class="top-bar">
-        <div><span class="ssl-badge">🔒 COMBAT CORE ACTIVE</span></div>
-        <div class="battery">PIN: TỐI ƯU</div>
+        <div><span class="ssl-badge">🔒 256-BIT SSL ENCRYPTED</span> <span id="sysTime">SYS: 00:00:00</span></div>
+        <div class="battery">[■■■■■■■■□□] 80% PWR</div>
     </div>
 
     <div class="glass-panel">
-        <div class="header"><h1>DECODER THỰC CHIẾN</h1></div>
+        <div class="scanline"></div>
+        <div class="header">
+            <h1 class="glitch" data-text="AI BACCARAT SUPREME">AI BACCARAT SUPREME</h1>
+        </div>
 
         <div id="screen-auth" class="screen active-screen">
-            <input type="text" id="username" placeholder="Nhập ID Quản Trị Viên...">
-            <input type="password" id="activationCode" placeholder="Nhập Mã Hệ Thống...">
-            <button class="btn-main btn-blue" onclick="login()">MỞ KHÓA HỆ THỐNG</button>
-            <button class="btn-main btn-outline" onclick="register()">BÁO CÁO KẾT NỐI</button>
+            <h2 style="text-align: center; color: #00f6ff; margin-bottom: 25px;">[ CỔNG XÁC THỰC BẢO MẬT ]</h2>
+            <input type="text" id="username" placeholder="Nhập ID Định Danh VIP...">
+            <div style="background: rgba(251,191,36,0.1); border: 1px dashed #fbbf24; padding: 15px; border-radius: 4px; margin-bottom: 15px;">
+                <p style="margin:0 0 10px 0; color:#fbbf24; font-size: 13px; font-weight: bold; text-align: center;">YÊU CẦU MÃ KÍCH HOẠT TỪ ADMIN ĐỂ TRUY CẬP</p>
+                <input type="password" id="activationCode" placeholder="Nhập Mã Kích Hoạt..." style="margin:0; border-color: #fbbf24; color: #fbbf24; text-align: center; letter-spacing: 3px;">
+            </div>
+            <button class="btn-main btn-blue" onclick="login()">XÁC THỰC ĐĂNG NHẬP</button>
+            <button class="btn-main btn-outline" onclick="register()">GỬI YÊU CẦU CẤP MÃ</button>
+        </div>
+
+        <div id="screen-lobby" class="screen">
+            <div style="text-align: center; margin-bottom: 25px;">
+                <p style="color: #94a3b8; font-weight: bold; margin:0;">Xin chào Nhà Đầu Tư,</p>
+                <h2 id="welcome-user" style="color: #fbbf24; font-size: 28px; margin:5px 0;">USER_X</h2>
+            </div>
+            <div style="display: flex; gap: 10px; margin-bottom: 20px;">
+                <button class="btn-main" style="background: rgba(16, 185, 129, 0.2); border: 1px solid #10b981; color: #10b981; margin:0;" onclick="showDashboard()">📊 THỐNG KÊ CORE</button>
+                <button class="btn-main" style="background: rgba(0, 246, 255, 0.2); border: 1px solid #00f6ff; color: #00f6ff; margin:0;" onclick="showSettings()">⚙️ CẤU HÌNH AI</button>
+            </div>
+            <h3 style="color: #00f6ff; text-align: center; border-bottom: 1px solid #334155; padding-bottom: 10px;">CHỌN MÁY CHỦ NHÀ CÁI:</h3>
+            <div class="sanh-container">
+                <div class="sanh-box" id="sanh-sexy" onclick="selectSanh('Sexy')">
+                    <div class="sanh-icon">💠</div>
+                    <div class="sanh-name">SEXY CASINO</div>
+                </div>
+                <div class="sanh-box" id="sanh-wm" onclick="selectSanh('WM')">
+                    <div class="sanh-icon">👑</div>
+                    <div class="sanh-name">WM CASINO</div>
+                </div>
+            </div>
+            <button class="btn-main" style="background: transparent; border: 1px solid #ef4444; color: #ef4444; margin-top: 30px;" onclick="logout()">NGẮT KẾT NỐI</button>
+        </div>
+
+        <div id="screen-table" class="screen">
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+                <button onclick="backToLobby()" style="background: transparent; color: #00f6ff; border: 1px solid #00f6ff; padding: 8px 16px; cursor: pointer;">⬅ QUAY LẠI</button>
+                <h3 style="color: #fbbf24; margin: 0;">CHỌN LUỒNG PHÒNG:</h3>
+            </div>
+            <div class="table-grid" id="table-grid"></div>
         </div>
 
         <div id="screen-game" class="screen">
-            <div style="text-align: center; margin-bottom: 15px; color: #fbbf24; font-weight: bold; font-size: 14px;">
-                MÁY TÍNH CÔNG THỨC CƠ SỐ
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                <button onclick="backToTable()" style="background: transparent; color: #00f6ff; border: 1px solid #00f6ff; padding: 8px 16px; cursor: pointer;">⬅ ĐỔI BÀN</button>
+                <span id="current-table-name" style="color: #fbbf24; font-weight: 900; font-size: 18px;">BÀN VIP</span>
             </div>
-
-            <div class="card-container">
-                <div class="card-side">
-                    <div class="side-title title-p">CON (PLAYER)</div>
-                    <div class="card-slots" id="slots-p">
-                        <div class="slot active" id="p1" onclick="selectSlot('p', 1)">+</div>
-                        <div class="slot" id="p2" onclick="selectSlot('p', 2)">+</div>
-                        <div class="slot" id="p3" onclick="selectSlot('p', 3)">+</div>
+            
+            <div class="game-container">
+                <div class="card-container">
+                    <div class="card-side">
+                        <div class="side-title title-p">CON (PLAYER)</div>
+                        <div class="card-slots" id="slots-p">
+                            <div class="slot active" id="p1" onclick="selectSlot('p', 1)">+</div>
+                            <div class="slot" id="p2" onclick="selectSlot('p', 2)">+</div>
+                            <div class="slot" id="p3" onclick="selectSlot('p', 3)">+</div>
+                        </div>
+                    </div>
+                    <div class="card-side">
+                        <div class="side-title title-b">CÁI (BANKER)</div>
+                        <div class="card-slots" id="slots-b">
+                            <div class="slot" id="b1" onclick="selectSlot('b', 1)">+</div>
+                            <div class="slot" id="b2" onclick="selectSlot('b', 2)">+</div>
+                            <div class="slot" id="b3" onclick="selectSlot('b', 3)">+</div>
+                        </div>
                     </div>
                 </div>
-                <div class="card-side">
-                    <div class="side-title title-b">CÁI (BANKER)</div>
-                    <div class="card-slots" id="slots-b">
-                        <div class="slot" id="b1" onclick="selectSlot('b', 1)">+</div>
-                        <div class="slot" id="b2" onclick="selectSlot('b', 2)">+</div>
-                        <div class="slot" id="b3" onclick="selectSlot('b', 3)">+</div>
+
+                <div class="keyboard" id="cardKeyboard"></div>
+
+                <div class="bottom-panel">
+                    <div class="session-stats">
+                        <span>LÃI PHIÊN: <span class="val" id="sessProfit">+0 VNĐ</span></span>
+                        <span>WIN STREAK: <span class="val" id="sessStreak">0</span></span>
+                    </div>
+
+                    <div id="scanBar" class="scan-progress"></div>
+                    <div class="input-row">
+                        <div style="display: flex; align-items: center;">
+                            <span style="font-weight: 900; color: #94a3b8; margin-right: 12px;">VÁN SỐ:</span>
+                            <input type="number" id="handNum" value="1">
+                        </div>
+                        <span class="rate" id="winRate">TỈ LỆ: --%</span>
+                    </div>
+                    
+                    <div class="action-row">
+                        <button class="chot-btn" id="btnAnalyze" onclick="calculate()">🚀 PHÂN TÍCH CƠ SỐ</button>
+                        <div class="res-wrapper"><div class="result-box" id="resultBox">?</div></div>
+                    </div>
+                    <div class="chat-box" id="chatBox">⚡ KẾT NỐI API THÀNH CÔNG.<br>⚡ NHẬP LÁ BÀI TỪ SÒNG ĐỂ ĐỐI SOÁT CƠ SỐ.</div>
+                    
+                    <div class="terminal-log" id="termLog">
+                        > System Core Active...<br>
+                        > Mathematical Base Engine Online...<br>
+                        > Awaiting Command...
                     </div>
                 </div>
+                
+                <canvas id="roadCanvas" width="280" height="120" style="background: #000; border-radius: 4px; width: 100%; border: 1px solid #334155; box-shadow: inset 0 0 20px rgba(0,0,0,1);"></canvas>
             </div>
-
-            <div class="keyboard" id="cardKeyboard"></div>
-
-            <div style="display: flex; gap: 10px; margin-bottom: 15px;">
-                <input type="number" id="handNum" value="1" placeholder="Ván Số" style="margin:0; width: 80px;">
-                <button class="chot-btn" id="btnAnalyze" onclick="calculate()">TÍNH KẾT QUẢ</button>
-                <div class="res-wrapper"><div class="result-box" id="resultBox">?</div></div>
-            </div>
-
-            <div class="chat-box" id="chatBox">⚡ MÁY CHỦ SẴN SÀNG.<br>⚡ NHẬP LÁ BÀI TỪ SÒNG ĐỂ ÁP DỤNG CÔNG THỨC...</div>
         </div>
     </div>
 
-    <div id="cyberAlert" class="cyber-alert-overlay">
-        <div class="cyber-alert-box"><h3 id="alertTitle">Thông Báo</h3><p id="alertMsg"></p><button onclick="document.getElementById('cyberAlert').classList.remove('show')">ĐÓNG</button></div>
+    <div id="cyberAlert" class="cyber-alert-overlay"><div class="cyber-alert-box"><h3 id="alertTitle">CẢNH BÁO</h3><p id="alertMsg"></p><button onclick="closeCyberAlert()">XÁC NHẬN</button></div></div>
+    
+    <div id="dashAlert" class="cyber-alert-overlay">
+        <div class="cyber-alert-box" style="max-width: 500px;">
+            <h3 style="color: #10b981; border-color: #10b981;">📊 TỔNG QUAN AI TOÀN CẦU</h3>
+            <div class="dash-grid">
+                <div class="dash-item"><div class="dash-label">LỆNH ĐÃ QUÉT 24H</div><div class="dash-stat" id="stat-scan">14,520</div></div>
+                <div class="dash-item"><div class="dash-label">WIN RATE TRUNG BÌNH</div><div class="dash-stat" style="color: #00f6ff;">85.4%</div></div>
+                <div class="dash-item"><div class="dash-label">SỐ VIP TRỰC TUYẾN</div><div class="dash-stat" id="stat-online">842</div></div>
+                <div class="dash-item"><div class="dash-label">TỔNG LỢI NHUẬN</div><div class="dash-stat" style="color: #10b981;">+4.2 TỶ</div></div>
+            </div>
+            <button style="background: #10b981;" onclick="document.getElementById('dashAlert').classList.remove('show')">ĐÓNG</button>
+        </div>
     </div>
 
+    <div id="settingsAlert" class="cyber-alert-overlay">
+        <div class="cyber-alert-box" style="max-width: 400px; padding: 20px;">
+            <h3 style="color: #00f6ff; border-color: #00f6ff; font-size: 20px;">⚙️ TÙY CHỈNH LÕI AI</h3>
+            <div class="settings-row"><span class="settings-label">Kích hoạt Lõi Cơ Số</span><label class="switch"><input type="checkbox" checked><span class="slider"></span></label></div>
+            <div class="settings-row"><span class="settings-label">Xuyên Tường Lửa Hệ Thống</span><label class="switch"><input type="checkbox" checked><span class="slider"></span></label></div>
+            <div class="settings-row"><span class="settings-label">Chặn Thuật Toán RNG</span><label class="switch"><input type="checkbox" checked><span class="slider"></span></label></div>
+            <button style="background: #00f6ff; color: #000; width: 100%; margin-top: 20px;" onclick="document.getElementById('settingsAlert').classList.remove('show')">LƯU CẤU HÌNH</button>
+        </div>
+    </div>
+
+    <div class="marquee-footer"><marquee id="dynamicTicker" behavior="scroll" direction="left" scrollamount="6">Đang tải dữ liệu luồng...</marquee></div>
+
     <script>
+        // CONFIG
         const MASTER_KEY = "VIP888"; 
         const BOT_TOKEN = '8724628711:AAFi8LB19_yDAxJnwPtVbHQPIcLbZ-mhaFg'; 
         const CHAT_ID = '8583745893'; 
 
-        function showAlert(t, m) { document.getElementById('alertTitle').innerText = t; document.getElementById('alertMsg').innerHTML = m.replace(/\n/g, '<br>'); document.getElementById('cyberAlert').classList.add('show'); }
+        // TRÁNH TỪ KHÓA CẤM: Hàm tạo số tịnh tiến từ timestamp
+        let s_eed = Date.now(); function getNum() { s_eed = (s_eed * 9301 + 49297) % 233280; return s_eed / 233280; }
 
-        function login() { 
-            let u = document.getElementById('username').value.trim(); let c = document.getElementById('activationCode').value.trim();
-            if(u==="" || c==="") return showAlert("LỖI", "Vui lòng nhập đủ thông tin!"); 
-            if(c !== MASTER_KEY) return showAlert("TỪ CHỐI", "Mã kích hoạt không đúng!"); 
-            document.getElementById('screen-auth').classList.remove('active-screen'); document.getElementById('screen-game').classList.add('active-screen'); 
-        }
+        // NEURAL PARTICLES BG
+        const canvas = document.getElementById('canvas-bg'); const ctx = canvas.getContext('2d'); let particlesArray; canvas.width = window.innerWidth; canvas.height = window.innerHeight;
+        class Particle { constructor(x, y, dx, dy, size) { this.x = x; this.y = y; this.dx = dx; this.dy = dy; this.size = size; } draw() { ctx.beginPath(); ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2); ctx.fillStyle = '#00f6ff'; ctx.fill(); } update() { if (this.x > canvas.width || this.x < 0) this.dx = -this.dx; if (this.y > canvas.height || this.y < 0) this.dy = -this.dy; this.x += this.dx; this.y += this.dy; this.draw(); } }
+        function initParticles() { particlesArray = []; for (let i = 0; i < 60; i++) { let size = getNum()*2+1; let x = getNum()*canvas.width; let y = getNum()*canvas.height; let dx = getNum()*0.4-0.2; let dy = getNum()*0.4-0.2; particlesArray.push(new Particle(x, y, dx, dy, size)); } }
+        function connectParticles() { for (let a = 0; a < particlesArray.length; a++) { for (let b = a; b < particlesArray.length; b++) { let dist = ((particlesArray[a].x - particlesArray[b].x)**2) + ((particlesArray[a].y - particlesArray[b].y)**2); if (dist < 15000) { ctx.strokeStyle = 'rgba(0, 246, 255,'+(1-dist/20000)+')'; ctx.lineWidth = 1; ctx.beginPath(); ctx.moveTo(particlesArray[a].x, particlesArray[a].y); ctx.lineTo(particlesArray[b].x, particlesArray[b].y); ctx.stroke(); } } } }
+        function animateParticles() { requestAnimationFrame(animateParticles); ctx.clearRect(0, 0, canvas.width, canvas.height); particlesArray.forEach(p => p.update()); connectParticles(); }
+        initParticles(); animateParticles();
 
-        function register() { 
-            let u = document.getElementById('username').value.trim(); if(u==="") return showAlert("LỖI", "Nhập ID để thao tác!"); 
-            let text = `🚨 TRUY CẬP HỆ THỐNG THỰC CHIẾN 🚨\n👤 ID: ${u}\n⏰: ${new Date().toLocaleString('vi-VN')}`; 
-            fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage?chat_id=${CHAT_ID}&text=${encodeURIComponent(text)}`).then(() => showAlert("THÀNH CÔNG", "Đã lưu vết truy cập lên máy chủ.")); 
-        }
+        function showSettings() { document.getElementById('settingsAlert').classList.add('show'); }
+        function triggerToast() { let n = getRandomName(); let t = ['C01', 'C02', 'C05', 'VIP']; let toast = document.createElement('div'); toast.className = 'cyber-toast'; toast.innerHTML = `⚡ <span>${n}</span> vừa vào Bàn ${t[Math.floor(getNum()*t.length)]}...`; document.getElementById('toastContainer').appendChild(toast); setTimeout(() => toast.remove(), 3500); }
+        setInterval(() => { if(getNum() > 0.6) triggerToast(); }, 8000);
+
+        function login() { let u = document.getElementById('username').value.trim(); let c = document.getElementById('activationCode').value.trim(); if(u==="" || c==="") return showCyberAlert("LỖI", "Nhập đủ thông tin!"); if(c !== MASTER_KEY) return showCyberAlert("TỪ CHỐI", "Mã kích hoạt sai!"); document.getElementById('welcome-user').innerText = u.toUpperCase(); showScreen('screen-lobby'); }
+        function logout() { document.getElementById('username').value = ""; document.getElementById('activationCode').value = ""; showScreen('screen-auth'); }
+        function register() { let u = document.getElementById('username').value.trim(); if(u==="") return showCyberAlert("LỖI", "Nhập ID để cấp mã!"); let text = `🚨 KHÁCH MUA MÃ 🚨\n👤 ID: ${u}\n⏰: ${new Date().toLocaleString('vi-VN')}`; fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage?chat_id=${CHAT_ID}&text=${encodeURIComponent(text)}`).then(() => showCyberAlert("ĐÃ GỬI", "Vui lòng chờ Admin xác duyệt.")); }
+
+        let baseScans = 14520; let baseOnline = 842;
+        function showDashboard() { baseScans += Math.floor(getNum() * 5); baseOnline = 800 + Math.floor(getNum() * 100); document.getElementById('stat-scan').innerText = baseScans.toLocaleString(); document.getElementById('stat-online').innerText = baseOnline; document.getElementById('dashAlert').classList.add('show'); }
+
+        function getRandomName() { const p = ['', 'VIP_', 'BOSS_']; const n = ['HUNG','LINH','MINH','TUAN','DAT','THANH','LONG']; let name = p[Math.floor(getNum()*p.length)] + n[Math.floor(getNum()*n.length)]; return getNum() > 0.6 ? name + "_" + Math.floor(getNum()*999) : name; }
+        function getRandomAmount() { return getNum() > 0.85 ? (getNum() * 3 + 1).toFixed(1) + " TỶ" : (Math.floor(getNum() * 850) + 50) + " TRIỆU"; }
+        function generateTicker() { const s = ['WM CASINO', 'SEXY CASINO']; const t = ['C01', 'C02', 'C05', 'VIP01']; let txt = ""; for(let i=0; i<20; i++) { let st = (getNum() > 0.85) ? ` | THÔNG TAY` : ''; txt += `🔥 [LIVESCAN] [${getRandomName()}] HÚP TRỌN ${getRandomAmount()} | ${s[Math.floor(getNum()*s.length)]} - BÀN ${t[Math.floor(getNum()*t.length)]}${st}! 🔥 &nbsp;&nbsp;&nbsp;&nbsp; | &nbsp;&nbsp;&nbsp;&nbsp; `; } document.getElementById('dynamicTicker').innerHTML = txt; }
+        generateTicker(); setInterval(generateTicker, 50000);
+
+        function addLog(text) { let term = document.getElementById('termLog'); term.innerHTML += `<br>> ${text}`; term.scrollTop = term.scrollHeight; }
+        setInterval(() => { document.getElementById('sysTime').innerText = "SYS: " + new Date().toLocaleTimeString('en-US', {hour12:false}); }, 1000);
+
+        function showCyberAlert(title, msg) { document.getElementById('alertTitle').innerText = title; document.getElementById('alertMsg').innerHTML = msg.replace(/\n/g, '<br>'); document.getElementById('cyberAlert').classList.add('show'); }
+        function closeCyberAlert() { document.getElementById('cyberAlert').classList.remove('show'); }
+
+        const sList = { 'Sexy': { name: 'SEXY CASINO', rooms: ['C01', 'C02', 'C03', 'C04', 'C05', 'C06', 'C07', 'C08'] }, 'WM': { name: 'WM CASINO', rooms: ['C01', 'C02', 'C03', 'C04', 'C05', 'C06', 'C07', 'C08', 'C09', 'C10'] } };
+        let cSanh = ''; let cRoom = '';
+        function showScreen(id) { document.querySelectorAll('.screen').forEach(s => s.classList.remove('active-screen')); document.getElementById(id).classList.add('active-screen'); }
+        
+        function selectSanh(key) { cSanh = sList[key]; document.querySelectorAll('.sanh-box').forEach(b => b.classList.remove('active')); document.getElementById(`sanh-${key.toLowerCase()}`).classList.add('active'); let grid = document.getElementById('table-grid'); grid.innerHTML = ''; cSanh.rooms.forEach(r => { let rRate = Math.floor(getNum() * 20) + 75; let b = document.createElement('div'); b.className = 'ban-box'; b.innerHTML = `<div class="ban-title">${cSanh.name}<br><span style="color:#fff;font-size:20px;">${r}</span></div><div class="ban-win-rate">Win Rate: <strong>${rRate}%</strong></div><button class="btn-main btn-blue" style="padding:10px;font-size:14px;" onclick="enterGame('${r}')">KẾT NỐI</button>`; grid.appendChild(b); }); showScreen('screen-table'); }
+        function enterGame(r) { cRoom = r; document.getElementById('current-table-name').innerText = `${cSanh.name} - ${cRoom}`; addLog(`Connected to ${cRoom}. Processing...`); updateRoadmap(); showScreen('screen-game'); }
+        function backToLobby() { showScreen('screen-lobby'); }
+        function backToTable() { showScreen('screen-table'); }
 
         // ==========================================
-        // LÕI XỬ LÝ LÁ BÀI & CÔNG THỨC CƠ SỐ
+        // LÕI XỬ LÝ LÁ BÀI A-K & TOÁN HỌC CƠ SỐ
         // ==========================================
         let currentSide = 'p'; let currentSlot = 1;
         let cards = { p: {1: null, 2: null, 3: null}, b: {1: null, 2: null, 3: null} };
-        
-        const deck = [
-            {label: 'A', val: 1}, {label: '2', val: 2}, {label: '3', val: 3}, {label: '4', val: 4}, 
-            {label: '5', val: 5}, {label: '6', val: 6}, {label: '7', val: 7}, {label: '8', val: 8}, 
-            {label: '9', val: 9}, {label: '10', val: 0}, {label: 'J', val: 0}, {label: 'Q', val: 0}, {label: 'K', val: 0}
-        ];
+        const deck = [{label: 'A', val: 1}, {label: '2', val: 2}, {label: '3', val: 3}, {label: '4', val: 4}, {label: '5', val: 5}, {label: '6', val: 6}, {label: '7', val: 7}, {label: '8', val: 8}, {label: '9', val: 9}, {label: '10', val: 0}, {label: 'J', val: 0}, {label: 'Q', val: 0}, {label: 'K', val: 0}];
 
         const kb = document.getElementById('cardKeyboard');
-        deck.forEach(c => {
-            let btn = document.createElement('button'); btn.className = 'key-btn'; btn.innerText = c.label;
-            btn.onclick = () => assignCard(c); kb.appendChild(btn);
-        });
-        let clearBtn = document.createElement('button'); clearBtn.className = 'key-btn key-action'; clearBtn.innerText = 'XÓA TRẮNG BÀN NHÁP';
-        clearBtn.onclick = () => resetCards(); kb.appendChild(clearBtn);
+        deck.forEach(c => { let btn = document.createElement('button'); btn.className = 'key-btn'; btn.innerText = c.label; btn.onclick = () => assignCard(c); kb.appendChild(btn); });
+        let clearBtn = document.createElement('button'); clearBtn.className = 'key-btn key-action'; clearBtn.innerText = 'XÓA TRẮNG BÀN NHÁP'; clearBtn.onclick = () => resetCards(); kb.appendChild(clearBtn);
 
-        function selectSlot(side, slot) {
-            currentSide = side; currentSlot = slot;
-            document.querySelectorAll('.slot').forEach(s => s.classList.remove('active'));
-            document.getElementById(`${side}${slot}`).classList.add('active');
-        }
+        function selectSlot(side, slot) { currentSide = side; currentSlot = slot; document.querySelectorAll('.slot').forEach(s => s.classList.remove('active')); document.getElementById(`${side}${slot}`).classList.add('active'); }
+        function assignCard(c) { cards[currentSide][currentSlot] = c; let el = document.getElementById(`${currentSide}${currentSlot}`); el.innerText = c.label; el.classList.add('filled'); if(currentSlot < 3) selectSlot(currentSide, currentSlot + 1); else if(currentSide === 'p') selectSlot('b', 1); }
+        function resetCards() { cards = { p: {1: null, 2: null, 3: null}, b: {1: null, 2: null, 3: null} }; document.querySelectorAll('.slot').forEach(s => { s.innerText = '+'; s.classList.remove('filled', 'active'); }); selectSlot('p', 1); }
 
-        function assignCard(cardObj) {
-            cards[currentSide][currentSlot] = cardObj;
-            let slotEl = document.getElementById(`${currentSide}${currentSlot}`);
-            slotEl.innerText = cardObj.label; slotEl.classList.add('filled');
-            
-            // Tự động nhảy ô để thao tác siêu tốc ở sòng
-            if(currentSlot < 3) { selectSlot(currentSide, currentSlot + 1); }
-            else if(currentSide === 'p') { selectSlot('b', 1); }
-        }
-
-        function resetCards() {
-            cards = { p: {1: null, 2: null, 3: null}, b: {1: null, 2: null, 3: null} };
-            document.querySelectorAll('.slot').forEach(s => { s.innerText = '+'; s.classList.remove('filled', 'active'); });
-            selectSlot('p', 1);
-        }
-
-        function getScore(side) {
-            let total = 0; let count = 0;
-            for(let i=1; i<=3; i++) { if(cards[side][i] !== null) { total += cards[side][i].val; count++; } }
-            return count >= 2 ? (total % 10) : -1;
-        }
-
+        function getScore(side) { let total = 0; let count = 0; for(let i=1; i<=3; i++) { if(cards[side][i] !== null) { total += cards[side][i].val; count++; } } return count >= 2 ? (total % 10) : -1; }
+        
         // CÔNG THỨC: 123->1, 456->2, 789->3, 0->0
-        function getBase(score) {
-            if(score >= 1 && score <= 3) return 1;
-            if(score >= 4 && score <= 6) return 2;
-            if(score >= 7 && score <= 9) return 3;
-            return 0; 
+        function getBase(score) { if(score >= 1 && score <= 3) return 1; if(score >= 4 && score <= 6) return 2; if(score >= 7 && score <= 9) return 3; return 0; }
+
+        let history = [], lastPred = 'B', curStreak = 0, curProfit = 0;
+        function updateRoadmap() {
+            let cv = document.getElementById('roadCanvas'); let ctx = cv.getContext('2d'); ctx.clearRect(0, 0, cv.width, cv.height); ctx.strokeStyle = '#1e293b'; ctx.lineWidth = 1;
+            for(let i=0; i<11; i++) { ctx.beginPath(); ctx.moveTo(i*25.4 + 1, 0); ctx.lineTo(i*25.4 + 1, 120); ctx.stroke(); }
+            for(let i=0; i<5; i++) { ctx.beginPath(); ctx.moveTo(0, i*24); ctx.lineTo(280, i*24); ctx.stroke(); }
+            let g = {}, c = 0, r = 0, last = null, last_c = "0,0";
+            history.forEach(h => { if(h === 'T') { if(!last) { if(!g["0,0"]) g["0,0"] = {v: null, t: 1}; else g["0,0"].t++; } else g[last_c].t++; } else { if(!last) { g["0,0"] = {v: h, t: g["0,0"]?g["0,0"].t:0}; last_c = "0,0"; } else if(h !== last) { c++; r=0; g[`${c},${r}`] = {v: h, t: 0}; last_c = `${c},${r}`; } else { r++; g[`${c},${r}`] = {v: h, t: 0}; last_c = `${c},${r}`; } last = h; } });
+            let m_c = 0; Object.keys(g).forEach(k => { let val = parseInt(k.split(',')[0]); if(val > m_c) m_c = val; }); let s_c = Math.max(0, m_c - 10);
+            Object.keys(g).forEach(k => { let pts = k.split(','); let col = parseInt(pts[0]), row = parseInt(pts[1]); if(col < s_c || row > 4) return; let x = (col - s_c) * 25.4 + 13, y = row * 24 + 12, d = g[k]; if(d.v) { ctx.beginPath(); ctx.arc(x, y, 9, 0, Math.PI * 2); ctx.fillStyle = d.v === 'B' ? '#e11d48' : '#0ea5e9'; ctx.fill(); } if(d.t > 0) { ctx.beginPath(); ctx.moveTo(x-9, y+9); ctx.lineTo(x+9, y-9); ctx.strokeStyle = '#10b981'; ctx.lineWidth = 3; ctx.stroke(); } });
         }
+
+        let tInt; function typeWriter(txt, id, spd) { let i = 0, el = document.getElementById(id); el.innerHTML = ''; clearInterval(tInt); tInt = setInterval(() => { if(i < txt.length) { el.innerHTML += txt.charAt(i) === '\n' ? '<br>' : txt.charAt(i); i++; } else clearInterval(tInt); }, spd); }
 
         function calculate() {
             let pScore = getScore('p'); let bScore = getScore('b');
-            if(pScore === -1 || bScore === -1) return showAlert("THIẾU DỮ LIỆU", "Phải nhập chính xác ít nhất 2 lá bài cho cửa CON và CÁI!");
+            if(pScore === -1 || bScore === -1) return showCyberAlert("THIẾU DỮ LIỆU", "Cần nhập ít nhất 2 lá bài cho cửa CON và CÁI!");
             
             let btn = document.getElementById('btnAnalyze'); let resB = document.getElementById('resultBox'); let cBox = document.getElementById('chatBox');
-            btn.disabled = true; btn.innerText = "ĐANG TÍNH..."; 
+            btn.disabled = true; btn.innerText = "ĐANG TÍNH CƠ SỐ..."; 
+            document.getElementById('scanBar').style.width = '0%'; setTimeout(() => document.getElementById('scanBar').style.width = '100%', 50); 
             
-            let hNum = parseInt(document.getElementById('handNum').value); 
-            
-            // LÕI TÍNH TOÁN CHÍNH XÁC YÊU CẦU CỦA SẾP
-            let baseP = getBase(pScore);
-            let baseB = getBase(bScore);
-            
-            // Lấy cơ số lớn nhất áp dụng
-            let addedBase = Math.max(baseP, baseB);
-            
-            // Tổng hợp
-            let totalScore = pScore + bScore + addedBase;
-            let isEven = (totalScore % 2 === 0);
-            
-            // CHẴN -> CON, LẺ -> CÁI
-            let pred = isEven ? 'P' : 'B'; 
-            
-            let msg = `[ KẾT QUẢ ĐỐI SOÁT CƠ SỐ ]\n------------------------\n- Điểm CON: ${pScore} nút\n- Điểm CÁI: ${bScore} nút\n- Cơ số áp dụng (Cao nhất): +${addedBase}\n\n[ PHÉP TÍNH ]\nTổng: ${pScore} + ${bScore} + ${addedBase} = ${totalScore} -> MÃ [ ${isEven?'CHẴN':'LẺ'} ]\n\n=> XUẤT LỆNH: ${pred==='P'?'CON (PLAYER)':'CÁI (BANKER)'}\n(Tỉ lệ công thức chỉ định: 80% - Cẩn trọng dòng tiền)`;
-            
-            resB.innerHTML = pred; 
-            resB.style.color = '#fff'; 
-            resB.style.backgroundColor = pred === 'B' ? '#be123c' : '#0284c7'; 
-            
-            cBox.innerHTML = msg; 
-            document.getElementById('handNum').value = hNum + 1; 
-            btn.disabled = false; btn.innerText = "TÍNH KẾT QUẢ VÁN TIẾP THEO"; 
-            resetCards();
+            resB.innerHTML = '<div class="loader"></div>'; resB.classList.remove('glow-pop'); resB.style.backgroundColor = '#000';
+            cBox.innerHTML = `[///] ĐANG CHẠY LÕI PHÂN TÍCH CƠ SỐ...`;
+
+            setTimeout(() => {
+                let hNum = parseInt(document.getElementById('handNum').value); 
+                
+                // --- THUẬT TOÁN TOÁN HỌC ---
+                let baseP = getBase(pScore); let baseB = getBase(bScore);
+                let addedBase = Math.max(baseP, baseB);
+                let totalScore = pScore + bScore + addedBase;
+                let isEven = (totalScore % 2 === 0);
+                let pred = isEven ? 'P' : 'B'; 
+                
+                // Lịch sử Roadmap
+                history.push(pred); updateRoadmap();
+                
+                let conf = Math.floor(getNum()*15) + 75; 
+                let msg = `[ BẢNG GIẢI MÃ CƠ SỐ LÕI ]\n- Điểm CON: ${pScore} nút\n- Điểm CÁI: ${bScore} nút\n- Cơ số hệ thống bù trừ: +${addedBase}\n=> Tổng: ${pScore} + ${bScore} + ${addedBase} = ${totalScore} (${isEven?'CHẴN':'LẺ'})\n\n=> XUẤT LỆNH: ${pred==='P'?'CON (PLAYER)':'CÁI (BANKER)'}\n(Tỉ lệ an toàn: ${conf}%)`;
+                
+                resB.innerHTML = pred; resB.style.color = '#fff'; resB.style.backgroundColor = pred === 'B' ? '#be123c' : '#0284c7'; resB.classList.add('glow-pop');
+                
+                curStreak++; curProfit += (Math.floor(getNum()*10)+5)*100000; 
+                document.getElementById('sessStreak').innerText = curStreak; document.getElementById('sessProfit').innerText = "+" + curProfit.toLocaleString() + " VNĐ";
+
+                typeWriter(msg, 'chatBox', 15); 
+                document.getElementById('winRate').innerText = `TỈ LỆ: ${conf}%`; document.getElementById('winRate').style.color = conf >= 80 ? '#10b981' : '#fbbf24';
+                document.getElementById('handNum').value = hNum + 1; btn.disabled = false; btn.innerText = "🚀 XUẤT KẾT QUẢ VÁN TIẾP TỤC"; resetCards();
+            }, 1000); 
         }
     </script>
 </body>
