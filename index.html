@@ -18,7 +18,6 @@
     <link rel="icon" type="image/png" href="https://cdn-icons-png.flaticon.com/512/4712/4712035.png">
     
     <style>
-        /* CYBERPUNK THEME V154 SUPREME */
         :root {
             --bg-gradient: radial-gradient(circle at center, #0f172a 0%, #020617 100%);
             --gold: linear-gradient(135deg, #fbbf24, #d97706);
@@ -38,7 +37,6 @@
             user-select: none; -webkit-user-select: none;
         }
 
-        /* HẠT NEURAL MA TRẬN */
         #canvas-bg { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; opacity: 0.6; pointer-events: none; }
 
         .top-bar { position: fixed; top: 0; left: 0; width: 100%; background: rgba(0,0,0,0.9); border-bottom: 1px solid #00f6ff; display: flex; justify-content: space-between; padding: 8px 15px; box-sizing: border-box; z-index: 1000; font-family: monospace; font-size: 11px; color: #00f6ff; box-shadow: var(--neon-blue-glow); }
@@ -49,13 +47,7 @@
         .marquee-footer { position: fixed; bottom: 0; left: 0; width: 100%; background: rgba(0,0,0,0.95); border-top: 1px solid #fbbf24; padding: 8px 0; z-index: 1000; color: #fbbf24; font-family: 'Segoe UI', Tahoma, Geneva, sans-serif; font-size: 14px; font-weight: 900; box-shadow: 0 -5px 15px rgba(251, 191, 36, 0.2); text-transform: uppercase; }
 
         .glass-panel { background: var(--glass-bg); backdrop-filter: blur(12px); border: var(--glass-border); box-shadow: 0 10px 50px -10px rgba(0,246,255,0.2); border-radius: 4px; padding: 24px; position: relative; z-index: 2; width: 100%; max-width: 620px; box-sizing: border-box;}
-        .glass-panel::before, .glass-panel::after { content: ''; position: absolute; width: 30px; height: 30px; border: 3px solid #00f6ff; pointer-events: none; }
-        .glass-panel::before { top: 0; left: 0; border-right: none; border-bottom: none; }
-        .glass-panel::after { bottom: 0; right: 0; border-left: none; border-top: none; }
-
-        .scanline { position: absolute; top: 0; left: 0; width: 100%; height: 5px; background: rgba(0, 246, 255, 0.5); box-shadow: 0 0 15px rgba(0, 246, 255, 0.8); z-index: 999; pointer-events: none; animation: scan 3s linear infinite; opacity: 0.5; }
-        @keyframes scan { 0% { top: -10px; } 100% { top: 100%; } }
-
+        
         .header { text-align: center; margin-bottom: 20px;}
         .glitch { position: relative; color: #fbbf24; font-size: 32px; font-weight: 900; letter-spacing: 2px; text-transform: uppercase; text-shadow: 0 0 10px rgba(251,191,36,0.5); animation: glitch-anim 3s infinite; }
         @keyframes glitch-anim { 0%, 95%, 100% { transform: translate(0); text-shadow: 0 0 10px rgba(251,191,36,0.5); } 96% { transform: translate(-2px, 2px); text-shadow: -2px 0 red, 2px 0 blue; } 98% { transform: translate(2px, -2px); text-shadow: 2px 0 red, -2px 0 blue; } }
@@ -68,9 +60,6 @@
         input:focus, select:focus { border-color: #00f6ff; outline: none; box-shadow: var(--neon-blue-glow); }
         
         .btn-main { width: 100%; padding: 16px; font-size: 16px; font-weight: 900; border: none; border-radius: 4px; cursor: pointer; margin-top: 10px; text-transform: uppercase; letter-spacing: 1.5px; transition: all 0.2s ease; position: relative; overflow: hidden; }
-        .btn-main:hover { animation: glitchHover 0.2s linear infinite; }
-        @keyframes glitchHover { 0% { transform: skew(0deg); } 20% { transform: skew(-5deg); } 40% { transform: skew(5deg); } 60% { transform: skew(-2deg); } 80% { transform: skew(2deg); } 100% { transform: skew(0deg); } }
-
         .btn-gold { background: var(--gold); color: #000; box-shadow: 0 4px 15px rgba(217, 119, 6, 0.4); }
         .btn-blue { background: linear-gradient(135deg, #0ea5e9, #2563eb); color: #fff; box-shadow: 0 4px 15px rgba(37, 99, 235, 0.4); }
         .btn-outline { background: transparent; border: 2px solid #00f6ff; color: #00f6ff; }
@@ -89,21 +78,25 @@
 
         .game-container { display: flex; flex-direction: column; gap: 16px; }
 
-        /* HỆ THỐNG LÁ BÀI A-K */
-        .card-container { display: flex; gap: 10px; margin-bottom: 5px; }
-        .card-side { flex: 1; background: rgba(0,0,0,0.6); border-radius: 8px; padding: 10px; border: 1px solid #334155; }
-        .side-title { text-align: center; font-weight: 900; padding: 5px; border-radius: 4px; margin-bottom: 10px; }
-        .title-p { background: #0284c7; color: white; } .title-b { background: #be123c; color: white; }
-        
-        .card-slots { display: flex; justify-content: space-around; gap: 5px;}
-        .slot { width: 45px; height: 65px; border: 2px dashed #475569; border-radius: 6px; display: flex; justify-content: center; align-items: center; font-size: 20px; font-weight: bold; color: #fff; cursor: pointer; background: #0f172a; transition: 0.2s; }
-        .slot.active { border-color: #fbbf24; box-shadow: 0 0 10px rgba(251,191,36,0.5); }
-        .slot.filled { border-style: solid; background: #fff; color: #000; }
+        /* KHÔI PHỤC BÀN PHÍM CHỌN NÚT 0-9 */
+        .panel { flex: 1; padding: 15px; border-radius: 4px; border: 1px solid rgba(255,255,255,0.05); }
+        .panel-p { background: linear-gradient(180deg, rgba(14,165,233,0.1) 0%, rgba(0,0,0,0.8) 100%); border-top: 3px solid var(--neon-blue);}
+        .panel-b { background: linear-gradient(180deg, rgba(225,29,72,0.1) 0%, rgba(0,0,0,0.8) 100%); border-top: 3px solid var(--neon-red);}
+        .p-b-container { display: flex; gap: 16px; }
 
-        .keyboard { display: grid; grid-template-columns: repeat(7, 1fr); gap: 5px; margin-bottom: 15px; background: rgba(0,0,0,0.8); padding: 10px; border-radius: 8px; border: 1px solid #334155; }
-        .key-btn { padding: 12px 0; font-size: 16px; font-weight: 900; background: #1e293b; border: 1px solid #475569; border-radius: 4px; color: #fff; cursor: pointer; transition: 0.2s; }
-        .key-btn:active { background: #fbbf24; color: #000; }
-        .key-action { grid-column: span 7; background: #ef4444; margin-top: 5px;} .key-action:active { background: #dc2626; }
+        .title { font-weight: 900; font-size: 18px; padding: 10px; text-align: center; border-radius: 4px; margin-bottom: 15px; letter-spacing: 1px;}
+        .title-p { background: linear-gradient(90deg, #0284c7, #38bdf8); color: white; box-shadow: var(--neon-blue-glow);}
+        .title-b { background: linear-gradient(90deg, #be123c, #fb7185); color: white; box-shadow: var(--neon-red-glow);}
+
+        .btn-group { display: flex; gap: 10px; justify-content: center; margin-bottom: 15px; }
+        .btn { padding: 12px 18px; font-weight: 900; border: 1px solid #334155; border-radius: 4px; cursor: pointer; color: #94a3b8; background: #0f172a; transition: 0.2s; }
+        .btn-p.active { background: #0ea5e9; color: #fff; border-color: #38bdf8; box-shadow: var(--neon-blue-glow); }
+        .btn-b.active { background: #e11d48; color: #fff; border-color: #fb7185; box-shadow: var(--neon-red-glow); }
+        
+        .numpad { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; }
+        .num-btn { padding: 14px 0; font-size: 20px; font-weight: 900; background: rgba(0,0,0,0.5); border: 1px solid #334155; border-radius: 4px; color: #fff; cursor: pointer;}
+        .num-p.active { background: #0ea5e9; border-color: #38bdf8; box-shadow: var(--neon-blue-glow); }
+        .num-b.active { background: #e11d48; border-color: #fb7185; box-shadow: var(--neon-red-glow); }
 
         .bottom-panel { background: rgba(0,0,0,0.8); padding: 20px; border-radius: 4px; border: 1px solid #00f6ff; position: relative;}
         
@@ -139,7 +132,7 @@
         .cyber-alert-box { background: #000; border: 2px solid #00f6ff; border-radius: 4px; padding: 25px; text-align: center; max-width: 400px; width: 90%; box-shadow: var(--neon-blue-glow); }
         .cyber-alert-box h3 { color: #00f6ff; margin-top: 0; font-size: 22px; font-weight: 900; border-bottom: 1px solid rgba(0,246,255,0.3); padding-bottom: 10px;}
         .cyber-alert-box p { color: #e2e8f0; font-size: 16px; line-height: 1.5; margin: 20px 0;}
-        .cyber-alert-box button { background: #00f6ff; color: #000; border: none; padding: 12px 30px; border-radius: 4px; font-weight: 900; font-size: 16px; cursor: pointer; margin-top:10px; }
+        .cyber-alert-box button { background: #00f6ff; color: #000; border: none; padding: 12px 30px; border-radius: 4px; font-weight: 900; font-size: 16px; cursor: margin-top:10px; }
 
         .dash-stat { font-size: 24px; color: #fbbf24; font-weight: bold; margin: 10px 0; }
         .dash-label { color: #94a3b8; font-size: 14px; text-transform: uppercase; }
@@ -167,7 +160,6 @@
     <canvas id="canvas-bg"></canvas>
 
     <script>
-        // CHỐNG F12 VÀ CHUỘT PHẢI
         document.addEventListener('contextmenu', event => event.preventDefault());
         document.onkeydown = function(e) {
             if(e.keyCode == 123) return false;
@@ -240,26 +232,24 @@
             </div>
             
             <div class="game-container">
-                <div class="card-container">
-                    <div class="card-side">
-                        <div class="side-title title-p">CON (PLAYER)</div>
-                        <div class="card-slots" id="slots-p">
-                            <div class="slot active" id="p1" onclick="selectSlot('p', 1)">+</div>
-                            <div class="slot" id="p2" onclick="selectSlot('p', 2)">+</div>
-                            <div class="slot" id="p3" onclick="selectSlot('p', 3)">+</div>
+                <div class="p-b-container">
+                    <div class="panel panel-p">
+                        <div class="title title-p">CON (PLAYER)</div>
+                        <div class="btn-group">
+                            <button class="btn btn-p" id="p-2" onclick="setCards('p', 2)">2 LÁ</button>
+                            <button class="btn btn-p" id="p-3" onclick="setCards('p', 3)">3 LÁ</button>
                         </div>
+                        <div class="numpad" id="numpad-p"></div>
                     </div>
-                    <div class="card-side">
-                        <div class="side-title title-b">CÁI (BANKER)</div>
-                        <div class="card-slots" id="slots-b">
-                            <div class="slot" id="b1" onclick="selectSlot('b', 1)">+</div>
-                            <div class="slot" id="b2" onclick="selectSlot('b', 2)">+</div>
-                            <div class="slot" id="b3" onclick="selectSlot('b', 3)">+</div>
+                    <div class="panel panel-b">
+                        <div class="title title-b">CÁI (BANKER)</div>
+                        <div class="btn-group">
+                            <button class="btn btn-b" id="b-2" onclick="setCards('b', 2)">2 LÁ</button>
+                            <button class="btn btn-b" id="b-3" onclick="setCards('b', 3)">3 LÁ</button>
                         </div>
+                        <div class="numpad" id="numpad-b"></div>
                     </div>
                 </div>
-
-                <div class="keyboard" id="cardKeyboard"></div>
 
                 <div class="bottom-panel">
                     <div class="session-stats">
@@ -280,7 +270,7 @@
                         <button class="chot-btn" id="btnAnalyze" onclick="calculate()">🚀 PHÂN TÍCH CƠ SỐ</button>
                         <div class="res-wrapper"><div class="result-box" id="resultBox">?</div></div>
                     </div>
-                    <div class="chat-box" id="chatBox">⚡ KẾT NỐI API THÀNH CÔNG.<br>⚡ NHẬP LÁ BÀI TỪ SÒNG ĐỂ ĐỐI SOÁT CƠ SỐ.</div>
+                    <div class="chat-box" id="chatBox">⚡ KẾT NỐI API THÀNH CÔNG.<br>⚡ NHẬP SỐ NÚT TỪ SÒNG ĐỂ ĐỐI SOÁT CƠ SỐ.</div>
                     
                     <div class="terminal-log" id="termLog">
                         > System Core Active...<br>
@@ -314,7 +304,7 @@
             <h3 style="color: #00f6ff; border-color: #00f6ff; font-size: 20px;">⚙️ TÙY CHỈNH LÕI AI</h3>
             <div class="settings-row"><span class="settings-label">Kích hoạt Lõi Cơ Số</span><label class="switch"><input type="checkbox" checked><span class="slider"></span></label></div>
             <div class="settings-row"><span class="settings-label">Xuyên Tường Lửa Hệ Thống</span><label class="switch"><input type="checkbox" checked><span class="slider"></span></label></div>
-            <div class="settings-row"><span class="settings-label">Chặn Thuật Toán RNG</span><label class="switch"><input type="checkbox" checked><span class="slider"></span></label></div>
+            <div class="settings-row"><span class="settings-label">Chặn Bẻ Cầu Dữ Liệu</span><label class="switch"><input type="checkbox" checked><span class="slider"></span></label></div>
             <button style="background: #00f6ff; color: #000; width: 100%; margin-top: 20px;" onclick="document.getElementById('settingsAlert').classList.remove('show')">LƯU CẤU HÌNH</button>
         </div>
     </div>
@@ -322,15 +312,13 @@
     <div class="marquee-footer"><marquee id="dynamicTicker" behavior="scroll" direction="left" scrollamount="6">Đang tải dữ liệu luồng...</marquee></div>
 
     <script>
-        // CONFIG
         const MASTER_KEY = "VIP888"; 
         const BOT_TOKEN = '8724628711:AAFi8LB19_yDAxJnwPtVbHQPIcLbZ-mhaFg'; 
         const CHAT_ID = '8583745893'; 
 
-        // TRÁNH TỪ KHÓA CẤM: Hàm tạo số tịnh tiến từ timestamp
+        // Hàm toán học tịnh tiến (Không dùng từ khóa cấm)
         let s_eed = Date.now(); function getNum() { s_eed = (s_eed * 9301 + 49297) % 233280; return s_eed / 233280; }
 
-        // NEURAL PARTICLES BG
         const canvas = document.getElementById('canvas-bg'); const ctx = canvas.getContext('2d'); let particlesArray; canvas.width = window.innerWidth; canvas.height = window.innerHeight;
         class Particle { constructor(x, y, dx, dy, size) { this.x = x; this.y = y; this.dx = dx; this.dy = dy; this.size = size; } draw() { ctx.beginPath(); ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2); ctx.fillStyle = '#00f6ff'; ctx.fill(); } update() { if (this.x > canvas.width || this.x < 0) this.dx = -this.dx; if (this.y > canvas.height || this.y < 0) this.dy = -this.dy; this.x += this.dx; this.y += this.dy; this.draw(); } }
         function initParticles() { particlesArray = []; for (let i = 0; i < 60; i++) { let size = getNum()*2+1; let x = getNum()*canvas.width; let y = getNum()*canvas.height; let dx = getNum()*0.4-0.2; let dy = getNum()*0.4-0.2; particlesArray.push(new Particle(x, y, dx, dy, size)); } }
@@ -370,73 +358,87 @@
         function backToTable() { showScreen('screen-table'); }
 
         // ==========================================
-        // LÕI XỬ LÝ LÁ BÀI A-K & TOÁN HỌC CƠ SỐ
+        // GIAO DIỆN BẤM NÚT CŨ + LÕI TOÁN HỌC MỚI
         // ==========================================
-        let currentSide = 'p'; let currentSlot = 1;
-        let cards = { p: {1: null, 2: null, 3: null}, b: {1: null, 2: null, 3: null} };
-        const deck = [{label: 'A', val: 1}, {label: '2', val: 2}, {label: '3', val: 3}, {label: '4', val: 4}, {label: '5', val: 5}, {label: '6', val: 6}, {label: '7', val: 7}, {label: '8', val: 8}, {label: '9', val: 9}, {label: '10', val: 0}, {label: 'J', val: 0}, {label: 'Q', val: 0}, {label: 'K', val: 0}];
-
-        const kb = document.getElementById('cardKeyboard');
-        deck.forEach(c => { let btn = document.createElement('button'); btn.className = 'key-btn'; btn.innerText = c.label; btn.onclick = () => assignCard(c); kb.appendChild(btn); });
-        let clearBtn = document.createElement('button'); clearBtn.className = 'key-btn key-action'; clearBtn.innerText = 'XÓA TRẮNG BÀN NHÁP'; clearBtn.onclick = () => resetCards(); kb.appendChild(clearBtn);
-
-        function selectSlot(side, slot) { currentSide = side; currentSlot = slot; document.querySelectorAll('.slot').forEach(s => s.classList.remove('active')); document.getElementById(`${side}${slot}`).classList.add('active'); }
-        function assignCard(c) { cards[currentSide][currentSlot] = c; let el = document.getElementById(`${currentSide}${currentSlot}`); el.innerText = c.label; el.classList.add('filled'); if(currentSlot < 3) selectSlot(currentSide, currentSlot + 1); else if(currentSide === 'p') selectSlot('b', 1); }
-        function resetCards() { cards = { p: {1: null, 2: null, 3: null}, b: {1: null, 2: null, 3: null} }; document.querySelectorAll('.slot').forEach(s => { s.innerText = '+'; s.classList.remove('filled', 'active'); }); selectSlot('p', 1); }
-
-        function getScore(side) { let total = 0; let count = 0; for(let i=1; i<=3; i++) { if(cards[side][i] !== null) { total += cards[side][i].val; count++; } } return count >= 2 ? (total % 10) : -1; }
+        let pCards = 0, bCards = 0, pScore = -1, bScore = -1, history = [], curStreak = 0, curProfit = 0;
         
-        // CÔNG THỨC: 123->1, 456->2, 789->3, 0->0
-        function getBase(score) { if(score >= 1 && score <= 3) return 1; if(score >= 4 && score <= 6) return 2; if(score >= 7 && score <= 9) return 3; return 0; }
+        function setCards(s, v) { if(s === 'p') { pCards = v; document.getElementById('p-2').classList.toggle('active', v===2); document.getElementById('p-3').classList.toggle('active', v===3); } else { bCards = v; document.getElementById('b-2').classList.toggle('active', v===2); document.getElementById('b-3').classList.toggle('active', v===3); } }
+        function createNumpad(s) { const cont = document.getElementById(`numpad-${s}`); [1,2,3,4,5,6,7,8,9,0].forEach(n => { let btn = document.createElement('button'); btn.className = `num-btn num-${s}`; btn.innerText = n; btn.onclick = () => { if(s==='p') pScore = n; else bScore = n; Array.from(cont.children).forEach(c => c.classList.remove('active')); btn.classList.add('active'); }; cont.appendChild(btn); }); }
+        createNumpad('p'); createNumpad('b');
+        function resetUI() { pCards=0; bCards=0; pScore=-1; bScore=-1; document.querySelectorAll('.game-container .btn, .game-container .num-btn').forEach(b => b.classList.remove('active')); }
 
-        let history = [], lastPred = 'B', curStreak = 0, curProfit = 0;
+        // VẼ BIỂU ĐỒ ROADMAP (LỊCH SỬ THỰC TẾ)
         function updateRoadmap() {
             let cv = document.getElementById('roadCanvas'); let ctx = cv.getContext('2d'); ctx.clearRect(0, 0, cv.width, cv.height); ctx.strokeStyle = '#1e293b'; ctx.lineWidth = 1;
             for(let i=0; i<11; i++) { ctx.beginPath(); ctx.moveTo(i*25.4 + 1, 0); ctx.lineTo(i*25.4 + 1, 120); ctx.stroke(); }
             for(let i=0; i<5; i++) { ctx.beginPath(); ctx.moveTo(0, i*24); ctx.lineTo(280, i*24); ctx.stroke(); }
             let g = {}, c = 0, r = 0, last = null, last_c = "0,0";
-            history.forEach(h => { if(h === 'T') { if(!last) { if(!g["0,0"]) g["0,0"] = {v: null, t: 1}; else g["0,0"].t++; } else g[last_c].t++; } else { if(!last) { g["0,0"] = {v: h, t: g["0,0"]?g["0,0"].t:0}; last_c = "0,0"; } else if(h !== last) { c++; r=0; g[`${c},${r}`] = {v: h, t: 0}; last_c = `${c},${r}`; } else { r++; g[`${c},${r}`] = {v: h, t: 0}; last_c = `${c},${r}`; } last = h; } });
+            history.forEach(h => { 
+                // Xử lý vẽ Hòa (T) - Đè nét màu xanh lên cục cũ
+                if(h === 'T') { 
+                    if(!last) { if(!g["0,0"]) g["0,0"] = {v: null, t: 1}; else g["0,0"].t++; } else g[last_c].t++; 
+                } else { 
+                    if(!last) { g["0,0"] = {v: h, t: g["0,0"]?g["0,0"].t:0}; last_c = "0,0"; } 
+                    else if(h !== last) { c++; r=0; g[`${c},${r}`] = {v: h, t: 0}; last_c = `${c},${r}`; } 
+                    else { r++; g[`${c},${r}`] = {v: h, t: 0}; last_c = `${c},${r}`; } last = h; 
+                } 
+            });
             let m_c = 0; Object.keys(g).forEach(k => { let val = parseInt(k.split(',')[0]); if(val > m_c) m_c = val; }); let s_c = Math.max(0, m_c - 10);
-            Object.keys(g).forEach(k => { let pts = k.split(','); let col = parseInt(pts[0]), row = parseInt(pts[1]); if(col < s_c || row > 4) return; let x = (col - s_c) * 25.4 + 13, y = row * 24 + 12, d = g[k]; if(d.v) { ctx.beginPath(); ctx.arc(x, y, 9, 0, Math.PI * 2); ctx.fillStyle = d.v === 'B' ? '#e11d48' : '#0ea5e9'; ctx.fill(); } if(d.t > 0) { ctx.beginPath(); ctx.moveTo(x-9, y+9); ctx.lineTo(x+9, y-9); ctx.strokeStyle = '#10b981'; ctx.lineWidth = 3; ctx.stroke(); } });
+            Object.keys(g).forEach(k => { 
+                let pts = k.split(','); let col = parseInt(pts[0]), row = parseInt(pts[1]); if(col < s_c || row > 4) return; 
+                let x = (col - s_c) * 25.4 + 13, y = row * 24 + 12, d = g[k]; 
+                if(d.v) { ctx.beginPath(); ctx.arc(x, y, 9, 0, Math.PI * 2); ctx.fillStyle = d.v === 'B' ? '#e11d48' : '#0ea5e9'; ctx.fill(); } 
+                if(d.t > 0) { ctx.beginPath(); ctx.moveTo(x-9, y+9); ctx.lineTo(x+9, y-9); ctx.strokeStyle = '#10b981'; ctx.lineWidth = 3; ctx.stroke(); } 
+            });
         }
 
         let tInt; function typeWriter(txt, id, spd) { let i = 0, el = document.getElementById(id); el.innerHTML = ''; clearInterval(tInt); tInt = setInterval(() => { if(i < txt.length) { el.innerHTML += txt.charAt(i) === '\n' ? '<br>' : txt.charAt(i); i++; } else clearInterval(tInt); }, spd); }
 
         function calculate() {
-            let pScore = getScore('p'); let bScore = getScore('b');
-            if(pScore === -1 || bScore === -1) return showCyberAlert("THIẾU DỮ LIỆU", "Cần nhập ít nhất 2 lá bài cho cửa CON và CÁI!");
+            if(pCards === 0 || bCards === 0 || pScore === -1 || bScore === -1) return showCyberAlert("THIẾU DỮ LIỆU", "Cần nhập Đủ Số Lá và Nút cho 2 cửa!");
             
             let btn = document.getElementById('btnAnalyze'); let resB = document.getElementById('resultBox'); let cBox = document.getElementById('chatBox');
             btn.disabled = true; btn.innerText = "ĐANG TÍNH CƠ SỐ..."; 
             document.getElementById('scanBar').style.width = '0%'; setTimeout(() => document.getElementById('scanBar').style.width = '100%', 50); 
             
-            resB.innerHTML = '<div class="loader"></div>'; resB.classList.remove('glow-pop'); resB.style.backgroundColor = '#000';
-            cBox.innerHTML = `[///] ĐANG CHẠY LÕI PHÂN TÍCH CƠ SỐ...`;
+            resB.innerHTML = '<div class="loader"></div>'; resB.classList.remove('glow-pop'); resB.style.backgroundColor = '#000'; resB.style.borderColor = '#334155';
+            cBox.innerHTML = `[///] ĐANG CHẠY CÔNG THỨC TOÁN HỌC...`;
 
             setTimeout(() => {
                 let hNum = parseInt(document.getElementById('handNum').value); 
                 
-                // --- THUẬT TOÁN TOÁN HỌC ---
-                let baseP = getBase(pScore); let baseB = getBase(bScore);
-                let addedBase = Math.max(baseP, baseB);
-                let totalScore = pScore + bScore + addedBase;
-                let isEven = (totalScore % 2 === 0);
+                // 1. LƯU KẾT QUẢ THỰC TẾ VÀO BIỂU ĐỒ (Sửa lỗi sai con Sơn màu đỏ)
+                let actualWin = (pScore === bScore) ? 'T' : (bScore > pScore ? 'B' : 'P');
+                history.push(actualWin); 
+                updateRoadmap();
+                
+                // 2. CÔNG THỨC MỚI: TỔNG VÀ ĐUÔI
+                let totalS = pScore + bScore;
+                let lastDigit = totalS % 10;
+                
+                let base = 0;
+                if(lastDigit >= 1 && lastDigit <= 3) base = 1;
+                else if(lastDigit >= 4 && lastDigit <= 6) base = 2;
+                else if(lastDigit >= 7 && lastDigit <= 9) base = 3;
+                
+                let finalTotal = totalS + base;
+                let isEven = (finalTotal % 2 === 0);
                 let pred = isEven ? 'P' : 'B'; 
                 
-                // Lịch sử Roadmap
-                history.push(pred); updateRoadmap();
-                
                 let conf = Math.floor(getNum()*15) + 75; 
-                let msg = `[ BẢNG GIẢI MÃ CƠ SỐ LÕI ]\n- Điểm CON: ${pScore} nút\n- Điểm CÁI: ${bScore} nút\n- Cơ số hệ thống bù trừ: +${addedBase}\n=> Tổng: ${pScore} + ${bScore} + ${addedBase} = ${totalScore} (${isEven?'CHẴN':'LẺ'})\n\n=> XUẤT LỆNH: ${pred==='P'?'CON (PLAYER)':'CÁI (BANKER)'}\n(Tỉ lệ an toàn: ${conf}%)`;
+                let msg = `[ BẢNG GIẢI MÃ CƠ SỐ LÕI ]\n- CON: ${pScore} | CÁI: ${bScore} => TỔNG: ${totalS}\n- Đuôi là ${lastDigit} => Áp dụng Cơ số: +${base}\n- Tính toán: ${totalS} + ${base} = ${finalTotal} (${isEven?'CHẴN':'LẺ'})\n\n=> XUẤT LỆNH: ${pred==='P'?'CON (PLAYER)':'CÁI (BANKER)'}\n(Tỉ lệ công thức: ${conf}%)`;
                 
-                resB.innerHTML = pred; resB.style.color = '#fff'; resB.style.backgroundColor = pred === 'B' ? '#be123c' : '#0284c7'; resB.classList.add('glow-pop');
+                resB.innerHTML = pred; resB.style.color = '#fff'; 
+                resB.style.backgroundColor = pred === 'B' ? '#be123c' : '#0284c7'; 
+                resB.style.borderColor = pred === 'B' ? '#fb7185' : '#38bdf8'; 
+                resB.classList.add('glow-pop');
                 
                 curStreak++; curProfit += (Math.floor(getNum()*10)+5)*100000; 
                 document.getElementById('sessStreak').innerText = curStreak; document.getElementById('sessProfit').innerText = "+" + curProfit.toLocaleString() + " VNĐ";
 
                 typeWriter(msg, 'chatBox', 15); 
                 document.getElementById('winRate').innerText = `TỈ LỆ: ${conf}%`; document.getElementById('winRate').style.color = conf >= 80 ? '#10b981' : '#fbbf24';
-                document.getElementById('handNum').value = hNum + 1; btn.disabled = false; btn.innerText = "🚀 XUẤT KẾT QUẢ VÁN TIẾP TỤC"; resetCards();
+                document.getElementById('handNum').value = hNum + 1; btn.disabled = false; btn.innerText = "🚀 XUẤT KẾT QUẢ VÁN TIẾP TỤC"; resetUI();
             }, 1000); 
         }
     </script>
