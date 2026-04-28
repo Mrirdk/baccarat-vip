@@ -11,7 +11,7 @@
     <link rel="icon" type="image/png" href="https://cdn-icons-png.flaticon.com/512/4712/4712035.png">
     
     <style>
-        /* CYBERPUNK THEME V147 NEURAL */
+        /* CYBERPUNK THEME V148 NEURAL */
         :root {
             --bg-gradient: radial-gradient(circle at center, #0f172a 0%, #020617 100%);
             --gold: linear-gradient(135deg, #fbbf24, #d97706);
@@ -127,7 +127,7 @@
         
         .res-wrapper { position: relative; padding: 4px; border-radius: 4px; background: #111; border: 1px solid #334155; }
         
-        /* KHÔI PHỤC VÒNG XOAY LƯỢNG TỬ (QUANTUM LOADER) */
+        /* VÒNG XOAY LƯỢNG TỬ (QUANTUM LOADER) */
         .result-box { font-size: 50px; font-weight: 900; border-radius: 4px; background: #000; width: 80px; height: 75px; text-align: center; display: flex; justify-content: center; align-items: center; color: white; transition: all 0.3s; }
         .loader { width: 38px; height: 38px; border: 4px solid #334155; border-bottom-color: #00f6ff; border-radius: 50%; display: inline-block; animation: rotation 0.8s linear infinite; }
         @keyframes rotation { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
@@ -304,7 +304,7 @@
                     <div class="chat-box" id="chatBox">⚡ KẾT NỐI API THÀNH CÔNG.<br>⚡ ĐÃ MÃ HÓA LUỒNG DỮ LIỆU.</div>
                     
                     <div class="terminal-log" id="termLog">
-                        > System Secure V147 Started...<br>
+                        > System Secure V148 Started...<br>
                         > Neural Network Active...<br>
                         > Awaiting Command...
                     </div>
@@ -478,10 +478,24 @@
 
         function getRandomAmount() { return Math.random() > 0.85 ? (Math.random() * 3 + 1).toFixed(1) + " TỶ" : (Math.floor(Math.random() * 850) + 50) + " TRIỆU"; }
 
+        // --- CẬP NHẬT TICKER: GIẢM "THÔNG TAY" XUỐNG 15% ---
         function generateTicker() {
-            const s = ['SẢNH WM CASINO', 'SẢNH SEXY CASINO', 'SẢNH EVOLUTION']; const t = ['C01', 'C02', 'C03', 'C05', 'VIP01', 'SPEED_A']; const st = ['THÔNG 5 TAY', 'THÔNG 8 TAY LIÊN TIẾP', 'ĂN TRẮNG 6 TAY', 'CHỐT LÃI KHỦNG THÔNG 10 TAY'];
+            const s = ['SẢNH WM CASINO', 'SẢNH SEXY CASINO', 'SẢNH EVOLUTION']; 
+            const t = ['C01', 'C02', 'C03', 'C05', 'VIP01', 'SPEED_A']; 
+            const st = ['THÔNG 5 TAY', 'THÔNG 8 TAY LIÊN TIẾP', 'ĂN TRẮNG 6 TAY', 'CHỐT LÃI KHỦNG THÔNG 10 TAY'];
+            
             let txt = "";
-            for(let i=0; i<20; i++) txt += `🔥 [LIVESCAN] TÀI KHOẢN [${getRandomName()}] VỪA HÚP TRỌN ${getRandomAmount()} | ${s[Math.floor(Math.random()*s.length)]} - BÀN ${t[Math.floor(Math.random()*t.length)]} | ${st[Math.floor(Math.random()*st.length)]}! 🔥 &nbsp;&nbsp;&nbsp;&nbsp; | &nbsp;&nbsp;&nbsp;&nbsp; `;
+            for(let i=0; i<20; i++) {
+                let n = getRandomName();
+                let a = getRandomAmount();
+                let sanh = s[Math.floor(Math.random()*s.length)];
+                let ban = t[Math.floor(Math.random()*t.length)];
+                
+                // Thuật toán thực tế: Chỉ 15% tỷ lệ có thêm cụm từ "Thông tay"
+                let streakTxt = (Math.random() > 0.85) ? ` | ${st[Math.floor(Math.random()*st.length)]}` : ''; 
+                
+                txt += `🔥 [LIVESCAN] TÀI KHOẢN [${n}] VỪA HÚP TRỌN ${a} | ${sanh} - BÀN ${ban}${streakTxt}! 🔥 &nbsp;&nbsp;&nbsp;&nbsp; | &nbsp;&nbsp;&nbsp;&nbsp; `;
+            }
             document.getElementById('dynamicTicker').innerHTML = txt;
         }
         generateTicker(); setInterval(generateTicker, 50000);
@@ -511,7 +525,7 @@
         function backToTable() { showScreen('screen-table'); }
 
         let pCards = 0, bCards = 0, pScore = -1, bScore = -1, history = [], lastPred = 'B';
-        let currentStreak = 0; let currentProfit = 0; // Biến lưu lãi và chuỗi
+        let currentStreak = 0; let currentProfit = 0; 
 
         function setCards(s, v) { if(s === 'p') { pCards = v; document.getElementById('p-2').classList.toggle('active', v===2); document.getElementById('p-3').classList.toggle('active', v===3); } else { bCards = v; document.getElementById('b-2').classList.toggle('active', v===2); document.getElementById('b-3').classList.toggle('active', v===3); } }
         function createNumpad(s) {
@@ -573,18 +587,16 @@
                 
                 lastPred = pred; 
                 
-                // HIỆU ỨNG KẾT QUẢ
+                // HIỆU ỨNG KẾT QUẢ NỔ MÀU
                 resB.innerHTML = pred; resB.style.color = '#fff'; 
                 resB.style.backgroundColor = pred === 'B' ? '#be123c' : '#0284c7';
                 resB.style.borderColor = pred === 'B' ? '#fb7185' : '#38bdf8';
-                
-                // NỔ MÀU GLOW POP
                 resB.classList.add('glow-pop');
                 setTimeout(()=> resB.classList.remove('glow-pop'), 600);
 
                 // TĂNG LÃI KHỦNG VÀ CHUỖI WIN
                 currentStreak++;
-                currentProfit += (Math.floor(Math.random() * 10) + 5) * 100000; // Tăng random 500k - 1tr5
+                currentProfit += (Math.floor(Math.random() * 10) + 5) * 100000; 
                 document.getElementById('sessStreak').innerText = currentStreak;
                 document.getElementById('sessProfit').innerText = "+" + currentProfit.toLocaleString() + " VNĐ";
 
