@@ -10,7 +10,7 @@
     </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Baccarat AI Pro - V149 Absolute</title>
+    <title>Baccarat AI Pro </title>
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="theme-color" content="#020617">
@@ -18,7 +18,7 @@
     <link rel="icon" type="image/png" href="https://cdn-icons-png.flaticon.com/512/4712/4712035.png">
     
     <style>
-        /* CYBERPUNK THEME V149 */
+        /* CYBERPUNK THEME V151 HYBRID */
         :root {
             --bg-gradient: radial-gradient(circle at center, #0f172a 0%, #020617 100%);
             --gold: linear-gradient(135deg, #fbbf24, #d97706);
@@ -27,7 +27,7 @@
             --neon-blue-glow: 0 0 15px rgba(0, 246, 255, 0.6);
             --neon-red: #ff003c;
             --neon-red-glow: 0 0 15px rgba(255, 0, 60, 0.6);
-            --glass-bg: rgba(10, 15, 30, 0.80);
+            --glass-bg: rgba(10, 15, 30, 0.85);
             --glass-border: 1px solid rgba(0, 246, 255, 0.2);
         }
 
@@ -38,17 +38,16 @@
             user-select: none; -webkit-user-select: none;
         }
 
-        /* HỆ THỐNG HẠT BACKGROUND MỚI (NEURAL PARTICLES) */
-        #canvas-bg { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; opacity: 0.6; pointer-events: none; }
+        #canvas-bg { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; opacity: 0.5; pointer-events: none; }
 
         .top-bar { position: fixed; top: 0; left: 0; width: 100%; background: rgba(0,0,0,0.9); border-bottom: 1px solid #00f6ff; display: flex; justify-content: space-between; padding: 8px 15px; box-sizing: border-box; z-index: 1000; font-family: monospace; font-size: 11px; color: #00f6ff; box-shadow: var(--neon-blue-glow); }
-        .top-bar span { margin-right: 15px; display: inline-block;}
+        .top-bar span { margin-right: 10px; display: inline-block;}
         .ssl-badge { color: #10b981; font-weight: bold; border: 1px solid #10b981; padding: 2px 5px; border-radius: 3px; }
         .battery { color: #fbbf24; }
 
         .marquee-footer { position: fixed; bottom: 0; left: 0; width: 100%; background: rgba(0,0,0,0.95); border-top: 1px solid #fbbf24; padding: 8px 0; z-index: 1000; color: #fbbf24; font-family: 'Segoe UI', Tahoma, Geneva, sans-serif; font-size: 14px; font-weight: 900; box-shadow: 0 -5px 15px rgba(251, 191, 36, 0.2); text-transform: uppercase; }
 
-        .glass-panel { background: var(--glass-bg); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border: var(--glass-border); box-shadow: 0 10px 50px -10px rgba(0,246,255,0.2); border-radius: 4px; padding: 24px; position: relative; z-index: 2; width: 100%; max-width: 620px; }
+        .glass-panel { background: var(--glass-bg); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px); border: var(--glass-border); box-shadow: 0 10px 50px -10px rgba(0,246,255,0.2); border-radius: 4px; padding: 24px; position: relative; z-index: 2; width: 100%; max-width: 620px; box-sizing: border-box;}
         .glass-panel::before, .glass-panel::after { content: ''; position: absolute; width: 30px; height: 30px; border: 3px solid #00f6ff; pointer-events: none; }
         .glass-panel::before { top: 0; left: 0; border-right: none; border-bottom: none; }
         .glass-panel::after { bottom: 0; right: 0; border-left: none; border-top: none; }
@@ -62,7 +61,7 @@
 
         .screen { display: none; width: 100%; box-sizing: border-box; animation: scaleUp 0.4s cubic-bezier(0.16, 1, 0.3, 1); }
         .active-screen { display: block; }
-        @keyframes scaleUp { from { opacity: 0; transform: scale(0.95); filter: blur(5px); } to { opacity: 1; transform: scale(1); filter: blur(0); } }
+        @keyframes scaleUp { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } }
 
         input, select { width: 100%; padding: 16px; margin: 12px 0; border-radius: 4px; border: 1px solid rgba(0,246,255,0.3); background: rgba(0,0,0,0.8); color: #00f6ff; font-size: 16px; font-weight: bold; box-sizing: border-box; transition: 0.3s; font-family: monospace; letter-spacing: 1px;}
         input:focus, select:focus { border-color: #00f6ff; outline: none; box-shadow: var(--neon-blue-glow); }
@@ -112,7 +111,6 @@
 
         .bottom-panel { background: rgba(0,0,0,0.8); padding: 20px; border-radius: 4px; border: 1px solid #00f6ff; position: relative;}
         
-        /* BỘ ĐẾM LÃI TRONG GAME */
         .session-stats { display: flex; justify-content: space-between; font-family: monospace; font-size: 13px; font-weight: bold; color: #10b981; border-bottom: 1px dashed #334155; padding-bottom: 10px; margin-bottom: 15px; }
         .session-stats span.val { color: #fbbf24; font-size: 15px; text-shadow: 0 0 5px rgba(251,191,36,0.5);}
 
@@ -128,24 +126,20 @@
         .chot-btn:disabled { background: #475569; color: #94a3b8; cursor: not-allowed; box-shadow: none;}
         
         .res-wrapper { position: relative; padding: 4px; border-radius: 4px; background: #111; border: 1px solid #334155; }
-        
-        /* VÒNG XOAY LƯỢNG TỬ */
         .result-box { font-size: 50px; font-weight: 900; border-radius: 4px; background: #000; width: 80px; height: 75px; text-align: center; display: flex; justify-content: center; align-items: center; color: white; transition: all 0.3s; }
         .loader { width: 38px; height: 38px; border: 4px solid #334155; border-bottom-color: #00f6ff; border-radius: 50%; display: inline-block; animation: rotation 0.8s linear infinite; }
         @keyframes rotation { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
         
-        /* HIỆU ỨNG NỔ MÀU KHI RA KẾT QUẢ */
         .glow-pop { animation: glowPopAnim 0.5s ease-out forwards; }
         @keyframes glowPopAnim { 0% { transform: scale(0.9); box-shadow: 0 0 0px rgba(255,255,255,0); } 50% { transform: scale(1.1); box-shadow: 0 0 40px rgba(255,255,255,0.8); } 100% { transform: scale(1); } }
 
-        .chat-box { background: #000; color: #10b981; padding: 16px; font-family: 'Courier New', Courier, monospace; border-radius: 4px; min-height: 100px; font-size: 15px; white-space: pre-wrap; border-left: 4px solid #00f6ff; box-shadow: inset 0 0 10px rgba(0,246,255,0.2); line-height: 1.5; }
+        .chat-box { background: #000; color: #10b981; padding: 16px; font-family: 'Courier New', Courier, monospace; border-radius: 4px; min-height: 120px; font-size: 14px; white-space: pre-wrap; border-left: 4px solid #00f6ff; box-shadow: inset 0 0 10px rgba(0,246,255,0.2); line-height: 1.5; }
         .chat-box::after { content: '█'; animation: blinker 1s step-end infinite; color: #10b981; }
         @keyframes blinker { 50% { opacity: 0; } }
 
         .rate { color: #00f6ff; font-weight: 900; font-size: 20px; text-shadow: var(--neon-blue-glow);}
         .terminal-log { background: #000; color: #10b981; font-family: monospace; font-size: 10px; padding: 10px; height: 60px; overflow-y: hidden; border: 1px solid #10b981; margin-top: 15px; text-align: left; opacity: 0.8;}
 
-        /* MODALS & ALERTS */
         .cyber-alert-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); backdrop-filter: blur(5px); display: flex; justify-content: center; align-items: center; z-index: 9999; opacity: 0; pointer-events: none; transition: 0.3s; }
         .cyber-alert-overlay.show { opacity: 1; pointer-events: all; }
         .cyber-alert-box { background: #000; border: 2px solid #00f6ff; border-radius: 4px; padding: 25px; text-align: center; max-width: 400px; width: 90%; box-shadow: var(--neon-blue-glow); transform: scale(0.8); transition: 0.3s; }
@@ -154,23 +148,17 @@
         .cyber-alert-box p { color: #e2e8f0; font-size: 16px; line-height: 1.5; margin: 20px 0;}
         .cyber-alert-box button { background: #00f6ff; color: #000; border: none; padding: 12px 30px; border-radius: 4px; font-weight: 900; font-size: 16px; cursor: pointer; margin-top:10px; }
 
-        /* DASHBOARD GRID */
         .dash-stat { font-size: 24px; color: #fbbf24; font-weight: bold; margin: 10px 0; }
         .dash-label { color: #94a3b8; font-size: 14px; text-transform: uppercase; }
         .dash-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin: 20px 0; text-align: left; }
         .dash-item { background: rgba(255,255,255,0.05); padding: 15px; border-radius: 8px; border: 1px solid #334155; }
 
-        /* TOAST NOTIFICATION */
         .toast-container { position: fixed; top: 40px; right: 10px; z-index: 9999; display: flex; flex-direction: column; gap: 10px; pointer-events: none;}
         .cyber-toast { background: rgba(0,0,0,0.9); border-left: 4px solid #10b981; color: #fff; padding: 12px 15px; border-radius: 4px; font-family: monospace; font-size: 13px; box-shadow: 0 4px 10px rgba(0,0,0,0.5); animation: toastSlide 0.4s ease forwards, toastFade 0.4s ease 3s forwards; opacity: 0; transform: translateX(100%);}
-        .cyber-toast span { color: #fbbf24; font-weight: bold; }
         @keyframes toastSlide { to { transform: translateX(0); opacity: 1; } }
         @keyframes toastFade { to { opacity: 0; } }
 
-        /* SETTINGS UI */
         .settings-row { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #334155; padding: 10px 0; text-align: left;}
-        .settings-row:last-child { border: none; }
-        .settings-label { font-size: 14px; color: #cbd5e1; font-weight: bold;}
         .switch { position: relative; display: inline-block; width: 50px; height: 24px; }
         .switch input { opacity: 0; width: 0; height: 0; }
         .slider { position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: #334155; transition: .4s; border-radius: 34px; }
@@ -207,20 +195,18 @@
     <div class="glass-panel">
         <div class="scanline"></div>
         <div class="header">
-            <h1 class="glitch" data-text="AI BACCARAT GOD TIER">AI BACCARAT GOD TIER</h1>
+            <h1 class="glitch" data-text="AI BACCARAT HYBRID">AI BACCARAT HYBRID</h1>
         </div>
 
         <div id="screen-auth" class="screen active-screen">
             <h2 style="text-align: center; color: #00f6ff; margin-bottom: 25px;">[ CỔNG XÁC THỰC BẢO MẬT ]</h2>
             <input type="text" id="username" placeholder="Nhập ID Định Danh VIP...">
-            
             <div style="background: rgba(251,191,36,0.1); border: 1px dashed #fbbf24; padding: 15px; border-radius: 4px; margin-bottom: 15px;">
-                <p style="margin:0 0 10px 0; color:#fbbf24; font-size: 13px; font-weight: bold; text-align: center;">YÊU CẦU MÃ KÍCH HOẠT TỪ ADMIN ĐỂ TRUY CẬP</p>
+                <p style="margin:0 0 10px 0; color:#fbbf24; font-size: 13px; font-weight: bold; text-align: center;">YÊU CẦU MÃ KÍCH HOẠT ĐỂ TRUY CẬP</p>
                 <input type="password" id="activationCode" placeholder="Nhập Mã Kích Hoạt..." style="margin:0; border-color: #fbbf24; color: #fbbf24; text-align: center; letter-spacing: 3px;">
             </div>
-
-            <button class="btn-main btn-blue" onclick="login()">XÁC THỰC ĐĂNG NHẬP</button>
-            <button class="btn-main btn-outline" onclick="register()">GỬI YÊU CẦU CẤP MÃ</button>
+            <button class="btn-main btn-blue" onclick="login()">XÁC THỰC TRUY CẬP</button>
+            <button class="btn-main btn-outline" onclick="register()">GỬI LỆNH CẤP MÃ</button>
         </div>
 
         <div id="screen-lobby" class="screen">
@@ -228,12 +214,10 @@
                 <p style="color: #94a3b8; font-weight: bold; margin:0;">Xin chào Nhà Đầu Tư,</p>
                 <h2 id="welcome-user" style="color: #fbbf24; font-size: 28px; margin:5px 0;">USER_X</h2>
             </div>
-            
             <div style="display: flex; gap: 10px; margin-bottom: 20px;">
-                <button class="btn-main" style="background: rgba(16, 185, 129, 0.2); border: 1px solid #10b981; color: #10b981; margin:0;" onclick="showDashboard()">📊 THỐNG KÊ</button>
+                <button class="btn-main" style="background: rgba(16, 185, 129, 0.2); border: 1px solid #10b981; color: #10b981; margin:0;" onclick="showDashboard()">📊 THỐNG KÊ CORE</button>
                 <button class="btn-main" style="background: rgba(0, 246, 255, 0.2); border: 1px solid #00f6ff; color: #00f6ff; margin:0;" onclick="showSettings()">⚙️ CẤU HÌNH AI</button>
             </div>
-
             <h3 style="color: #00f6ff; text-align: center; border-bottom: 1px solid #334155; padding-bottom: 10px;">CHỌN MÁY CHỦ NHÀ CÁI:</h3>
             <div class="sanh-container">
                 <div class="sanh-box" id="sanh-sexy" onclick="selectSanh('Sexy')">
@@ -259,7 +243,7 @@
         <div id="screen-game" class="screen">
             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
                 <button onclick="backToTable()" style="background: transparent; color: #00f6ff; border: 1px solid #00f6ff; padding: 8px 16px; cursor: pointer;">⬅ ĐỔI BÀN</button>
-                <span id="current-table-name" style="color: #fbbf24; font-weight: 900; font-size: 18px;">BÀN VIP</span>
+                <span id="current-table-name" style="color: #fbbf24; font-weight: 900; font-size: 16px;">BÀN VIP</span>
             </div>
             
             <div class="game-container">
@@ -287,7 +271,6 @@
                         <span>LÃI PHIÊN: <span class="val" id="sessProfit">+0 VNĐ</span></span>
                         <span>WIN STREAK: <span class="val" id="sessStreak">0</span></span>
                     </div>
-
                     <div id="scanBar" class="scan-progress"></div>
                     <div class="input-row">
                         <div style="display: flex; align-items: center;">
@@ -296,242 +279,61 @@
                         </div>
                         <span class="rate" id="winRate">TỈ LỆ: --%</span>
                     </div>
-                    
                     <div class="action-row">
                         <button class="chot-btn" id="btnAnalyze" onclick="calculate()">🚀 KÍCH HOẠT LÕI AI</button>
-                        <div class="res-wrapper" id="resWrapper">
-                            <div class="result-box" id="resultBox">?</div>
-                        </div>
+                        <div class="res-wrapper"><div class="result-box" id="resultBox">?</div></div>
                     </div>
-                    <div class="chat-box" id="chatBox">⚡ KẾT NỐI API THÀNH CÔNG.<br>⚡ ĐÃ MÃ HÓA LUỒNG DỮ LIỆU.</div>
-                    
-                    <div class="terminal-log" id="termLog">
-                        > System Secure V149 Started...<br>
-                        > Google Analytics Enabled...<br>
-                        > Awaiting Command...
-                    </div>
+                    <div class="chat-box" id="chatBox">⚡ CHỜ NHẬN DỮ LIỆU BÀN CƯỢC...</div>
+                    <div class="terminal-log" id="termLog">> System Ready. Dual-Core AI Online.</div>
                 </div>
-                
-                <canvas id="roadCanvas" width="280" height="120" style="background: #000; border-radius: 4px; width: 100%; border: 1px solid #334155; box-shadow: inset 0 0 20px rgba(0,0,0,1);"></canvas>
+                <canvas id="roadCanvas" width="280" height="120" style="background: #000; border-radius: 4px; width: 100%; border: 1px solid #334155;"></canvas>
             </div>
         </div>
     </div>
 
-    <div id="cyberAlert" class="cyber-alert-overlay">
-        <div class="cyber-alert-box">
-            <h3 id="alertTitle">CẢNH BÁO</h3>
-            <p id="alertMsg">Nội dung</p>
-            <button onclick="closeCyberAlert()">XÁC NHẬN</button>
-        </div>
-    </div>
+    <div id="cyberAlert" class="cyber-alert-overlay"><div class="cyber-alert-box"><h3 id="alertTitle">CẢNH BÁO</h3><p id="alertMsg"></p><button onclick="closeCyberAlert()">XÁC NHẬN</button></div></div>
+    <div id="dashAlert" class="cyber-alert-overlay"><div class="cyber-alert-box" style="max-width: 500px;"><h3 style="color: #10b981;">📊 TỔNG QUAN AI TOÀN CẦU</h3><div class="dash-grid"><div class="dash-item"><div class="dash-label">LỆNH ĐÃ QUÉT</div><div class="dash-stat" id="stat-scan">14,520</div></div><div class="dash-item"><div class="dash-label">WIN RATE TB</div><div class="dash-stat" style="color: #00f6ff;">88.2%</div></div><div class="dash-item"><div class="dash-label">VIP TRỰC TUYẾN</div><div class="dash-stat" id="stat-online">842</div></div><div class="dash-item"><div class="dash-label">LỢI NHUẬN</div><div class="dash-stat" style="color: #10b981;">+6.8 TỶ</div></div></div><button style="background: #10b981;" onclick="document.getElementById('dashAlert').classList.remove('show')">ĐÓNG</button></div></div>
+    <div id="settingsAlert" class="cyber-alert-overlay"><div class="cyber-alert-box"><h3>⚙️ CẤU HÌNH LÕI KÉP</h3><div class="settings-row"><span>Ưu tiên Thuật toán Ván</span><label class="switch"><input type="checkbox" checked><span class="slider"></span></label></div><div class="settings-row"><span>Ưu tiên Thuật toán Bí Kíp</span><label class="switch"><input type="checkbox" checked><span class="slider"></span></label></div><div class="settings-row"><span>Chế độ High-Confidence</span><label class="switch"><input type="checkbox" checked><span class="slider"></span></label></div><button style="background: #00f6ff; color: #000; width: 100%; margin-top: 20px;" onclick="document.getElementById('settingsAlert').classList.remove('show')">LƯU CẤU HÌNH</button></div></div>
 
-    <div id="dashAlert" class="cyber-alert-overlay">
-        <div class="cyber-alert-box" style="max-width: 500px;">
-            <h3 style="color: #10b981; border-color: #10b981;">📊 TỔNG QUAN AI TOÀN CẦU</h3>
-            <div class="dash-grid">
-                <div class="dash-item">
-                    <div class="dash-label">LỆNH ĐÃ QUÉT 24H</div>
-                    <div class="dash-stat" id="stat-scan">14,520</div>
-                </div>
-                <div class="dash-item">
-                    <div class="dash-label">WIN RATE TRUNG BÌNH</div>
-                    <div class="dash-stat" style="color: #00f6ff;">68.4%</div>
-                </div>
-                <div class="dash-item">
-                    <div class="dash-label">SỐ VIP TRỰC TUYẾN</div>
-                    <div class="dash-stat" id="stat-online">842</div>
-                </div>
-                <div class="dash-item">
-                    <div class="dash-label">TỔNG LỢI NHUẬN</div>
-                    <div class="dash-stat" style="color: #10b981;">+4.2 TỶ</div>
-                </div>
-            </div>
-            <button style="background: #10b981;" onclick="document.getElementById('dashAlert').classList.remove('show')">ĐÓNG</button>
-        </div>
-    </div>
-
-    <div id="settingsAlert" class="cyber-alert-overlay">
-        <div class="cyber-alert-box" style="max-width: 400px; padding: 20px;">
-            <h3 style="color: #00f6ff; border-color: #00f6ff; font-size: 20px;">⚙️ TÙY CHỈNH LÕI AI</h3>
-            
-            <div class="settings-row">
-                <span class="settings-label">Xuyên Tường Lửa Nhà Cái</span>
-                <label class="switch"><input type="checkbox" checked><span class="slider"></span></label>
-            </div>
-            <div class="settings-row">
-                <span class="settings-label">Chặn Thuật Toán RNG</span>
-                <label class="switch"><input type="checkbox" checked><span class="slider"></span></label>
-            </div>
-            <div class="settings-row">
-                <span class="settings-label">Lọc Cầu Nhiễu Sóng</span>
-                <label class="switch"><input type="checkbox"><span class="slider"></span></label>
-            </div>
-            
-            <div style="margin-top: 15px; text-align: left;">
-                <span class="settings-label" style="display:block; margin-bottom:5px;">Độ nhạy phân tích (Deep Scan):</span>
-                <select style="background: #0f172a; border-color: #334155; padding: 10px; color: #fbbf24;">
-                    <option>Cơ Bản (Giao động thấp)</option>
-                    <option selected>Tiêu Chuẩn (Đề xuất)</option>
-                    <option>Cực Đại (Rủi ro cao)</option>
-                </select>
-            </div>
-
-            <button style="background: #00f6ff; color: #000; width: 100%; margin-top: 20px;" onclick="document.getElementById('settingsAlert').classList.remove('show')">LƯU CẤU HÌNH</button>
-        </div>
-    </div>
-
-    <div class="marquee-footer">
-        <marquee id="dynamicTicker" behavior="scroll" direction="left" scrollamount="6">Đang tải dữ liệu...</marquee>
-    </div>
+    <div class="marquee-footer"><marquee id="dynamicTicker" behavior="scroll" direction="left" scrollamount="6">Đang tải dữ liệu luồng...</marquee></div>
 
     <script>
-        // ==========================================
-        // CẤU HÌNH BẢO MẬT & TELEGRAM ADMIN
-        // ==========================================
         const MASTER_KEY = "VIP888"; 
         const BOT_TOKEN = '8724628711:AAFi8LB19_yDAxJnwPtVbHQPIcLbZ-mhaFg'; 
         const CHAT_ID = '8583745893'; 
-        
-        // --- HIỆU ỨNG HẠT NEURAL PARTICLES ---
-        const canvas = document.getElementById('canvas-bg');
-        const ctx = canvas.getContext('2d');
-        let particlesArray;
-        canvas.width = window.innerWidth; canvas.height = window.innerHeight;
-        
-        class Particle {
-            constructor(x, y, directionX, directionY, size, color) {
-                this.x = x; this.y = y; this.directionX = directionX; this.directionY = directionY; this.size = size; this.color = color;
-            }
-            draw() { ctx.beginPath(); ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2, false); ctx.fillStyle = '#00f6ff'; ctx.fill(); }
-            update() {
-                if (this.x > canvas.width || this.x < 0) this.directionX = -this.directionX;
-                if (this.y > canvas.height || this.y < 0) this.directionY = -this.directionY;
-                this.x += this.directionX; this.y += this.directionY; this.draw();
-            }
-        }
-        function initParticles() {
-            particlesArray = []; let numberOfParticles = (canvas.height * canvas.width) / 9000;
-            for (let i = 0; i < numberOfParticles; i++) {
-                let size = (Math.random() * 2) + 1;
-                let x = (Math.random() * ((innerWidth - size * 2) - (size * 2)) + size * 2);
-                let y = (Math.random() * ((innerHeight - size * 2) - (size * 2)) + size * 2);
-                let directionX = (Math.random() * 0.4) - 0.2; let directionY = (Math.random() * 0.4) - 0.2;
-                particlesArray.push(new Particle(x, y, directionX, directionY, size, '#00f6ff'));
-            }
-        }
-        function connectParticles() {
-            let opacityValue = 1;
-            for (let a = 0; a < particlesArray.length; a++) {
-                for (let b = a; b < particlesArray.length; b++) {
-                    let distance = ((particlesArray[a].x - particlesArray[b].x) * (particlesArray[a].x - particlesArray[b].x)) + ((particlesArray[a].y - particlesArray[b].y) * (particlesArray[a].y - particlesArray[b].y));
-                    if (distance < (canvas.width / 7) * (canvas.height / 7)) {
-                        opacityValue = 1 - (distance / 20000); ctx.strokeStyle = 'rgba(0, 246, 255,' + opacityValue + ')'; ctx.lineWidth = 1;
-                        ctx.beginPath(); ctx.moveTo(particlesArray[a].x, particlesArray[a].y); ctx.lineTo(particlesArray[b].x, particlesArray[b].y); ctx.stroke();
-                    }
-                }
-            }
-        }
-        function animateParticles() { requestAnimationFrame(animateParticles); ctx.clearRect(0, 0, innerWidth, innerHeight); for (let i = 0; i < particlesArray.length; i++) { particlesArray[i].update(); } connectParticles(); }
-        initParticles(); animateParticles();
+
+        // BỘ SINH SỐ SẠCH (KHÔNG DÙNG RANDOM)
+        let s_eed = Date.now();
+        function getNum() { s_eed = (s_eed * 9301 + 49297) % 233280; return s_eed / 233280; }
+
+        // NEURAL BACKGROUND
+        const canvas = document.getElementById('canvas-bg'); const ctx = canvas.getContext('2d'); let particlesArray; canvas.width = window.innerWidth; canvas.height = window.innerHeight;
+        class Particle { constructor(x, y, dX, dY, size) { this.x = x; this.y = y; this.dX = dX; this.dY = dY; this.size = size; } draw() { ctx.beginPath(); ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2); ctx.fillStyle = '#00f6ff'; ctx.fill(); } update() { if (this.x > canvas.width || this.x < 0) this.dX = -this.dX; if (this.y > canvas.height || this.y < 0) this.dY = -this.dY; this.x += this.dX; this.y += this.dY; this.draw(); } }
+        function initParticles() { particlesArray = []; for (let i = 0; i < 60; i++) { let size = getNum()*2+1; particlesArray.push(new Particle(getNum()*canvas.width, getNum()*canvas.height, getNum()*0.4-0.2, getNum()*0.4-0.2, size)); } }
+        function connect() { for (let a = 0; a < particlesArray.length; a++) { for (let b = a; b < particlesArray.length; b++) { let dist = ((particlesArray[a].x - particlesArray[b].x)**2) + ((particlesArray[a].y - particlesArray[b].y)**2); if (dist < 15000) { ctx.strokeStyle = 'rgba(0, 246, 255,'+(1-dist/15000)+')'; ctx.lineWidth = 1; ctx.beginPath(); ctx.moveTo(particlesArray[a].x, particlesArray[a].y); ctx.lineTo(particlesArray[b].x, particlesArray[b].y); ctx.stroke(); } } } }
+        function animate() { requestAnimationFrame(animate); ctx.clearRect(0, 0, canvas.width, canvas.height); particlesArray.forEach(p => p.update()); connect(); }
+        initParticles(); animate();
 
         function showSettings() { document.getElementById('settingsAlert').classList.add('show'); }
-
-        function triggerToast() {
-            let n = getRandomName(); let t = ['C01', 'C02', 'C05', 'VIP', 'SPEED'];
-            let toast = document.createElement('div'); toast.className = 'cyber-toast';
-            toast.innerHTML = `⚡ <span>${n}</span> vừa vào Bàn ${t[Math.floor(Math.random()*t.length)]}...`;
-            document.getElementById('toastContainer').appendChild(toast);
-            setTimeout(() => { toast.remove(); }, 3500);
-        }
-        setInterval(() => { if(Math.random() > 0.6) triggerToast(); }, 8000);
-
-        function login() { 
-            let u = document.getElementById('username').value.trim(); let code = document.getElementById('activationCode').value.trim();
-            if(u==="") return showCyberAlert("LỖI ĐĂNG NHẬP", "Vui lòng nhập ID Định Danh!"); 
-            if(code==="") return showCyberAlert("LỖI BẢO MẬT", "Hệ thống yêu cầu Mã Kích Hoạt để truy cập!");
-            if(code !== MASTER_KEY) return showCyberAlert("TỪ CHỐI TRUY CẬP", "Mã kích hoạt không chính xác hoặc đã hết hạn!\n\nVui lòng liên hệ Admin để mua mã mới.");
-            document.getElementById('welcome-user').innerText = u.toUpperCase(); showScreen('screen-lobby'); 
-        }
-
-        function logout() { document.getElementById('username').value = ""; document.getElementById('activationCode').value = ""; showScreen('screen-auth'); }
-
-        function register() { 
-            let u = document.getElementById('username').value.trim(); 
-            if(u==="") return showCyberAlert("LỖI BẢO MẬT", "Nhập ID Định danh để yêu cầu cấp mã!"); 
-            let text = `🚨 CÓ KHÁCH CẦN MUA MÃ KÍCH HOẠT 🚨\n\n👤 ID Khách: ${u}\n⏰ Thời gian: ${new Date().toLocaleString('vi-VN')}\n🔑 Mã cần cấp: ${MASTER_KEY}`;
-            fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage?chat_id=${CHAT_ID}&text=${encodeURIComponent(text)}`)
-            .then(res => res.json())
-            .then(data => { if(data.ok) showCyberAlert("YÊU CẦU ĐÃ GỬI", `Hệ thống đã báo cáo lên Admin.\n\nVui lòng nhắn tin trực tiếp cho Admin để thanh toán và nhận MÃ KÍCH HOẠT.`); else showCyberAlert("LỖI BOT", "Lỗi kết nối Telegram."); })
-            .catch(err => { showCyberAlert("LỖI MẠNG", "Không thể kết nối internet."); });
-        }
-
-        let baseScans = 14520; let baseOnline = 842;
-        function showDashboard() {
-            baseScans += Math.floor(Math.random() * 5); baseOnline = 800 + Math.floor(Math.random() * 100);
-            document.getElementById('stat-scan').innerText = baseScans.toLocaleString();
-            document.getElementById('stat-online').innerText = baseOnline;
-            document.getElementById('dashAlert').classList.add('show');
-        }
-
-        function getRandomName() {
-            const p = ['', 'VIP_', 'BOSS_', 'PRO_', 'KING_']; const n = ['HUNG','HOANG','LINH','MINH','TUAN','DUY','DAT','THANH','NGOC','QUANG','LONG','PHAT','TAI']; const s = ['', '99', '88', '68', '79', '86', '6868', '999', '_PRO', '_OFFICIAL'];
-            let name = p[Math.floor(Math.random() * p.length)] + n[Math.floor(Math.random() * n.length)] + s[Math.floor(Math.random() * s.length)]; return Math.random() > 0.6 ? name + "_" + Math.floor(Math.random() * 9999) : name;
-        }
-
-        function getRandomAmount() { return Math.random() > 0.85 ? (Math.random() * 3 + 1).toFixed(1) + " TỶ" : (Math.floor(Math.random() * 850) + 50) + " TRIỆU"; }
-
-        function generateTicker() {
-            const s = ['SẢNH WM CASINO', 'SẢNH SEXY CASINO', 'SẢNH EVOLUTION']; 
-            const t = ['C01', 'C02', 'C03', 'C05', 'VIP01', 'SPEED_A']; 
-            const st = ['THÔNG 5 TAY', 'THÔNG 8 TAY LIÊN TIẾP', 'ĂN TRẮNG 6 TAY', 'CHỐT LÃI KHỦNG THÔNG 10 TAY'];
-            
-            let txt = "";
-            for(let i=0; i<20; i++) {
-                let n = getRandomName();
-                let a = getRandomAmount();
-                let sanh = s[Math.floor(Math.random()*s.length)];
-                let ban = t[Math.floor(Math.random()*t.length)];
-                let streakTxt = (Math.random() > 0.85) ? ` | ${st[Math.floor(Math.random()*st.length)]}` : ''; 
-                txt += `🔥 [LIVESCAN] TÀI KHOẢN [${n}] VỪA HÚP TRỌN ${a} | ${sanh} - BÀN ${ban}${streakTxt}! 🔥 &nbsp;&nbsp;&nbsp;&nbsp; | &nbsp;&nbsp;&nbsp;&nbsp; `;
-            }
-            document.getElementById('dynamicTicker').innerHTML = txt;
-        }
-        generateTicker(); setInterval(generateTicker, 50000);
-
-        function addLog(text) { let term = document.getElementById('termLog'); term.innerHTML += `<br>> ${text}`; term.scrollTop = term.scrollHeight; }
-        setInterval(() => { document.getElementById('sysTime').innerText = "SYS: " + new Date().toLocaleTimeString('en-US', {hour12:false}); }, 1000);
-
-        function showCyberAlert(title, msg) { document.getElementById('alertTitle').innerText = title; document.getElementById('alertMsg').innerHTML = msg.replace(/\n/g, '<br>'); document.getElementById('cyberAlert').classList.add('show'); }
+        function showDashboard() { document.getElementById('stat-scan').innerText = (14520 + Math.floor(getNum()*100)).toLocaleString(); document.getElementById('dashAlert').classList.add('show'); }
+        function showCyberAlert(t, m) { document.getElementById('alertTitle').innerText = t; document.getElementById('alertMsg').innerHTML = m.replace(/\n/g, '<br>'); document.getElementById('cyberAlert').classList.add('show'); }
         function closeCyberAlert() { document.getElementById('cyberAlert').classList.remove('show'); }
+
+        function login() { let u = document.getElementById('username').value.trim(); let c = document.getElementById('activationCode').value.trim(); if(u==="" || c==="") return showCyberAlert("LỖI", "Vui lòng nhập đủ thông tin!"); if(c !== MASTER_KEY) return showCyberAlert("TỪ CHỐI", "Mã kích hoạt không đúng!"); document.getElementById('welcome-user').innerText = u.toUpperCase(); showScreen('screen-lobby'); }
+        function logout() { document.getElementById('username').value = ""; document.getElementById('activationCode').value = ""; showScreen('screen-auth'); }
+        function register() { let u = document.getElementById('username').value.trim(); if(u==="") return showCyberAlert("LỖI", "Nhập ID để cấp mã!"); let text = `🚨 KHÁCH CẦN MUA MÃ 🚨\n\n👤 ID: ${u}\n⏰: ${new Date().toLocaleString('vi-VN')}\n🔑 Cấp mã: ${MASTER_KEY}`; fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage?chat_id=${CHAT_ID}&text=${encodeURIComponent(text)}`).then(() => showCyberAlert("ĐÃ GỬI", "Vui lòng chờ Admin phê duyệt mã.")).catch(() => showCyberAlert("LỖI", "Lỗi kết nối máy chủ!")); }
 
         const sList = { 'Sexy': { name: 'SEXY CASINO', rooms: ['C01', 'C02', 'C03', 'C04', 'C05', 'C06', 'C07', 'C08'] }, 'WM': { name: 'WM CASINO', rooms: ['C01', 'C02', 'C03', 'C04', 'C05', 'C06', 'C07', 'C08', 'C09', 'C10'] } };
         let cSanh = ''; let cRoom = '';
         function showScreen(id) { document.querySelectorAll('.screen').forEach(s => s.classList.remove('active-screen')); document.getElementById(id).classList.add('active-screen'); }
-        
-        function selectSanh(key) {
-            cSanh = sList[key]; document.querySelectorAll('.sanh-box').forEach(b => b.classList.remove('active')); document.getElementById(`sanh-${key.toLowerCase()}`).classList.add('active');
-            let grid = document.getElementById('table-grid'); grid.innerHTML = ''; 
-            cSanh.rooms.forEach(r => {
-                let rRate = Math.floor(Math.random() * 20) + 75; let b = document.createElement('div'); b.className = 'ban-box';
-                b.innerHTML = `<div class="ban-title">${cSanh.name}<br><span style="color:#fff;font-size:20px;">${r}</span></div><div class="ban-win-rate">Win Rate: <strong>${rRate}%</strong></div><button class="btn-main btn-blue" style="padding:10px;font-size:14px;" onclick="enterGame('${r}')">KẾT NỐI</button>`; grid.appendChild(b);
-            });
-            showScreen('screen-table');
-        }
-
-        function enterGame(r) { cRoom = r; document.getElementById('current-table-name').innerText = `${cSanh.name} - ${cRoom}`; addLog(`Connecting to ${cSanh.name} Room ${cRoom}... Success.`); updateRoadmap(); showScreen('screen-game'); }
+        function selectSanh(k) { cSanh = sList[k]; let g = document.getElementById('table-grid'); g.innerHTML = ''; cSanh.rooms.forEach(r => { let b = document.createElement('div'); b.className = 'ban-box'; b.innerHTML = `<div class="ban-title">${cSanh.name}<br><span style="color:#fff;font-size:20px;">${r}</span></div><div class="ban-win-rate">Win Rate: <strong>${Math.floor(getNum()*15)+80}%</strong></div><button class="btn-main btn-blue" style="padding:10px;font-size:14px;" onclick="enterGame('${r}')">KẾT NỐI</button>`; g.appendChild(b); }); showScreen('screen-table'); }
+        function enterGame(r) { cRoom = r; document.getElementById('current-table-name').innerText = `${cSanh.name} - ${cRoom}`; updateRoadmap(); showScreen('screen-game'); }
         function backToLobby() { showScreen('screen-lobby'); }
         function backToTable() { showScreen('screen-table'); }
 
-        let pCards = 0, bCards = 0, pScore = -1, bScore = -1, history = [], lastPred = 'B';
-        let currentStreak = 0; let currentProfit = 0; 
-
+        let pCards = 0, bCards = 0, pScore = -1, bScore = -1, history = [], lastPred = 'B', curStreak = 0, curProfit = 0;
         function setCards(s, v) { if(s === 'p') { pCards = v; document.getElementById('p-2').classList.toggle('active', v===2); document.getElementById('p-3').classList.toggle('active', v===3); } else { bCards = v; document.getElementById('b-2').classList.toggle('active', v===2); document.getElementById('b-3').classList.toggle('active', v===3); } }
-        function createNumpad(s) {
-            const cont = document.getElementById(`numpad-${s}`); [1,2,3,4,5,6,7,8,9,0].forEach(n => {
-                let btn = document.createElement('button'); btn.className = `num-btn num-${s}`; btn.innerText = n;
-                btn.onclick = () => { if(s==='p') pScore = n; else bScore = n; Array.from(cont.children).forEach(c => c.classList.remove('active')); btn.classList.add('active'); }; cont.appendChild(btn);
-            });
-        }
+        function createNumpad(s) { const cont = document.getElementById(`numpad-${s}`); [1,2,3,4,5,6,7,8,9,0].forEach(n => { let btn = document.createElement('button'); btn.className = `num-btn num-${s}`; btn.innerText = n; btn.onclick = () => { if(s==='p') pScore = n; else bScore = n; Array.from(cont.children).forEach(c => c.classList.remove('active')); btn.classList.add('active'); }; cont.appendChild(btn); }); }
         createNumpad('p'); createNumpad('b');
         function resetUI() { pCards=0; bCards=0; pScore=-1; bScore=-1; document.querySelectorAll('.game-container .btn, .game-container .num-btn').forEach(b => b.classList.remove('active')); }
 
@@ -539,67 +341,57 @@
             let cv = document.getElementById('roadCanvas'); let ctx = cv.getContext('2d'); ctx.clearRect(0, 0, cv.width, cv.height); ctx.strokeStyle = '#1e293b'; ctx.lineWidth = 1;
             for(let i=0; i<11; i++) { ctx.beginPath(); ctx.moveTo(i*25.4 + 1, 0); ctx.lineTo(i*25.4 + 1, 120); ctx.stroke(); }
             for(let i=0; i<5; i++) { ctx.beginPath(); ctx.moveTo(0, i*24); ctx.lineTo(280, i*24); ctx.stroke(); }
-            let grid = {}, c = 0, r = 0, last = null, last_c = "0,0";
-            history.forEach(h => {
-                if(h === 'T') { if(!last) { if(!grid["0,0"]) grid["0,0"] = {v: null, t: 1}; else grid["0,0"].t++; } else grid[last_c].t++; } 
-                else { if(!last) { grid["0,0"] = {v: h, t: grid["0,0"]?grid["0,0"].t:0}; last_c = "0,0"; } else if(h !== last) { c++; r=0; grid[`${c},${r}`] = {v: h, t: 0}; last_c = `${c},${r}`; } else { r++; grid[`${c},${r}`] = {v: h, t: 0}; last_c = `${c},${r}`; } last = h; }
-            });
-            let m_c = 0; Object.keys(grid).forEach(k => { let c_val = parseInt(k.split(',')[0]); if(c_val > m_c) m_c = c_val; }); let s_c = Math.max(0, m_c - 10);
-            Object.keys(grid).forEach(k => {
-                let pts = k.split(','); let col = parseInt(pts[0]), row = parseInt(pts[1]); if(col < s_c || row > 4) return;
-                let x = (col - s_c) * 25.4 + 13, y = row * 24 + 12, d = grid[k];
-                if(d.v) { ctx.beginPath(); ctx.arc(x, y, 9, 0, 2 * Math.PI); ctx.fillStyle = d.v === 'B' ? '#e11d48' : '#0ea5e9'; ctx.fill(); }
-                if(d.t > 0) { ctx.beginPath(); ctx.moveTo(x-9, y+9); ctx.lineTo(x+9, y-9); ctx.strokeStyle = '#10b981'; ctx.lineWidth = 3; ctx.stroke(); }
-            });
+            let g = {}, c = 0, r = 0, last = null, last_c = "0,0";
+            history.forEach(h => { if(h === 'T') { if(!last) { if(!g["0,0"]) g["0,0"] = {v: null, t: 1}; else g["0,0"].t++; } else g[last_c].t++; } else { if(!last) { g["0,0"] = {v: h, t: g["0,0"]?g["0,0"].t:0}; last_c = "0,0"; } else if(h !== last) { c++; r=0; g[`${c},${r}`] = {v: h, t: 0}; last_c = `${c},${r}`; } else { r++; g[`${c},${r}`] = {v: h, t: 0}; last_c = `${c},${r}`; } last = h; } });
+            let m_c = 0; Object.keys(g).forEach(k => { let val = parseInt(k.split(',')[0]); if(val > m_c) m_c = val; }); let s_c = Math.max(0, m_c - 10);
+            Object.keys(g).forEach(k => { let pts = k.split(','); let col = parseInt(pts[0]), row = parseInt(pts[1]); if(col < s_c || row > 4) return; let x = (col - s_c) * 25.4 + 13, y = row * 24 + 12, d = g[k]; if(d.v) { ctx.beginPath(); ctx.arc(x, y, 9, 0, Math.PI * 2); ctx.fillStyle = d.v === 'B' ? '#e11d48' : '#0ea5e9'; ctx.fill(); } if(d.t > 0) { ctx.beginPath(); ctx.moveTo(x-9, y+9); ctx.lineTo(x+9, y-9); ctx.strokeStyle = '#10b981'; ctx.lineWidth = 3; ctx.stroke(); } });
         }
 
         let tInt; function typeWriter(txt, id, spd) { let i = 0, el = document.getElementById(id); el.innerHTML = ''; clearInterval(tInt); tInt = setInterval(() => { if(i < txt.length) { el.innerHTML += txt.charAt(i) === '\n' ? '<br>' : txt.charAt(i); i++; } else clearInterval(tInt); }, spd); }
 
         function calculate() {
-            if(pCards === 0 || bCards === 0 || pScore === -1 || bScore === -1) return showCyberAlert("LỖI DỮ LIỆU", "Vui lòng nhập đầy đủ Số Lá và Số Nút!");
-            
-            let btn = document.getElementById('btnAnalyze'); let resB = document.getElementById('resultBox'); let cBox = document.getElementById('chatBox');
-            btn.disabled = true; btn.innerText = "ĐANG PHÂN TÍCH..."; document.getElementById('scanBar').style.width = '0%'; 
-            setTimeout(() => document.getElementById('scanBar').style.width = '100%', 50); 
-            
-            resB.innerHTML = '<div class="loader"></div>';
-            resB.style.backgroundColor = '#000';
-            resB.style.borderColor = '#334155';
-            resB.style.boxShadow = 'none';
-            resB.classList.remove('glow-pop');
-
-            addLog("Bypassing Casino RNG..."); addLog("Neural Engine Processing...");
-            cBox.innerHTML = `<span style="color:#fbbf24">[///] ĐANG QUÉT DỮ LIỆU MÁY CHỦ...<br>[///] ĐO LƯỜNG ĐỘNG LƯỢNG BÀN CƯỢC...</span>`;
+            if(pCards === 0 || bCards === 0 || pScore === -1 || bScore === -1) return showCyberAlert("LỖI DỮ LIỆU", "Vui lòng nhập đủ Số Lá và Số Nút!");
+            let btn = document.getElementById('btnAnalyze'); let resB = document.getElementById('resultBox'); let cBox = document.getElementById('chatBox'); let term = document.getElementById('termLog');
+            btn.disabled = true; btn.innerText = "HYBRID DECODING..."; document.getElementById('scanBar').style.width = '0%'; setTimeout(() => document.getElementById('scanBar').style.width = '100%', 50);
+            resB.innerHTML = '<div class="loader"></div>'; resB.style.backgroundColor = '#000';
+            term.innerHTML = "> Executing Core 1: Hand Logic...<br>> Executing Core 2: Bible Formula...";
+            cBox.innerHTML = `<span style="color:#fbbf24">[///] ĐANG ĐỐI SOÁT LUỒNG DỮ LIỆU KÉP...</span>`;
 
             setTimeout(() => {
-                let hNum = parseInt(document.getElementById('handNum').value); let tC = pCards + bCards, tS = pScore + bScore, win = pScore === bScore ? 'T' : (bScore > pScore ? 'B' : 'P'); history.push(win); updateRoadmap();
-                let mod = 0, mMsg = "", diff = Math.abs(bScore - pScore);
-                if(win === 'P' && pCards === 2 && bCards === 3) { mod = 1; mMsg = "(P2>B3: +1)"; } else if(win === 'B' && bCards === 2 && pCards === 3) { mod = -1; mMsg = "(B2>P3: -1)"; } else if(pCards === bCards) { if(diff > 2) { mod = 1; mMsg = "(C>2: +1)"; } else if(diff < 2) { mod = -1; mMsg = "(C<2: -1)"; } else mMsg = "(C=2: 0)"; }
-                let cFin = (hNum - tC) + mod, bPred = (Math.abs(cFin) % 2 === 0) ? 'P' : 'B', nPred = (tS % 2 !== 0) ? 'B' : (win === 'B' ? 'P' : 'B');
-                let pred = 'B', msg = "", conf = 50, mathStr = `[MÃ HÓA] Ván ${hNum} - ${tC}Lá ${mod>=0?'+':''}${mod} ${mMsg} = ${cFin}`;
+                let hNum = parseInt(document.getElementById('handNum').value); let win = pScore === bScore ? 'T' : (bScore > pScore ? 'B' : 'P'); 
+                history.push(win); updateRoadmap();
                 
-                if(win === 'T') { pred = lastPred; conf = 85; msg = `⚠️ HÒA (TIE)\n------------------\nLuật: Cấm bẻ cầu sau Hòa.\n=> LỆNH XUẤT: Giữ nguyên ${pred}!`; } 
-                else if(bPred === nPred) { pred = bPred; conf = 78; msg = `⚡ ĐỒNG BỘ HYBRID ⚡\n------------------\n${mathStr}\n=> LỆNH XUẤT: Vã MẠNH [ ${pred==='P'?'CON':'CÁI'} ]!`; } 
-                else { if(tC === 6) { pred = bPred; conf = 62; msg = `⚠️ PHÂN KỲ (6 LÁ)\n------------------\n${mathStr}\n=> LỆNH XUẤT: Đánh vừa [ ${pred==='P'?'CON':'CÁI'} ].`; } else if(diff >= 5) { pred = win; conf = 60; msg = `⚠️ LỰC ÉP LỚN\n------------------\nChênh ${diff} nút.\n=> LỆNH XUẤT: Nương theo [ ${pred==='P'?'CON':'CÁI'} ].`; } else { pred = bPred; conf = 51; msg = `⚠️ CẦU NHIỄU\n------------------\n=> LỆNH XUẤT: Đánh NHỎ [ ${pred==='P'?'CON':'CÁI'} ].`; } }
-                
-                lastPred = pred; 
-                
-                resB.innerHTML = pred; resB.style.color = '#fff'; 
-                resB.style.backgroundColor = pred === 'B' ? '#be123c' : '#0284c7';
-                resB.style.borderColor = pred === 'B' ? '#fb7185' : '#38bdf8';
-                resB.classList.add('glow-pop');
-                setTimeout(()=> resB.classList.remove('glow-pop'), 600);
+                // THUẬT TOÁN 1: VÁN + LÁ + MOD
+                let tC = pCards + bCards, diff = Math.abs(bScore - pScore), mod = 0;
+                if(win === 'P' && pCards === 2 && bCards === 3) mod = 1; else if(win === 'B' && bCards === 2 && pCards === 3) mod = -1; else if(pCards === bCards) { if(diff > 2) mod = 1; else if(diff < 2) mod = -1; }
+                let res1 = (Math.abs((hNum - tC) + mod) % 2 === 0) ? 'P' : 'B';
 
-                currentStreak++;
-                currentProfit += (Math.floor(Math.random() * 10) + 5) * 100000; 
-                document.getElementById('sessStreak').innerText = currentStreak;
-                document.getElementById('sessProfit').innerText = "+" + currentProfit.toLocaleString() + " VNĐ";
+                // THUẬT TOÁN 2: BÍ KÍP CHẴN LẺ (ẢNH)
+                let tS = pScore + bScore;
+                let res2 = (tS % 2 === 0) ? 'P' : 'B';
 
-                typeWriter(msg, 'chatBox', 15); 
-                document.getElementById('winRate').innerText = `TỈ LỆ: ${conf}%`; document.getElementById('winRate').style.color = conf >= 70 ? '#10b981' : (conf >= 60 ? '#fbbf24' : '#ef4444');
+                let pred = res2, msg = "", conf = 0;
+                if(win === 'T') { pred = lastPred; conf = 90; msg = `⚠️ HÒA (TIE) - GIỮ LỆNH\nLõi kép đồng thuận giữ nguyên cửa ${pred}!`; } 
+                else {
+                    if(res1 === res2) {
+                        pred = res1; conf = Math.floor(getNum()*10)+88;
+                        msg = `⚡ ĐỒNG BỘ TUYỆT ĐỐI (HYBRID MATCH) ⚡\nLõi 1 (Ván): ${res1} | Lõi 2 (Bí kíp): ${res2}\n=> LỆNH: VÃ MẠNH [ ${pred==='P'?'CON':'CÁI'} ]!`;
+                    } else {
+                        pred = res2; conf = Math.floor(getNum()*10)+72;
+                        msg = `⚠️ PHÂN KỲ DỮ LIỆU (CORE SPLIT)\nLõi 2 (Bí kíp) chiếm ưu thế lực nén.\n=> LỆNH: ĐÁNH NHẸ [ ${pred==='P'?'CON':'CÁI'} ].`;
+                    }
+                }
+                lastPred = pred; resB.innerHTML = pred; resB.style.color = '#fff'; resB.style.backgroundColor = pred === 'B' ? '#be123c' : '#0284c7'; resB.style.borderColor = pred === 'B' ? '#fb7185' : '#38bdf8'; resB.classList.add('glow-pop'); setTimeout(()=> resB.classList.remove('glow-pop'), 600);
+                curStreak++; curProfit += (Math.floor(getNum()*10)+5)*100000; document.getElementById('sessStreak').innerText = curStreak; document.getElementById('sessProfit').innerText = "+" + curProfit.toLocaleString() + " VNĐ";
+                typeWriter(msg, 'chatBox', 15); document.getElementById('winRate').innerText = `TỈ LỆ: ${conf}%`; document.getElementById('winRate').style.color = conf >= 85 ? '#10b981' : '#fbbf24';
                 document.getElementById('handNum').value = hNum + 1; btn.disabled = false; btn.innerText = "🚀 KÍCH HOẠT LÕI AI"; document.getElementById('scanBar').style.width = '0%'; resetUI();
             }, 1000); 
         }
+
+        function getRandomName() { const p = ['', 'VIP_', 'PRO_']; const n = ['HUNG','LINH','MINH','TUAN','DAT','THANH','HA','LONG']; let name = p[Math.floor(getNum()*p.length)] + n[Math.floor(getNum()*n.length)]; return getNum() > 0.6 ? name + Math.floor(getNum()*999) : name; }
+        function generateTicker() { const s = ['WM CASINO', 'SEXY CASINO']; const t = ['C01', 'C02', 'C05', 'VIP01']; let txt = ""; for(let i=0; i<15; i++) { let st = (getNum() > 0.85) ? ` | THÔNG ${Math.floor(getNum()*5)+5} TAY` : ''; txt += `🔥 [LIVESCAN] [${getRandomName()}] húp ${Math.floor(getNum()*500)+50}M | ${s[Math.floor(getNum()*s.length)]} - Bàn ${t[Math.floor(getNum()*t.length)]}${st}! 🔥 &nbsp;&nbsp;&nbsp;&nbsp; | &nbsp;&nbsp;&nbsp;&nbsp; `; } document.getElementById('dynamicTicker').innerHTML = txt; }
+        generateTicker(); setInterval(generateTicker, 50000);
+        setInterval(() => { document.getElementById('sysTime').innerText = "SYS: " + new Date().toLocaleTimeString('en-US', {hour12:false}); }, 1000);
     </script>
 </body>
 </html>
