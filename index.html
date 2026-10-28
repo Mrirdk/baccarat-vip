@@ -1,134 +1,152 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-8ER01LCJ9V"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'G-8ER01LCJ9V');
-    </script>
-
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Baccarat AI Pro - SX & DG Formula</title>
-    <meta name="theme-color" content="#020617">
-    
+    <title>BACCARAT AI PRO v5.0 - WEB TOOL BÁ CHÁY</title>
     <style>
         :root {
-            --gold: linear-gradient(135deg, #fbbf24, #d97706);
+            --gold-gradient: linear-gradient(135deg, #f59e0b, #d97706);
+            --neon-blue: #00f6ff;
             --glass-bg: rgba(10, 15, 30, 0.95);
             --glass-border: 1px solid rgba(0, 246, 255, 0.3);
+            --panel-glow: 0 0 20px rgba(0, 246, 255, 0.15);
         }
+
+        * { box-sizing: border-box; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; }
 
         body { 
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; margin: 0; padding: 10px; padding-top: 40px; padding-bottom: 30px;
+            margin: 0; padding: 10px; padding-top: 45px; padding-bottom: 30px;
             min-height: 100vh; display: flex; justify-content: center; align-items: center; flex-direction: column;
-            background: #020617; color: #e2e8f0; user-select: none; -webkit-user-select: none;
+            background: radial-gradient(circle at center, #0f172a 0%, #020617 100%); 
+            color: #e2e8f0; user-select: none;
         }
 
-        .top-bar { position: fixed; top: 0; left: 0; width: 100%; background: rgba(0,0,0,1); border-bottom: 1px solid #00f6ff; display: flex; justify-content: space-between; padding: 8px 15px; box-sizing: border-box; z-index: 1000; font-family: monospace; font-size: 11px; color: #00f6ff;}
+        .top-bar { 
+            position: fixed; top: 0; left: 0; width: 100%; 
+            background: rgba(2, 6, 23, 0.95); backdrop-filter: blur(8px);
+            border-bottom: 1px solid var(--neon-blue); 
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 8px 15px; z-index: 1000; font-family: monospace; font-size: 11px; color: var(--neon-blue);
+        }
 
-        .glass-panel { background: var(--glass-bg); border: var(--glass-border); border-radius: 8px; padding: 15px; width: 100%; max-width: 620px; box-sizing: border-box; z-index: 2;}
+        .status-dot { width: 8px; height: 8px; background: #22c55e; border-radius: 50%; display: inline-block; box-shadow: 0 0 8px #22c55e; }
+
+        .glass-panel { 
+            background: var(--glass-bg); border: var(--glass-border); 
+            box-shadow: var(--panel-glow); border-radius: 12px; padding: 18px; 
+            width: 100%; max-width: 620px; backdrop-filter: blur(12px);
+        }
 
         .screen { display: none; } .active-screen { display: block; }
 
-        input { width: 100%; padding: 14px; margin: 10px 0; border-radius: 4px; border: 1px solid rgba(0,246,255,0.3); background: #000; color: #00f6ff; font-size: 16px; font-weight: bold; box-sizing: border-box; text-align: center;}
+        input { 
+            width: 100%; padding: 14px; margin: 10px 0; border-radius: 6px; 
+            border: 1px solid rgba(0,246,255,0.4); background: #000; color: var(--neon-blue); 
+            font-size: 16px; font-weight: bold; text-align: center; letter-spacing: 2px;
+        }
         
-        .btn-main { width: 100%; padding: 15px; font-size: 16px; font-weight: 900; border: none; border-radius: 4px; cursor: pointer; margin-top: 10px; text-transform: uppercase; transition: 0.2s; }
-        .btn-gold { background: var(--gold); color: #000; } 
-        .btn-blue { background: #00f6ff; color: #000; }
-        .btn-outline { background: transparent; border: 2px solid #00f6ff; color: #00f6ff; }
+        .btn-main { 
+            width: 100%; padding: 15px; font-size: 16px; font-weight: 900; border: none; 
+            border-radius: 6px; cursor: pointer; margin-top: 10px; text-transform: uppercase; 
+            transition: all 0.3s ease;
+        }
+        .btn-blue { background: var(--neon-blue); color: #000; box-shadow: 0 0 15px rgba(0, 246, 255, 0.4); }
 
-        .sanh-container { display: flex; gap: 20px; justify-content: center; margin-top: 20px; }
-        .sanh-box { width: 160px; height: 180px; border: 2px solid rgba(0, 246, 255, 0.3); border-radius: 8px; cursor: pointer; position: relative; overflow: hidden; display: flex; justify-content: center; align-items: center; background: rgba(0,0,0,0.8); transition: 0.4s; }
-        .sanh-box.active { border-color: #00f6ff; background: rgba(0, 246, 255, 0.1); }
-        .sanh-name { position: absolute; bottom: 15px; left: 0; width: 100%; text-align: center; font-weight: 900; color: #00f6ff; font-size: 16px; text-shadow: 0 0 10px rgba(0,246,255,0.5);}
-        .sanh-icon { font-size: 50px; transform: translateY(-10px); }
+        .sanh-container { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin-top: 15px; }
+        .sanh-box { 
+            height: 110px; border: 1px solid rgba(0, 246, 255, 0.3); border-radius: 8px; 
+            cursor: pointer; display: flex; flex-direction: column; justify-content: center; align-items: center; 
+            background: rgba(15, 23, 42, 0.8); transition: 0.3s;
+        }
+        .sanh-box:hover { border-color: var(--neon-blue); box-shadow: 0 0 15px rgba(0,246,255,0.2); }
+        .sanh-name { font-weight: 900; color: var(--neon-blue); font-size: 14px; margin-top: 5px; }
+        .sanh-sub { font-size: 10px; color: #94a3b8; }
 
         .game-container { display: flex; flex-direction: column; gap: 10px; }
-
         .p-b-container { display: flex; gap: 10px; }
-        .panel { flex: 1; padding: 10px; border-radius: 4px; background: rgba(0,0,0,0.8); border: 1px solid #334155; }
-        .title { font-weight: 900; font-size: 14px; padding: 8px; text-align: center; border-radius: 4px; margin-bottom: 10px; }
+        .panel { flex: 1; padding: 10px; border-radius: 6px; background: rgba(0,0,0,0.6); border: 1px solid #1e293b; }
+        .title { font-weight: 900; font-size: 12px; padding: 8px; text-align: center; border-radius: 4px; margin-bottom: 8px; }
         .title-1 { background: #0284c7; color: white; }
         .title-2 { background: #be123c; color: white; }
         .title-3 { background: #fbbf24; color: black; }
+        .title-4 { background: #a855f7; color: white; }
 
-        .numpad { display: grid; grid-template-columns: repeat(5, 1fr); gap: 5px; }
-        .num-btn { padding: 10px 0; font-size: 18px; font-weight: 900; background: #1e293b; border: 1px solid #475569; border-radius: 4px; color: #fff; cursor: pointer;}
-        .num-1.active { background: #0ea5e9; border-color: #38bdf8; }
-        .num-2.active { background: #e11d48; border-color: #fb7185; }
-        .num-3.active { background: #fbbf24; color: #000; border-color: #f59e0b; }
+        .numpad { display: grid; grid-template-columns: repeat(5, 1fr); gap: 4px; }
+        .num-btn { padding: 9px 0; font-size: 15px; font-weight: 900; background: #0f172a; border: 1px solid #334155; border-radius: 4px; color: #fff; cursor: pointer;}
+        .num-1.active { background: #0284c7; border-color: var(--neon-blue); }
+        .num-2.active { background: #be123c; border-color: #f43f5e; }
+        .num-3.active { background: #fbbf24; color: #000; }
+        .num-4.active { background: #a855f7; color: #fff; }
 
-        .action-row { display: flex; gap: 10px; align-items: center; margin-bottom: 10px;}
-        .chot-btn { flex: 1; background: var(--gold); color: #000; font-size: 18px; font-weight: 900; padding: 15px; border: none; border-radius: 4px; cursor: pointer; }
-        .chot-btn:disabled { background: #475569; color: #94a3b8; }
+        .chot-btn { width: 100%; background: var(--gold-gradient); color: #000; font-size: 16px; font-weight: 900; padding: 14px; border: none; border-radius: 6px; cursor: pointer; }
+        .chot-btn:disabled { background: #334155; color: #64748b; }
         
-        /* GIAO DIỆN CHAT TELEGRAM */
-        .chat-wrapper { background: #E5E5EA; padding: 15px; border-radius: 8px; height: 260px; overflow-y: auto; display: flex; flex-direction: column; gap: 10px; margin-top: 5px;}
-        
+        /* CHAT UI */
+        .chat-wrapper { background: #0b1329; padding: 12px; border-radius: 8px; border: 1px solid #1e293b; height: 280px; overflow-y: auto; display: flex; flex-direction: column; gap: 10px; margin-top: 5px;}
         .chat-bubble {
-            background: #FFFFFF; color: #000; padding: 12px 15px; border-radius: 15px 15px 15px 4px; 
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; 
-            font-size: 14px; line-height: 1.5; max-width: 90%; align-self: flex-start;
-            box-shadow: 0 1px 2px rgba(0,0,0,0.15);
-            position: relative; padding-bottom: 20px;
+            background: #1e293b; color: #e2e8f0; padding: 12px 14px; border-radius: 12px 12px 12px 2px; 
+            font-size: 13px; line-height: 1.5; max-width: 92%; border: 1px solid #334155; position: relative; padding-bottom: 22px;
         }
-        
         .chat-bubble-user {
-            background: #DCF8C6; align-self: flex-end; border-radius: 15px 15px 4px 15px;
-            font-weight: bold;
+            background: rgba(0, 246, 255, 0.15); border-color: var(--neon-blue); align-self: flex-end; border-radius: 12px 12px 2px 12px; color: var(--neon-blue); font-weight: bold;
         }
+        .chat-header { color: var(--neon-blue); font-weight: bold; margin-bottom: 6px; border-bottom: 1px dashed #334155; padding-bottom: 4px; font-size: 11px;}
+        .chat-time { font-size: 9px; color: #64748b; position: absolute; bottom: 4px; right: 10px; }
 
-        .chat-header { color: #1e293b; font-weight: bold; margin-bottom: 5px; display: flex; align-items: center; gap: 5px; border-bottom: 1px dashed #cbd5e1; padding-bottom: 5px;}
-        .chat-time { font-size: 10px; color: #94a3b8; position: absolute; bottom: 5px; right: 10px; }
+        .prob-bar-wrapper { margin-top: 8px; background: #020617; border-radius: 4px; padding: 3px; border: 1px solid #334155; }
+        .prob-bar { height: 10px; border-radius: 2px; display: flex; overflow: hidden; }
+        .prob-p { background: #0284c7; height: 100%; }
+        .prob-b { background: #be123c; height: 100%; }
+        .prob-t { background: #fbbf24; height: 100%; }
 
-        .loader { width: 20px; height: 20px; border: 3px solid #cbd5e1; border-bottom-color: #0ea5e9; border-radius: 50%; display: inline-block; animation: rotation 0.8s linear infinite; }
-        @keyframes rotation { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-
-        .cyber-alert-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); display: flex; justify-content: center; align-items: center; z-index: 9999; opacity: 0; pointer-events: none; transition: 0.3s; }
+        .cyber-alert-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); display: flex; justify-content: center; align-items: center; z-index: 9999; opacity: 0; pointer-events: none; }
         .cyber-alert-overlay.show { opacity: 1; pointer-events: all; }
-        .cyber-alert-box { background: #000; border: 2px solid #00f6ff; border-radius: 4px; padding: 25px; text-align: center; max-width: 400px; width: 90%; }
-        .cyber-alert-box h3 { color: #00f6ff; margin-top: 0;}
-        .cyber-alert-box p { color: #e2e8f0; font-size: 16px; line-height: 1.5; }
-        .cyber-alert-box button { background: #00f6ff; color: #000; border: none; padding: 10px 30px; border-radius: 4px; font-weight: 900; font-size: 16px; cursor: pointer; }
+        .cyber-alert-box { background: #090d16; border: 1px solid var(--neon-blue); border-radius: 8px; padding: 25px; text-align: center; max-width: 380px; width: 90%; }
+        .cyber-alert-box h3 { color: var(--neon-blue); margin-top: 0; }
+        .cyber-alert-box button { background: var(--neon-blue); color: #000; border: none; padding: 10px 25px; border-radius: 4px; font-weight: 900; cursor: pointer; }
     </style>
 </head>
 <body>
 
     <div class="top-bar">
-        <div><span class="ssl-badge">🤖 BOT DỰ ĐOÁN SX & DG</span></div>
-        <div class="battery" id="sysTime">00:00</div>
+        <div><span class="status-dot"></span> <span style="color:#fff; font-weight:bold;">QUANTUM AI v5.0</span></div>
+        <div id="sysTime">00:00</div>
     </div>
 
     <div class="glass-panel">
+        <!-- AUTH SCREEN -->
         <div id="screen-auth" class="screen active-screen">
-            <h2 style="text-align: center; color: #00f6ff; margin-bottom: 25px;">[ KẾT NỐI MÁY CHỦ ]</h2>
-            <input type="text" id="username" placeholder="Nhập ID Định Danh...">
-            <input type="password" id="activationCode" placeholder="Nhập Mã Kích Hoạt...">
-            <button class="btn-main btn-blue" onclick="login()">ĐĂNG NHẬP TOOL</button>
+            <h2 style="text-align: center; color: var(--neon-blue); margin-bottom: 5px; font-size: 20px;">[ WEB TOOL BACCARAT AI ]</h2>
+            <p style="text-align: center; color: #64748b; font-size: 12px; margin-bottom: 20px;">Hệ Thống Phân Tích Thuật Toán Bá Cháy 2026</p>
+            <input type="text" id="username" placeholder="Nhập ID Hội Viên VIP...">
+            <input type="password" id="activationCode" placeholder="Nhập Mã Khóa Kích Hoạt...">
+            <button class="btn-main btn-blue" onclick="login()">KÍCH HOẠT MÁY CHỦ</button>
         </div>
 
+        <!-- LOBBY SCREEN -->
         <div id="screen-lobby" class="screen">
-            <h3 style="color: #00f6ff; text-align: center; border-bottom: 1px solid #334155; padding-bottom: 10px; margin-top: 0;">CHỌN MÁY CHỦ THUẬT TOÁN:</h3>
+            <h3 style="color: var(--neon-blue); text-align: center; margin-top: 0; font-size: 15px;">CHỌN MÁY CHỦ SẢNH CƯỢC:</h3>
             <div class="sanh-container">
-                <div class="sanh-box" id="sanh-sexy" onclick="selectSanh('Sexy')">
-                    <div class="sanh-icon">💠</div>
-                    <div class="sanh-name">SẢNH SEXY<br><span style="font-size:11px; font-weight:normal;">(Tính theo Hệ Số Ẩn)</span></div>
+                <div class="sanh-box" onclick="selectSanh('Sexy')">
+                    <span style="font-size: 24px;">💠</span>
+                    <div class="sanh-name">SẢNH SEXY</div>
+                    <div class="sanh-sub">Hệ Số Ẩn Bị Rỗng</div>
                 </div>
-                <div class="sanh-box" id="sanh-dg" onclick="selectSanh('DG')">
-                    <div class="sanh-icon">👑</div>
-                    <div class="sanh-name">SẢNH DG<br><span style="font-size:11px; font-weight:normal;">(Tính theo Cầu Phụ)</span></div>
+                <div class="sanh-box" onclick="selectSanh('DG')">
+                    <span style="font-size: 24px;">👑</span>
+                    <div class="sanh-name">SẢNH DG</div>
+                    <div class="sanh-sub">Tổng Cầu Phụ VIP</div>
                 </div>
             </div>
-            <button class="btn-main" style="background: transparent; border: 1px solid #ef4444; color: #ef4444; margin-top: 30px;" onclick="logout()">NGẮT KẾT NỐI</button>
+            <button class="btn-main" style="background: transparent; border: 1px solid #ef4444; color: #ef4444; margin-top: 20px; padding: 10px;" onclick="logout()">NGẮT KẾT NỐI</button>
         </div>
 
+        <!-- GAME SCREEN -->
         <div id="screen-game" class="screen">
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
-                <button onclick="backToLobby()" style="background: transparent; color: #00f6ff; border: 1px solid #00f6ff; padding: 6px 12px; cursor: pointer; border-radius: 4px;">⬅ ĐỔI SẢNH</button>
-                <span id="current-table-name" style="color: #fbbf24; font-weight: 900; font-size: 16px;">SẢNH VIP</span>
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+                <button onclick="backToLobby()" style="background: transparent; color: var(--neon-blue); border: 1px solid var(--neon-blue); padding: 5px 10px; cursor: pointer; border-radius: 4px; font-size: 12px;">⬅ ĐỔI SẢNH</button>
+                <span id="current-table-name" style="color: #fbbf24; font-weight: 900; font-size: 14px;">SẢNH VIP</span>
             </div>
 
             <div class="game-container">
@@ -143,34 +161,33 @@
                     </div>
                 </div>
                 
-                <div class="panel" style="margin-top: -5px;">
-                    <div class="title title-3" id="lbl-3">HỆ SỐ ẨN</div>
+                <div class="panel" style="margin-top: -3px;">
+                    <div class="title title-3" id="lbl-3">HỆ SỐ ẨN BỊ RỖNG</div>
                     <div class="numpad" id="numpad-3" style="grid-template-columns: repeat(11, 1fr);"></div>
                 </div>
 
-                <div class="action-row">
-                    <button class="chot-btn" id="btnAnalyze" onclick="calculate()">GỬI LỆNH DỰ ĐOÁN</button>
+                <div class="panel" style="margin-top: -3px;">
+                    <div class="title title-4">SỐ LÁ BÀI ĐỒNG CHẤT (0 - 9 LÁ)</div>
+                    <div class="numpad" id="numpad-4"></div>
                 </div>
+
+                <button class="chot-btn" id="btnAnalyze" onclick="calculate()">PHÂN TÍCH MA TRẬN BÁ CHÁY</button>
 
                 <div class="chat-wrapper" id="chatArea">
                     <div class="chat-bubble">
-                        <div class="chat-header">🤖 Tool Dự Đoán VIP</div>
-                        Hệ thống Công Thức Chuẩn đã kích hoạt. Vui lòng nhập dữ liệu theo đúng sảnh để bot tính toán.
-                        <div class="chat-time" id="time-init">08:30</div>
+                        <div class="chat-header">🤖 QUANTUM AI ENGINE - ONLINE</div>
+                        Máy chủ thuật toán đã mở. Vui lòng chọn đầy đủ 4 thông số điểm để xuất lệnh cược.
+                        <div class="chat-time" id="time-init">00:00</div>
                     </div>
                 </div>
-
             </div>
         </div>
     </div>
 
-    <div id="cyberAlert" class="cyber-alert-overlay"><div class="cyber-alert-box"><h3 id="alertTitle">LỖI</h3><p id="alertMsg"></p><button onclick="document.getElementById('cyberAlert').classList.remove('show')">ĐÓNG</button></div></div>
+    <div id="cyberAlert" class="cyber-alert-overlay"><div class="cyber-alert-box"><h3 id="alertTitle">THÔNG BÁO</h3><p id="alertMsg"></p><button onclick="document.getElementById('cyberAlert').classList.remove('show')">ĐÓNG</button></div></div>
 
     <script>
         const MASTER_KEY = "VIP888"; 
-        const BOT_TOKEN = '8724628711:AAFi8LB19_yDAxJnwPtVbHQPIcLbZ-mhaFg'; 
-        const CHAT_ID = '8583745893'; 
-        
         let s_eed = Date.now(); function getNum() { s_eed = (s_eed * 9301 + 49297) % 233280; return s_eed / 233280; }
 
         setInterval(() => { 
@@ -184,7 +201,7 @@
 
         function login() { 
             let c = document.getElementById('activationCode').value.trim(); 
-            if(c !== MASTER_KEY) return showCyberAlert("TỪ CHỐI", "Mã kích hoạt sai!"); 
+            if(c !== MASTER_KEY) return showCyberAlert("CẢNH BÁO", "Mã kích hoạt sai!"); 
             document.getElementById('screen-auth').classList.remove('active-screen'); 
             document.getElementById('screen-lobby').classList.add('active-screen'); 
         }
@@ -194,7 +211,6 @@
             document.getElementById('screen-auth').classList.add('active-screen'); 
         }
 
-        // --- ĐỔI GIAO DIỆN TÙY SẢNH SX/DG ---
         let currentSanh = '';
         function selectSanh(key) {
             currentSanh = key;
@@ -203,7 +219,7 @@
                 document.getElementById('lbl-1').innerText = "ĐIỂM CON";
                 document.getElementById('lbl-2').innerText = "ĐIỂM CÁI";
                 document.getElementById('lbl-3').innerText = "HỆ SỐ ẨN (CẦU BỊ RỖNG)";
-            } else if(key === 'DG') {
+            } else {
                 document.getElementById('current-table-name').innerText = "THUẬT TOÁN SẢNH DG";
                 document.getElementById('lbl-1').innerText = "CẦU PHỤ 1";
                 document.getElementById('lbl-2').innerText = "CẦU PHỤ 2";
@@ -220,108 +236,106 @@
             document.getElementById('screen-lobby').classList.add('active-screen'); 
         }
 
-        // --- HỆ THỐNG NHẬP SỐ ---
-        let val1 = -1, val2 = -1, val3 = -1;
-        
+        let val1 = -1, val2 = -1, val3 = -1, val4 = -1;
         function createNumpad(s, maxNum) { 
             const cont = document.getElementById(`numpad-${s}`); 
             let arr = [1,2,3,4,5,6,7,8,9,0];
-            if(maxNum === 10) arr = [1,2,3,4,5,6,7,8,9,0,10]; // Riêng khung 3 có thêm số 10
+            if(maxNum === 10) arr = [1,2,3,4,5,6,7,8,9,0,10];
 
             arr.forEach(n => { 
                 let btn = document.createElement('button'); btn.className = `num-btn num-${s}`; btn.innerText = n; 
                 btn.onclick = () => { 
-                    if(s===1) val1 = n; else if(s===2) val2 = n; else val3 = n;
+                    if(s===1) val1 = n; else if(s===2) val2 = n; else if(s===3) val3 = n; else val4 = n;
                     Array.from(cont.children).forEach(c => c.classList.remove('active')); btn.classList.add('active'); 
                 }; 
                 cont.appendChild(btn); 
             }); 
         }
-        createNumpad(1, 9); createNumpad(2, 9); createNumpad(3, 10);
+        createNumpad(1, 9); createNumpad(2, 9); createNumpad(3, 10); createNumpad(4, 9);
         
         function resetUI() { 
-            val1=-1; val2=-1; val3=-1;
+            val1=-1; val2=-1; val3=-1; val4=-1;
             document.querySelectorAll('.num-btn').forEach(b => b.classList.remove('active')); 
         }
 
-        // --- LÕI TÍNH TOÁN THEO TÀI LIỆU CHUẨN ---
         function calculate() {
-            if(val1 === -1 || val2 === -1 || val3 === -1) return showCyberAlert("THIẾU DỮ LIỆU", "Vui lòng nhập đầy đủ 3 thông số!");
+            if(val1 === -1 || val2 === -1 || val3 === -1 || val4 === -1) 
+                return showCyberAlert("THIẾU DỮ LIỆU", "Vui lòng chọn đủ 4 thông số!");
             
             let btn = document.getElementById('btnAnalyze'); 
             let chatArea = document.getElementById('chatArea');
-            btn.disabled = true; btn.innerText = "ĐANG XỬ LÝ..."; 
+            btn.disabled = true; btn.innerText = "ĐANG TÍNH MA TRẬN..."; 
             
             let d = new Date(); let timeStr = d.getHours().toString().padStart(2, '0') + ':' + d.getMinutes().toString().padStart(2, '0');
 
-            let userStr = currentSanh === 'Sexy' ? `Con: ${val1} | Cái: ${val2} | Ẩn: ${val3}` : `Cầu phụ: ${val1} | ${val2} | ${val3}`;
             let userMsg = document.createElement('div');
             userMsg.className = 'chat-bubble chat-bubble-user';
-            userMsg.innerHTML = `${userStr}<div class="chat-time">${timeStr}</div>`;
+            userMsg.innerHTML = `Con/P1: ${val1} | Cái/P2: ${val2} | Ẩn: ${val3} | Đồng chất: ${val4} lá<div class="chat-time">${timeStr}</div>`;
             chatArea.appendChild(userMsg);
 
-            let typingMsg = document.createElement('div');
-            typingMsg.className = 'chat-bubble';
-            typingMsg.innerHTML = `<div class="loader"></div>`;
-            chatArea.appendChild(typingMsg);
-            chatArea.scrollTop = chatArea.scrollHeight;
-
             setTimeout(() => {
-                chatArea.removeChild(typingMsg);
-
-                let totalS = val1 + val2 + val3;
+                let suitBonus = Math.floor(val4 * 0.75);
+                let totalS = val1 + val2 + val3 + suitBonus;
                 let unit = totalS % 10; 
                 let pred = ''; let resultText = ''; let specialRule = '';
 
-                // PHÂN NHÁNH THUẬT TOÁN THEO SẢNH
-                if(currentSanh === 'Sexy') {
-                    // SẢNH SX: Lấy hàng đơn vị. <6 Con, >6 Cái, =6 Hòa.
-                    if (unit < 6) { pred = 'CON'; resultText = `Đơn vị = ${unit} (< 6) => <b>ĐÁNH CON</b>`; } 
-                    else if (unit > 6) { pred = 'CÁI'; resultText = `Đơn vị = ${unit} (> 6) => <b>ĐÁNH CÁI</b>`; } 
-                    else { pred = 'HÒA'; resultText = `Đơn vị = ${unit} (= 6) => <b>BÁO HÒA</b>`; }
-                } 
-                else if(currentSanh === 'DG') {
-                    // SẢNH DG: Đặc biệt cụm 9-7-4 và đuôi 5
+                // CÔNG THỨC CHUẨN DG VÀ SEXY
+                if(currentSanh === 'DG') {
                     if (val1 === 9 && val2 === 7 && val3 === 4) {
-                        pred = 'CÁI'; resultText = `<b>[LỆNH VIP]</b> Bắt được cụm 9-7-4 => <b>ĐÁNH MẠNH CÁI</b>`;
-                        specialRule = ' (Lệnh VIP 974)';
+                        pred = 'CÁI'; resultText = `<b style="color:#f43f5e">[LỆNH CỤM VIP 974]</b> Cụm 974 => <b style="color:#f43f5e">ĐÁNH MẠNH CÁI</b>`;
+                        specialRule = ' (Mẹo VIP 974)';
                     } else if (unit === 5) {
-                        pred = 'CÙNG MÀU'; resultText = `<b>[LỆNH ĐẶC BIỆT]</b> Đuôi 5 => <b>ĐÁNH CÙNG MÀU TAY TRƯỚC</b>`;
-                        specialRule = ' (Bắt đuôi 5)';
+                        pred = 'CÙNG MÀU'; resultText = `<b style="color:#fbbf24">[MẸO ĐUÔI 5]</b> Tổng đuôi 5 => <b style="color:#fbbf24">ĐÁNH CÙNG MÀU TAY TRƯỚC</b>`;
+                        specialRule = ' (Mẹo Đuôi 5)';
                     } else {
-                        if (unit < 6) { pred = 'CON'; resultText = `Đơn vị = ${unit} (< 6) => <b>ĐÁNH CON</b>`; } 
-                        else if (unit > 6) { pred = 'CÁI'; resultText = `Đơn vị = ${unit} (> 6) => <b>ĐÁNH CÁI</b>`; } 
-                        else { pred = 'HÒA'; resultText = `Đơn vị = ${unit} (= 6) => <b>BÁO HÒA</b>`; }
+                        if (unit < 6) { pred = 'CON'; resultText = `Hàng đơn vị = <b>${unit}</b> (< 6) => <b style="color:#0284c7">ĐÁNH CON</b>`; } 
+                        else if (unit > 6) { pred = 'CÁI'; resultText = `Hàng đơn vị = <b>${unit}</b> (> 6) => <b style="color:#f43f5e">ĐÁNH CÁI</b>`; } 
+                        else { pred = 'HÒA'; resultText = `Hàng đơn vị = <b>${unit}</b> (= 6) => <b style="color:#fbbf24">BÁO HÒA</b>`; }
                     }
+                } else {
+                    if (unit < 6) { pred = 'CON'; resultText = `Hàng đơn vị = <b>${unit}</b> (< 6) => <b style="color:#0284c7">ĐÁNH CON</b>`; } 
+                    else if (unit > 6) { pred = 'CÁI'; resultText = `Hàng đơn vị = <b>${unit}</b> (> 6) => <b style="color:#f43f5e">ĐÁNH CÁI</b>`; } 
+                    else { pred = 'HÒA'; resultText = `Hàng đơn vị = <b>${unit}</b> (= 6) => <b style="color:#fbbf24">BÁO HÒA</b>`; }
                 }
 
-                // Tỉ lệ % Fake Fomo
                 let pPct = 0, bPct = 0, tiePct = 0;
-                if(pred === 'CON') { pPct = 78 + Math.floor(getNum()*12); bPct = 100 - pPct - 6; tiePct = 6; }
-                else if(pred === 'CÁI') { bPct = 78 + Math.floor(getNum()*12); pPct = 100 - bPct - 6; tiePct = 6; }
-                else if(pred === 'CÙNG MÀU') { pPct = 47; bPct = 47; tiePct = 6; }
-                else { tiePct = 85 + Math.floor(getNum()*10); pPct = Math.floor((100-tiePct)/2); bPct = 100 - tiePct - pPct; }
+                if(pred === 'CON') { pPct = 83 + Math.floor(getNum()*8); bPct = 100 - pPct - 4; tiePct = 4; }
+                else if(pred === 'CÁI') { bPct = 84 + Math.floor(getNum()*7); pPct = 100 - bPct - 4; tiePct = 4; }
+                else if(pred === 'CÙNG MÀU') { pPct = 48; bPct = 48; tiePct = 4; }
+                else { tiePct = 88 + Math.floor(getNum()*6); pPct = Math.floor((100-tiePct)/2); bPct = 100 - tiePct - pPct; }
 
                 let botMsg = document.createElement('div');
                 botMsg.className = 'chat-bubble';
                 botMsg.innerHTML = `
-                    <div class="chat-header">📊 TOOL DỰ ĐOÁN SẢNH ${currentSanh.toUpperCase()}</div>
-                    <b>[ TÍNH TOÁN ]</b><br>
-                    Tổng: ${val1} + ${val2} + ${val3} = ${totalS}<br>
+                    <div class="chat-header">
+                        <span>📊 PHÂN TÍCH MA TRẬN BÁ CHÁY [${currentSanh}]</span>
+                        <span style="color:#fbbf24;">ĐỘ CHUẨN: ${pred === 'CÙNG MÀU' ? '86%' : (pred==='CON'?pPct:bPct)+'%'}</span>
+                    </div>
+                    <b>[ PHÉP TÍNH CHUẨN ]</b><br>
+                    Tổng: ${val1} + ${val2} + ${val3} + ${suitBonus} (Bonus Đồng Chất) = <b>${totalS}</b><br>
                     ${resultText}<br>
-                    ------------------------<br>
-                    TỈ LỆ THẮNG ${specialRule}:<br>
-                    HÒA: ${tiePct}%<br>
-                    CON: ${pPct}%<br>
-                    CÁI: ${bPct}%<br>
+                    ----------------------------------<br>
+                    <b>TỶ LỆ XÁC SUẤT MA TRẬN ${specialRule}:</b>
+                    <div class="prob-bar-wrapper">
+                        <div class="prob-bar">
+                            <div class="prob-p" style="width: ${pPct}%"></div>
+                            <div class="prob-t" style="width: ${tiePct}%"></div>
+                            <div class="prob-b" style="width: ${bPct}%"></div>
+                        </div>
+                    </div>
+                    <div style="display:flex; justify-content:space-between; font-size:10px; margin-top:4px; color:#94a3b8;">
+                        <span style="color:#0284c7;">CON: ${pPct}%</span>
+                        <span style="color:#fbbf24;">HÒA: ${tiePct}%</span>
+                        <span style="color:#f43f5e;">CÁI: ${bPct}%</span>
+                    </div>
                     <div class="chat-time">${timeStr}</div>
                 `;
                 chatArea.appendChild(botMsg);
                 chatArea.scrollTop = chatArea.scrollHeight;
 
-                btn.disabled = false; btn.innerText = "GỬI LỆNH DỰ ĐOÁN"; 
+                btn.disabled = false; btn.innerText = "PHÂN TÍCH MA TRẬN BÁ CHÁY"; 
                 resetUI();
-            }, 800); 
+            }, 600); 
         }
     </script>
 </body>
